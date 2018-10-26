@@ -1,0 +1,40 @@
+# target_version:
+#   rubocop v0.34.2
+
+AllCops:
+  Exclude:
+    - "vendor/**/*" # rubocop config/default.yml
+    - "bin/*"
+    - "db/schema.rb"
+  DisplayCopNames: true
+  TargetRubyVersion: 2.5.3
+Style/AsciiComments:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+# Style/EmptyMethod:
+#   Enabled: false
+
+AndOr:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 30
+
+Metrics/LineLength:
+  Max: 160
+  Exclude:
+    - "db/migrate/*.rb"
+
+Metrics/MethodLength:
+  Max: 20
+  Exclude:
+    - "db/migrate/*.rb"
+
+Bundler/OrderedGems:
+  Enabled: ture

@@ -29,6 +29,7 @@
 |カラム|型|
 |:--|:--|
 |id|integer|
+|user_id|integer|
 |name|string|
 |description|text|
 
@@ -38,12 +39,4 @@
 |:--|:--|
 |id|integer|
 |task_id|integer|
-|label_id|integer|
-
-### UserLabel
-
-|カラム|型|
-|:--|:--|
-|id|integer|
-|user_id|integer|
 |label_id|integer|

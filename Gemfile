@@ -4,7 +4,7 @@ git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
 end
- 
+
 ruby '2.5.3'
 gem 'rails', '~> 5.2.1'
 
@@ -25,16 +25,16 @@ gem 'uglifier', '>= 1.3.0'
 
 # 認証
 gem 'bcrypt', '~> 3.1.11'
+gem 'bootsnap', '>= 1.1.0'
 gem 'cancancan'
 gem 'devise'
 gem 'rails_admin', '~> 1.3'
-gem 'bootsnap', '>= 1.1.0'
 
 group :development, :test do
   # デバッグ
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'pry-rails'
   gem 'spring'
 

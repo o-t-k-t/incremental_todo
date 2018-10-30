@@ -6,6 +6,7 @@ AllCops:
     - "vendor/**/*" # rubocop config/default.yml
     - "bin/*"
     - "db/schema.rb"
+    - "db/migrate/*"
   DisplayCopNames: true
   TargetRubyVersion: 2.5.3
 Style/AsciiComments:

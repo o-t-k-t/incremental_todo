@@ -124,13 +124,27 @@ GEM
     haml (5.0.4)
       temple (>= 0.8.0)
       tilt
+    haml-rails (1.0.0)
+      actionpack (>= 4.0.1)
+      activesupport (>= 4.0.1)
+      haml (>= 4.0.6, < 6.0)
+      html2haml (>= 1.0.1)
+      railties (>= 4.0.1)
+    haml_lint (0.28.0)
+      haml (>= 4.0, < 5.1)
+      rainbow
+      rake (>= 10, < 13)
+      rubocop (>= 0.50.0)
+      sysexits (~> 1.1)
+    html2haml (2.2.0)
+      erubis (~> 2.7.0)
+      haml (>= 4.0, < 6)
+      nokogiri (>= 1.6.0)
+      ruby_parser (~> 3.5)
     htmlentities (4.3.4)
     i18n (1.1.1)
       concurrent-ruby (~> 1.0)
     jaro_winkler (1.5.1)
-    jbuilder (2.7.0)
-      activesupport (>= 4.2.0)
-      multi_json (>= 1.2)
     jquery-rails (4.3.3)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -179,7 +193,6 @@ GEM
     mini_portile2 (2.3.0)
     minitest (5.11.3)
     msgpack (1.2.4)
-    multi_json (1.13.1)
     nested_form (0.3.2)
     nio4r (2.3.1)
     nokogiri (1.8.5)
@@ -297,14 +310,6 @@ GEM
       childprocess (~> 0.5)
       rubyzip (~> 1.2, >= 1.2.2)
     sexp_processor (4.11.0)
-    slim (4.0.1)
-      temple (>= 0.7.6, < 0.9)
-      tilt (>= 2.0.6, < 2.1)
-    slim_lint (0.16.1)
-      rake (>= 10, < 13)
-      rubocop (>= 0.50.0)
-      slim (>= 3.0, < 5.0)
-      sysexits (~> 1.1)
     solargraph (0.28.3)
       coderay (~> 1.1)
       eventmachine (~> 1.2, >= 1.2.5)
@@ -380,7 +385,8 @@ DEPENDENCIES
   factory_bot_rails
   faker
   flay (~> 2.10.0)
-  jbuilder (~> 2.5)
+  haml-rails
+  haml_lint
   launchy
   letter_opener_web
   listen (>= 3.0.5, < 3.2)
@@ -394,8 +400,6 @@ DEPENDENCIES
   rubocop (~> 0.59.2)
   sass-rails (~> 5.0)
   selenium-webdriver
-  slim
-  slim_lint
   solargraph
   spring
   spring-commands-rspec

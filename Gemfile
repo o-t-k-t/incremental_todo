@@ -20,6 +20,7 @@ gem 'mini_magick'
 gem 'bulma-rails', '~> 0.4.2'
 gem 'coffee-rails', '~> 4.2'
 gem 'sass-rails', '~> 5.0'
+gem 'haml-rails'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 
@@ -42,7 +43,7 @@ group :development, :test do
   gem 'brakeman'
   gem 'bullet'
   gem 'rubocop', '~> 0.59.2'
-  gem 'slim_lint'
+  gem 'haml_lint'
 
   # テスト
   gem 'capybara', '~> 2.13'
@@ -60,9 +61,6 @@ group :development do
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'web-console', '~> 2.0'
-
-  # ビューテンプレート
-  gem 'slim'
 
   # ローカルEメールテスト
   gem 'letter_opener_web'

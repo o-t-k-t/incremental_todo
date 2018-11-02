@@ -42,6 +42,10 @@ jobs:
           command: bundle exec rubocop
 
       - run:
+          name: Brakeman
+          command: bundle exec brakeman -A -w 1
+
+      - run:
           name: run tests
           command: |
             mkdir /tmp/test-results

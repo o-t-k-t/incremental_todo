@@ -44,6 +44,8 @@ group :development, :test do
   gem 'bullet'
   gem 'haml_lint'
   gem 'rubocop', '~> 0.59.2'
+  gem 'rubycritic'
+  gem 'simplecov'
 
   # テスト
   gem 'capybara', '~> 2.13'
@@ -53,6 +55,7 @@ group :development, :test do
   gem 'flay', '~> 2.10.0'
   gem 'launchy'
   gem 'rspec-rails'
+  gem 'rspec_junit_formatter'
   gem 'selenium-webdriver'
   gem 'spring-commands-rspec'
 end

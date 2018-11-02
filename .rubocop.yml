@@ -6,6 +6,7 @@ AllCops:
     - "vendor/**/*" # rubocop config/default.yml
     - "bin/*"
     - "db/schema.rb"
+    - "db/migrate/*"
   DisplayCopNames: true
   TargetRubyVersion: 2.5.3
 Style/AsciiComments:
@@ -38,3 +39,7 @@ Metrics/MethodLength:
 
 Bundler/OrderedGems:
   Enabled: ture
+
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*"

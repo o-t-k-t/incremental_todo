@@ -1,0 +1,8 @@
+%p
+  %strong Task:
+  = @task.name
+%p
+  %strong Descrition:
+  = @task.description
+= link_to 'Edit', edit_task_path(@task)
+= link_to 'Back', tasks_path

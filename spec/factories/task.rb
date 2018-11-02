@@ -4,7 +4,7 @@ FactoryBot.define do
     description 'Do something'
   end
   trait :homework do
-    name 'Wirte a paper'
+    name 'Write a paper'
   end
 
   trait :shopping do

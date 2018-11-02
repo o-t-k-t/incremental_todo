@@ -9,7 +9,7 @@ RSpec.feature 'Task managemant', type: :feature do
   scenario 'view task list' do
     visit root_path
 
-    expect(page).to have_content 'Wirte a paper'
+    expect(page).to have_content 'Write a paper'
     expect(page).to have_content 'Do something'
     expect(page).to have_content 'Buy a bread'
     expect(page).to have_content 'Do something'
@@ -20,7 +20,7 @@ RSpec.feature 'Task managemant', type: :feature do
 
     all('tbody tr')[0].click_link 'Show'
 
-    expect(page).to have_content 'Wirte a paper'
+    expect(page).to have_content 'Write a paper'
     expect(page).to have_content 'Do something'
   end
 

@@ -44,8 +44,8 @@ group :development, :test do
   gem 'bullet'
   gem 'haml_lint'
   gem 'rubocop', '~> 0.59.2'
-  gem "rubycritic"
-  gem "simplecov"
+  gem 'rubycritic'
+  gem 'simplecov'
 
   # テスト
   gem 'capybara', '~> 2.13'

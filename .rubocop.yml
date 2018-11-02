@@ -39,3 +39,7 @@ Metrics/MethodLength:
 
 Bundler/OrderedGems:
   Enabled: ture
+
+Metrics/BlockLength:
+  Exclude:
+    - "spec/**/*"

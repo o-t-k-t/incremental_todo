@@ -19,8 +19,8 @@ gem 'mini_magick'
 # フロントエンド
 gem 'bulma-rails', '~> 0.4.2'
 gem 'coffee-rails', '~> 4.2'
-gem 'sass-rails', '~> 5.0'
 gem 'haml-rails'
+gem 'sass-rails', '~> 5.0'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 
@@ -42,8 +42,10 @@ group :development, :test do
   # 静的解析
   gem 'brakeman'
   gem 'bullet'
-  gem 'rubocop', '~> 0.59.2'
   gem 'haml_lint'
+  gem 'rubocop', '~> 0.59.2'
+  gem 'rubycritic'
+  gem 'simplecov'
 
   # テスト
   gem 'capybara', '~> 2.13'
@@ -53,6 +55,7 @@ group :development, :test do
   gem 'flay', '~> 2.10.0'
   gem 'launchy'
   gem 'rspec-rails'
+  gem 'rspec_junit_formatter'
   gem 'selenium-webdriver'
   gem 'spring-commands-rspec'
 end

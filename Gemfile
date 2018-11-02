@@ -53,9 +53,9 @@ group :development, :test do
   gem 'flay', '~> 2.10.0'
   gem 'launchy'
   gem 'rspec-rails'
+  gem 'rspec_junit_formatter'
   gem 'selenium-webdriver'
   gem 'spring-commands-rspec'
-  gem 'rspec_junit_formatter'
 end
 
 group :development do

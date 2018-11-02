@@ -3,19 +3,25 @@ version: 2
 jobs:
   build:
     docker:
-       - image: circleci/ruby:2.5.3-node-browsers
-
+      - image: circleci/ruby:2.5.3-node-browsers
+        environment:
+          PGHOST: localhost
+          PGUSER: incremental_todo
+          RAILS_ENV: test
+      - image: circleci/postgres:9.4.16-alpine-postgis
+        environment:
+          POSTGRES_USER: incremental_todo
+          POSTGRES_DB: incremental_todo_test
+          POSTGRES_PASSWORD: ""
     working_directory: ~/repo
 
     steps:
       - checkout
-
       # Download and cache dependencies
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "Gemfile.lock" }}
-          - v1-dependencies-
-
+            - v1-dependencies-{{ checksum "Gemfile.lock" }}
+            - v1-dependencies-
       - run:
           name: install dependencies
           command: |
@@ -31,6 +37,14 @@ jobs:
       - run: bundle exec rake db:schema:load
 
       # run tests!
+      - run:
+          name: Rubocop
+          command: bundle exec rubocop
+
+      - run:
+          name: Brakeman
+          command: bundle exec brakeman -A -w 1
+
       - run:
           name: run tests
           command: |

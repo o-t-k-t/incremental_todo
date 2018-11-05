@@ -40,4 +40,16 @@ RSpec.feature 'Task managemant', type: :feature do
     expect(tasks[0]).to have_content '新しいタスク'
     expect(tasks[0]).to have_content '何かする'
   end
+
+  scenario 'editting a task to no name is rejected' do
+    tasks[0].click_link '編集'
+
+    fill_in '名前',	with: ''
+    fill_in '内容',	with: ''
+    click_on '作成'
+
+    expect(page).to have_selector '.notice', text: '申し訳ありません、タスクは更新できませんでした😫'
+    expect(page).to have_content '1件のエラーがあります。'
+    expect(page).to have_content '名前を入力してください'
+  end
 end

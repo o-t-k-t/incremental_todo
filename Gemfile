@@ -54,6 +54,7 @@ group :development, :test do
   gem 'faker'
   gem 'flay', '~> 2.10.0'
   gem 'launchy'
+  gem 'rspec-parameterized'
   gem 'rspec-rails'
   gem 'rspec_junit_formatter'
   gem 'selenium-webdriver'

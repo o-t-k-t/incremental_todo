@@ -1,13 +1,13 @@
 FactoryBot.define do
   factory :task do
     sequence(:name) { |n| "task-#{n}" }
-    description 'Do something'
+    description '何かする'
   end
   trait :homework do
-    name 'Write a paper'
+    name '論文を書く'
   end
 
   trait :shopping do
-    name 'Buy a bread'
+    name 'パンを買う'
   end
 end

@@ -17,10 +17,10 @@ class TasksController < ApplicationController
 
   def create
     if Task.create(task_params)
-      flash[:notice] = 'A task successfully created🎉'
+      flash[:notice] = I18n.t('tasks.create_success')
       redirect_to tasks_path
     else
-      flash.now[:notice] = 'A task rejected🤔'
+      flash.now[:notice] = I18n.t('tasks.create_fail')
       render :new
     end
   end
@@ -29,17 +29,17 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
 
     if @task.update(task_params)
-      flash[:notice] = 'A task successfully updated👍'
+      flash[:notice] = I18n.t('tasks.update_success')
       redirect_to tasks_path
     else
-      flash.now[:notice] = 'A task editing rejected😫'
+      flash.now[:notice] = I18n.t('tasks.update_fail')
       render :edit
     end
   end
 
   def destroy
     Task.find(params[:id]).destroy
-    flash[:notice] = 'A task deleted🚀'
+    flash[:notice] = I18n.t('tasks.delete_complete')
     redirect_to tasks_path
   end
 

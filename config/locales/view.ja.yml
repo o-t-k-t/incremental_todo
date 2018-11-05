@@ -12,6 +12,8 @@ ja:
     new: タスク登録
     edit: タスク編集
 
+    error_number: "%{count}件のエラーがあります。"
+
     create_success: タスクが新しく登録されました🎉
     create_fail: 申し訳ありません、タスクは登録できませんでした🤔
 

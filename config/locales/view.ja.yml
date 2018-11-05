@@ -1,0 +1,22 @@
+ja:
+  show: 詳細
+  new: 新規作成
+  edit: 編集
+  create: 作成
+  update: 変更
+  destroy: 削除
+  back: 戻る
+
+  tasks:
+    index: タスク一覧
+    new: タスク登録
+    edit: タスク編集
+
+    create_success: タスクが新しく登録されました🎉
+    create_fail: 申し訳ありません、タスクは登録できませんでした🤔
+
+    update_success: タスクが更新されました👍
+    update_fail: 申し訳ありません、タスクは更新できませんでした😫
+
+    delete_confirm: 本当にこのタスクを削除しますか？
+    delete_complete: タスクを削除しました🚀

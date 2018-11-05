@@ -1,8 +1,8 @@
 %p
-  %strong Task:
+  %strong= t('activerecord.attributes.task.name')
   = @task.name
 %p
-  %strong Descrition:
+  %strong= t('activerecord.attributes.task.description')
   = @task.description
-= link_to 'Edit', edit_task_path(@task)
-= link_to 'Back', tasks_path
+= link_to t('edit'), edit_task_path(@task)
+= link_to t('back'), tasks_path

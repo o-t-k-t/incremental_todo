@@ -10,4 +10,8 @@ FactoryBot.define do
   trait :shopping do
     name 'パンを買う'
   end
+
+  trait :cleanup do
+    name '掃除する'
+  end
 end

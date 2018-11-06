@@ -31,6 +31,8 @@ gem 'cancancan'
 gem 'devise'
 gem 'rails_admin', '~> 1.3'
 
+gem 'faker'
+
 group :development, :test do
   # デバッグ
   gem 'better_errors'
@@ -51,7 +53,6 @@ group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'database_cleaner'
   gem 'factory_bot_rails'
-  gem 'faker'
   gem 'flay', '~> 2.10.0'
   gem 'launchy'
   gem 'rspec-parameterized'

@@ -43,3 +43,11 @@ Bundler/OrderedGems:
 Metrics/BlockLength:
   Exclude:
     - "spec/**/*"
+
+Layout/ExtraSpacing:
+  Exclude:
+    - "spec/**/*"
+
+Layout/SpaceAroundOperators:
+  Exclude:
+    - "spec/**/*"

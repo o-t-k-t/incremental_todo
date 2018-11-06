@@ -1,8 +1,8 @@
 ja:
   activerecord:
     models:
-      task: "タスク"
+      task: タスク
     attributes:
       task:
-        name: "名前"
-        description: "内容"
+        name: 名前
+        description: 内容

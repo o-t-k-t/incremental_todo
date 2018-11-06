@@ -33,6 +33,9 @@ gem 'rails_admin', '~> 1.3'
 
 gem 'faker'
 
+# 日付処理
+gem 'validates_timeliness'
+
 group :development, :test do
   # デバッグ
   gem 'better_errors'

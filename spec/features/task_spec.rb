@@ -4,23 +4,26 @@ RSpec.feature 'Task managemant', type: :feature do
   background do
     create(:task, :homework)
     create(:task, :shopping)
+    create(:task, :cleanup)
+
+    visit root_path
   end
 
-  scenario 'view task list' do
-    visit root_path
+  let(:tasks) { page.all('tbody tr') }
 
-    expect(page).to have_content '論文を書く'
-    expect(page).to have_content '何かする'
-    expect(page).to have_content 'パンを買う'
-    expect(page).to have_content '何かする'
+  scenario 'view task list that sorted by newness' do
+    expect(tasks[0]).to have_content '掃除する'
+    expect(tasks[0]).to have_content '何かする'
+    expect(tasks[1]).to have_content 'パンを買う'
+    expect(tasks[1]).to have_content '何かする'
+    expect(tasks[2]).to have_content '論文を書く'
+    expect(tasks[2]).to have_content '何かする'
   end
 
   scenario 'show task detail' do
-    visit root_path
+    tasks[0].click_link '詳細'
 
-    all('tbody tr')[0].click_link '詳細'
-
-    expect(page).to have_content '論文を書く'
+    expect(page).to have_content '掃除する'
     expect(page).to have_content '何かする'
   end
 
@@ -34,7 +37,19 @@ RSpec.feature 'Task managemant', type: :feature do
 
     expect(page).to have_selector '.notice', text: 'タスクが新しく登録されました🎉'
 
-    expect(page).to have_content '新しいタスク'
-    expect(page).to have_content '何かする'
+    expect(tasks[0]).to have_content '新しいタスク'
+    expect(tasks[0]).to have_content '何かする'
+  end
+
+  scenario 'editting a task to no name is rejected' do
+    tasks[0].click_link '編集'
+
+    fill_in '名前',	with: ''
+    fill_in '内容',	with: ''
+    click_on '作成'
+
+    expect(page).to have_selector '.notice', text: '申し訳ありません、タスクは更新できませんでした😫'
+    expect(page).to have_content '1件のエラーがあります。'
+    expect(page).to have_content '名前を入力してください'
   end
 end

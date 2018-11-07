@@ -1,6 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    aasm (5.0.1)
+      concurrent-ruby (~> 1.0)
     abstract_type (0.0.7)
     actioncable (5.2.1)
       actionpack (= 5.2.1)
@@ -459,6 +461,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aasm
   bcrypt (~> 3.1.11)
   better_errors
   binding_of_caller

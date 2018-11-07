@@ -19,6 +19,7 @@ gem 'mini_magick'
 # フロントエンド
 gem 'bulma-rails', '~> 0.4.2'
 gem 'coffee-rails', '~> 4.2'
+gem 'draper'
 gem 'haml-rails'
 gem 'sass-rails', '~> 5.0'
 gem 'turbolinks', '~> 5'
@@ -32,6 +33,9 @@ gem 'devise'
 gem 'rails_admin', '~> 1.3'
 
 gem 'faker'
+
+# 日付処理
+gem 'validates_timeliness'
 
 group :development, :test do
   # デバッグ

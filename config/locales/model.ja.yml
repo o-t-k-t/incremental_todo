@@ -4,5 +4,17 @@ ja:
       task: タスク
     attributes:
       task:
+        created_at: 登録日時
         name: 名前
         description: 内容
+        deadline: 期限
+  errors:
+    messages:
+      invalid_date: "が無効な日付です"
+      invalid_time: "が無効な日付です"
+      invalid_datetime: "の日付か時刻が無効です"
+      is_at: "は%{restriction}にしてください"
+      before: "は%{restriction}より前にしてください"
+      on_or_before: "は%{restriction}以前にしてください"
+      after:  "は%{restriction}より後にしてください"
+      on_or_after: "は%{restriction}以降にしてください"

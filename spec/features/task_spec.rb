@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.feature 'Task managemant', type: :feature do
   background do
-    create(:task, :homework)
-    create(:task, :shopping)
+    create(:task, :homework_by_12)
+    create(:task, :shopping_by_13)
     create(:task, :cleanup)
 
     visit root_path
@@ -20,25 +20,59 @@ RSpec.feature 'Task managemant', type: :feature do
     expect(tasks[2]).to have_content '何かする'
   end
 
+  scenario 'view task list that sorted by deadline' do
+    select '期限', from: '順序'
+    click_on '並び替え'
+
+    expect(tasks[0]).to have_content '論文を書く'
+    expect(tasks[0]).to have_content '何かする'
+    expect(tasks[1]).to have_content 'パンを買う'
+    expect(tasks[1]).to have_content '何かする'
+    expect(tasks[2]).to have_content '掃除する'
+    expect(tasks[2]).to have_content '何かする'
+  end
+
   scenario 'show task detail' do
     tasks[0].click_link '詳細'
 
     expect(page).to have_content '掃除する'
     expect(page).to have_content '何かする'
+    expect(page).to have_content '期限なし'
   end
 
-  scenario 'create a task' do
-    visit root_path
-    click_link '作成'
+  scenario 'create a typical task' do
+    travel_to(DateTime.new(2018, 11, 12, 13, 15, 30)) do
+      click_link '作成'
 
-    fill_in '名前',	with: '新しいタスク'
-    fill_in '内容',	with: '何かする'
-    click_on '作成'
+      fill_in '名前',	with: '新しいタスク'
+      fill_in '内容',	with: '何かする'
+      fill_in '期限', with: '2018/11/20T20:15'
 
-    expect(page).to have_selector '.notice', text: 'タスクが新しく登録されました🎉'
+      click_on '作成'
 
-    expect(tasks[0]).to have_content '新しいタスク'
-    expect(tasks[0]).to have_content '何かする'
+      expect(page).to have_selector '.notice', text: 'タスクが新しく登録されました🎉'
+
+      expect(tasks[0]).to have_content '新しいタスク'
+      expect(tasks[0]).to have_content '何かする'
+      expect(tasks[0]).to have_content '2018/11/20 20:15'
+    end
+  end
+
+  scenario 'create a indefinite task' do
+    travel_to(DateTime.new(2018, 11, 12, 13, 15, 30)) do
+      click_link '作成'
+
+      fill_in '名前',	with: '無期限タスク'
+      fill_in '内容',	with: 'いつか何かする'
+
+      click_on '作成'
+
+      expect(page).to have_selector '.notice', text: 'タスクが新しく登録されました🎉'
+
+      expect(tasks[0]).to have_content '無期限タスク'
+      expect(tasks[0]).to have_content 'いつか何かする'
+      expect(tasks[0]).to have_content '期限なし'
+    end
   end
 
   scenario 'editting a task to no name is rejected' do

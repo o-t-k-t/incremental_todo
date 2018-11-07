@@ -12,7 +12,6 @@ RSpec.feature 'Task managemant', type: :feature do
   let(:tasks) { page.all('tbody tr') }
 
   scenario 'view task list that sorted by newness' do
-    save_and_open_page
     expect(tasks[0]).to have_content '掃除する'
     expect(tasks[0]).to have_content '何かする'
     expect(tasks[1]).to have_content 'パンを買う'
@@ -38,6 +37,7 @@ RSpec.feature 'Task managemant', type: :feature do
 
     expect(page).to have_content '掃除する'
     expect(page).to have_content '何かする'
+    expect(page).to have_content '期限なし'
   end
 
   scenario 'create a typical task' do

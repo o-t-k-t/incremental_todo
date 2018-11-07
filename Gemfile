@@ -32,6 +32,7 @@ gem 'cancancan'
 gem 'devise'
 gem 'rails_admin', '~> 1.3'
 
+gem 'aasm'
 gem 'faker'
 
 # 日付処理

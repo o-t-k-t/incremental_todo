@@ -1,6 +1,16 @@
 class TasksController < ApplicationController
   def index
-    @tasks = Task.recent
+    @tasks =
+      case params[:order_by]
+      when 'create_at'
+        Task.recent
+      when 'deadline'
+        Task.deadline_asc
+      when nil
+        Task.recent
+      else
+        raise 'Illegal task order requeseted'
+      end.map(&:decorate)
   end
 
   def show
@@ -16,7 +26,9 @@ class TasksController < ApplicationController
   end
 
   def create
-    if Task.create(task_params)
+    @task = Task.new(task_params)
+
+    if @task.save
       flash[:notice] = I18n.t('tasks.create_success')
       redirect_to tasks_path
     else
@@ -46,6 +58,6 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :description)
+    params.require(:task).permit(:name, :description, :deadline)
   end
 end

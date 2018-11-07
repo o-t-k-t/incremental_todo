@@ -12,6 +12,13 @@ ja:
     new: タスク登録
     edit: タスク編集
 
+    order: 順序
+    sort: 並び替え
+    registration_date: 登録日
+    
+    deadline: 期限
+    no_deadline: 期限なし
+
     error_number: "%{count}件のエラーがあります。"
 
     create_success: タスクが新しく登録されました🎉

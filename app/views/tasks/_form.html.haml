@@ -11,5 +11,8 @@
     = form.label :description
     .control= form.text_area :description
   .field
+    = form.label :deadline
+    .control= form.datetime_field :deadline
+  .field
     .control
       = form.submit t('create')

@@ -1,16 +1,21 @@
 class TasksController < ApplicationController
   def index
+    @q = Task.ransack(search_params)
+
     @tasks =
       case params[:order_by]
       when 'create_at'
-        Task.recent
+        @tasks = @q.result.recent
       when 'deadline'
-        Task.deadline_asc
+        @tasks = @q.result.deadline_asc
       when nil
-        Task.recent
+        @tasks = @q.result.recent
       else
         raise 'Illegal task order requeseted'
-      end.map(&:decorate)
+      end
+
+    @states = @tasks.aasm.states
+    @tasks = @tasks.map(&:decorate)
   end
 
   def show
@@ -63,6 +68,13 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:name, :description, :deadline)
+  end
+
+  def search_params
+    # params.require(:q)&.permit(:name_cont, :status_eq)
+    return nil if params[:q].blank?
+
+    params.require(:q)&.permit!
   end
 
   def fire_task_event

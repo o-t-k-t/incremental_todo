@@ -9,6 +9,10 @@ class Task < ApplicationRecord
   scope :recent, -> { order('created_at desc') }
   scope :deadline_asc, -> { order('deadline asc') }
 
+  def self.ransackable_scopes(_auth_object = nil)
+    %i[recent deadline_asc]
+  end
+
   aasm column: 'status' do
     state :not_started, initial: true
     state :started

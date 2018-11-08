@@ -111,4 +111,22 @@ RSpec.feature 'Task managemant', type: :feature do
     expect(page).to have_content '1件のエラーがあります。'
     expect(page).to have_content '名前を入力してください'
   end
+
+  scenario 'search by name' do
+    fill_in '名前',	with: 'パンを買う'
+    click_on '検索'
+
+    expect(page).to have_content 'パンを買う'
+    expect(page).not_to have_content '掃除する'
+    expect(page).not_to have_content '論文を書く'
+  end
+
+  scenario 'search by status' do
+    check 'q_status_eq_any_not_started'
+    click_on '検索'
+
+    expect(page).to have_content 'パンを買う'
+    expect(page).to have_content '掃除する'
+    expect(page).to have_content '論文を書く'
+  end
 end

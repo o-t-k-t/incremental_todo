@@ -2,7 +2,7 @@ ja:
   show: 詳細
   new: 新規作成
   edit: 編集
-  create: 作成
+  create: 登録
   update: 変更
   destroy: 削除
   back: 戻る
@@ -15,7 +15,7 @@ ja:
     order: 順序
     sort: 並び替え
     registration_date: 登録日
-    
+
     deadline: 期限
     no_deadline: 期限なし
 

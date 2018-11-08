@@ -13,6 +13,9 @@
   .field
     = form.label :deadline
     .control= form.datetime_field :deadline
+
+  = task.event_select
+
   .field
     .control
       = form.submit t('create')

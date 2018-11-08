@@ -40,32 +40,57 @@ RSpec.feature 'Task managemant', type: :feature do
     expect(page).to have_content '期限なし'
   end
 
-  scenario 'create a typical task' do
+  scenario 'execute typical task life cycle' do
     travel_to(DateTime.new(2018, 11, 12, 13, 15, 30)) do
-      click_link '作成'
+      click_link '新規作成'
 
-      fill_in '名前',	with: '新しいタスク'
+      fill_in '名前',	with: '続けるタスク'
       fill_in '内容',	with: '何かする'
       fill_in '期限', with: '2018/11/20T20:15'
 
-      click_on '作成'
+      click_on '登録'
 
       expect(page).to have_selector '.notice', text: 'タスクが新しく登録されました🎉'
 
-      expect(tasks[0]).to have_content '新しいタスク'
-      expect(tasks[0]).to have_content '何かする'
-      expect(tasks[0]).to have_content '2018/11/20 20:15'
+      expect(page.all('tbody tr')[0]).to have_content '続けるタスク'
+      expect(page.all('tbody tr')[0]).to have_content '何かする'
+      expect(page.all('tbody tr')[0]).to have_content '未着手'
+      expect(page.all('tbody tr')[0]).to have_content '2018/11/20 20:15'
+
+      page.all('tbody tr')[0].click_link '編集'
+
+      expect(page).to have_content '未着手'
+
+      select '作業開始', from: '進捗はありましたか？'
+      click_on '登録'
+
+      expect(page).to have_selector '.notice', text: 'タスクが更新されました👍'
+      expect(page).to have_content '着手中'
+
+      page.all('tbody tr')[0].click_link '編集'
+      select 'なし', from: '進捗はありましたか？'
+      click_on '登録'
+
+      expect(page).to have_selector '.notice', text: 'タスクが更新されました👍'
+      expect(page).to have_content '着手中'
+
+      page.all('tbody tr')[0].click_link '編集'
+      select '作業完了', from: '進捗はありましたか？'
+      click_on '登録'
+
+      expect(page).to have_selector '.notice', text: 'タスクが更新されました👍'
+      expect(page).to have_content '完了'
     end
   end
 
   scenario 'create a indefinite task' do
     travel_to(DateTime.new(2018, 11, 12, 13, 15, 30)) do
-      click_link '作成'
+      click_link '新規作成'
 
       fill_in '名前',	with: '無期限タスク'
       fill_in '内容',	with: 'いつか何かする'
 
-      click_on '作成'
+      click_on '登録'
 
       expect(page).to have_selector '.notice', text: 'タスクが新しく登録されました🎉'
 
@@ -80,7 +105,7 @@ RSpec.feature 'Task managemant', type: :feature do
 
     fill_in '名前',	with: ''
     fill_in '内容',	with: ''
-    click_on '作成'
+    click_on '登録'
 
     expect(page).to have_selector '.notice', text: '申し訳ありません、タスクは更新できませんでした😫'
     expect(page).to have_content '1件のエラーがあります。'

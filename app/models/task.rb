@@ -18,6 +18,12 @@ class Task < ApplicationRecord
       transitions from: %i[not_started completed], to: :started
     end
 
+    event :pend do
+      transitions from: :not_started, to: :not_started
+      transitions from: :started, to: :started
+      transitions from: :completed, to: :completed
+    end
+
     event :complete do
       transitions from: %i[not_started started], to: :completed
     end

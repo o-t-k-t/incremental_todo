@@ -32,12 +32,25 @@ RSpec.feature 'Task managemant', type: :feature do
     expect(tasks[2]).to have_content '何かする'
   end
 
+  scenario 'view task list that sorted by deadline' do
+    select '優先度', from: '順序'
+    click_on '並び替え'
+
+    expect(tasks[0]).to have_content '論文を書く'
+    expect(tasks[0]).to have_content '何かする'
+    expect(tasks[1]).to have_content '掃除する'
+    expect(tasks[1]).to have_content '何かする'
+    expect(tasks[2]).to have_content 'パンを買う'
+    expect(tasks[2]).to have_content '何かする'
+  end
+
   scenario 'show task detail' do
     tasks[0].click_link '詳細'
 
     expect(page).to have_content '掃除する'
     expect(page).to have_content '何かする'
     expect(page).to have_content '期限なし'
+    expect(page).to have_content '中'
   end
 
   scenario 'execute typical task life cycle' do
@@ -47,17 +60,15 @@ RSpec.feature 'Task managemant', type: :feature do
       fill_in '名前',	with: '続けるタスク'
       fill_in '内容',	with: '何かする'
       fill_in '期限', with: '2018/11/20T20:15'
-
+      select '高', from: '優先度'
       click_on '登録'
 
       expect(page).to have_selector '.notice', text: 'タスクが新しく登録されました🎉'
-
       expect(page.all('tbody tr')[0]).to have_content '続けるタスク'
       expect(page.all('tbody tr')[0]).to have_content '何かする'
       expect(page.all('tbody tr')[0]).to have_content '未着手'
+      expect(page.all('tbody tr')[0]).to have_content '高'
       expect(page.all('tbody tr')[0]).to have_content '2018/11/20 20:15'
-
-      expect(page).to have_content '未着手'
 
       check '未着手'
       click_on '検索'
@@ -67,10 +78,13 @@ RSpec.feature 'Task managemant', type: :feature do
       page.all('tbody tr')[0].click_link '編集'
 
       select '作業開始', from: '進捗はありましたか？'
+      select '中', from: '優先度'
       click_on '登録'
 
       expect(page).to have_selector '.notice', text: 'タスクが更新されました👍'
-      expect(page).to have_content '着手中'
+      expect(page.all('tbody tr')[0]).to have_content '続けるタスク'
+      expect(page.all('tbody tr')[0]).to have_content '着手中'
+      expect(page.all('tbody tr')[0]).to have_content '中'
 
       check '着手中'
       click_on '検索'
@@ -79,17 +93,20 @@ RSpec.feature 'Task managemant', type: :feature do
 
       page.all('tbody tr')[0].click_link '編集'
       select 'なし', from: '進捗はありましたか？'
+      select '低', from: '優先度'
       click_on '登録'
 
       expect(page).to have_selector '.notice', text: 'タスクが更新されました👍'
-      expect(page).to have_content '着手中'
+      expect(page.all('tbody tr')[0]).to have_content '着手中'
+      expect(page.all('tbody tr')[0]).to have_content '低'
 
       page.all('tbody tr')[0].click_link '編集'
       select '作業完了', from: '進捗はありましたか？'
       click_on '登録'
 
       expect(page).to have_selector '.notice', text: 'タスクが更新されました👍'
-      expect(page).to have_content '完了'
+      expect(page.all('tbody tr')[0]).to have_content '続けるタスク'
+      expect(page.all('tbody tr')[0]).to have_content '完了'
 
       check '完了済み'
       click_on '検索'

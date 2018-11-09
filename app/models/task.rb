@@ -6,8 +6,11 @@ class Task < ApplicationRecord
 
   validates_datetime :deadline, after: -> { DateTime.current }, allow_blank: true
 
+  enum priority: { low: 1, medium: 2, high: 3 }
+
   scope :recent, -> { order('created_at desc') }
   scope :deadline_asc, -> { order('deadline asc') }
+  scope :priority_height, -> { order('priority desc') }
 
   def self.ransackable_scopes(_auth_object = nil)
     %i[recent deadline_asc]

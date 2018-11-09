@@ -73,7 +73,7 @@ class TasksController < ApplicationController
   def search_params
     return nil if params[:q].blank?
 
-    params.require(:q).permit(%i[name_cont status_eq_any])
+    params.require(:q).permit(:name_cont, status_eq_any: [])
   end
 
   def fire_task_event

@@ -57,15 +57,25 @@ RSpec.feature 'Task managemant', type: :feature do
       expect(page.all('tbody tr')[0]).to have_content '未着手'
       expect(page.all('tbody tr')[0]).to have_content '2018/11/20 20:15'
 
-      page.all('tbody tr')[0].click_link '編集'
-
       expect(page).to have_content '未着手'
+
+      check '未着手'
+      click_on '検索'
+
+      expect(page.all('tbody tr')[0]).to have_content '続けるタスク'
+
+      page.all('tbody tr')[0].click_link '編集'
 
       select '作業開始', from: '進捗はありましたか？'
       click_on '登録'
 
       expect(page).to have_selector '.notice', text: 'タスクが更新されました👍'
       expect(page).to have_content '着手中'
+
+      check '着手中'
+      click_on '検索'
+
+      expect(page.all('tbody tr')[0]).to have_content '続けるタスク'
 
       page.all('tbody tr')[0].click_link '編集'
       select 'なし', from: '進捗はありましたか？'
@@ -80,6 +90,11 @@ RSpec.feature 'Task managemant', type: :feature do
 
       expect(page).to have_selector '.notice', text: 'タスクが更新されました👍'
       expect(page).to have_content '完了'
+
+      check '完了済み'
+      click_on '検索'
+
+      expect(page.all('tbody tr')[0]).to have_content '続けるタスク'
     end
   end
 

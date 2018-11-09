@@ -8,6 +8,10 @@
   %strong= t('activerecord.attributes.task.deadline')
   = @task.deadline
 %p
+  %strong= t('activerecord.attributes.task.priority')
+  = @task.priority
+
+%p
   %strong= t('activerecord.attributes.task.status')
   = @task.aasm.human_state
 = link_to t('edit'), edit_task_path(@task)

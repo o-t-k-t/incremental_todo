@@ -8,12 +8,12 @@ class Task < ApplicationRecord
 
   enum priority: { low: 1, medium: 2, high: 3 }
 
-  scope :recent, -> { order('created_at desc') }
-  scope :deadline_asc, -> { order('deadline asc') }
-  scope :priority_height, -> { order('priority desc') }
+  scope :priority_height_page, ->(params) { order('priority desc').page(params[:page]) }
+  scope :recent_page, ->(params) { order('created_at desc').page(params[:page]) }
+  scope :deadline_asc_page, ->(params) { order('deadline asc').page(params[:page]) }
 
   def self.ransackable_scopes(_auth_object = nil)
-    %i[recent deadline_asc]
+    %i[recent_page deadline_asc_page]
   end
 
   aasm column: 'status' do

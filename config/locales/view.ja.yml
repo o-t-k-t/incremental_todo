@@ -7,6 +7,22 @@ ja:
   destroy: 削除
   back: 戻る
 
+  views:
+    pagination:
+      first: "先頭"
+      last: "最後"
+      previous: "前"
+      next: "次"
+      truncate: "..."
+  helpers:
+    page_entries_info:
+      one_page:
+        display_entries:
+          zero: "%{entry_name}はまだ登録されていません。登録しましょう🔥"
+          one: "1件の%{entry_name}を表示中"
+          other: "全%{count}件の%{entry_name}を表示中"
+      more_pages:
+        display_entries: "%{total}件中%{first}件目から%{last}件目の%{entry_name}を表示中"
   tasks:
     index: タスク一覧
     new: タスク登録

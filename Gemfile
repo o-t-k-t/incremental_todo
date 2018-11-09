@@ -39,6 +39,8 @@ gem 'ransack'
 
 gem 'faker'
 
+gem 'kaminari'
+
 # 日付処理
 gem 'validates_timeliness'
 

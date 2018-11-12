@@ -42,6 +42,10 @@ jobs:
           command: bundle exec rubocop
 
       - run:
+          name: haml-lint
+          command: bundle exec haml-lint
+
+      - run:
           name: Brakeman
           command: bundle exec brakeman -A -w 1
 
@@ -53,6 +57,7 @@ jobs:
 
             bundle exec rspec --format progress \
                             --format RspecJunitFormatter \
+                            --seed 2039712386 \
                             --out /tmp/test-results/rspec.xml \
                             --format progress \
                             $TEST_FILES

@@ -1,9 +1,12 @@
 - if task.id
-  %p
-    %strong= t('activerecord.attributes.task.status')
-    = task.aasm.human_state
-
-  .field
-    = label_tag :status_event, t('activerecord.events.task')
-    .control= select_tag :status_event, task.status_options_for_select
+  .form-group.row
+    .col-sm-2
+      %p= t('activerecord.attributes.task.status')
+    .col-sm-10
+      = task.aasm.human_state
+    .col-sm-2
+      = label_tag :status_event, t('activerecord.events.task')
+    .col-sm-9
+      .control= select_tag :status_event, task.status_options_for_select, class: 'custom-select'
+    .col-sm-1
 

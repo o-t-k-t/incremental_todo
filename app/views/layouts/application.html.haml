@@ -8,6 +8,15 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
+    %nav.navbar.navbar-expand-sm.navbar-light.bg-light
+      = link_to 'IncrementalTODO', root_path, class: 'navbar-brand'
+      %button.navbar-toggler{ 'aria-controls' => 'navbar-nav-dropdown', 'aria-expanded' => 'false', 'aria-label' => 'Toggle navigation', 'data-target' => '#navbar-nav-dropdown', 'data-toggle' => 'collapse', :type => 'button' }
+        %span.navbar-toggler-icon
+      .collapse.navbar-collapse.justify-content-end.mr-auto#navbar-nav-dropdown
+        %ul.navbar-nav
+          = yield :navbar_items
+
     - flash.each do |k, v|
-      = content_tag(:div, v, class: k.to_s)
+      .alert.alert-info{ role: 'alert' }
+        = content_tag(:div, v, class: k.to_s)
     = yield

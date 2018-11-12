@@ -4,22 +4,24 @@
     %ul
       - task.errors.full_messages.each do |message|
         %li= message
-  .field
-    = form.label :name
-    .control= form.text_field :name
-  .field
-    = form.label :description
-    .control= form.text_area :description
-  .field
-    = form.label :deadline
-    .control= form.datetime_field :deadline
-
-  .field
-    = form.label :priority
-    .control= form.select :priority, task.priority_options_for_select
+  .form-group.row
+    = form.label :name, class: 'col-sm-2 col-form-label'
+    .col-sm-9
+      = form.text_field :name, class: 'form-control'
+  .form-group.row
+    = form.label :deadline, class: 'col-sm-2 col-form-label'
+    .col-sm-9
+      = form.datetime_field :deadline, class: 'form-control'
+  .form-group.row
+    = form.label :description, class: 'col-sm-2 col-form-label'
+    .col-sm-9
+      = form.text_area :description, class: 'form-control'
+  .form-group.row
+    = form.label :priority, class: 'col-sm-2 col-form-label'
+    .col-sm-9.col-sm-2.col-form-label
+      = form.select :priority, task.priority_options_for_select, class: 'custom-select'
 
   = task.event_select
-
-  .field
-    .control
-      = form.submit t('create')
+  .form-group.row
+    .col-sm-12
+      = form.submit t('create'), class: 'btn btn-primary'

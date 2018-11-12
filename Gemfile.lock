@@ -56,6 +56,8 @@ GEM
       public_suffix (>= 2.0.2, < 4.0)
     arel (9.0.0)
     ast (2.4.0)
+    autoprefixer-rails (9.3.1)
+      execjs
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
@@ -69,13 +71,15 @@ GEM
       debug_inspector (>= 0.0.1)
     bootsnap (1.3.2)
       msgpack (~> 1.0)
+    bootstrap (4.1.3)
+      autoprefixer-rails (>= 6.0.3)
+      popper_js (>= 1.12.9, < 2)
+      sass (>= 3.5.2)
     brakeman (4.3.1)
     builder (3.2.3)
     bullet (5.7.6)
       activesupport (>= 3.0.0)
       uniform_notifier (~> 1.11.0)
-    bulma-rails (0.4.3)
-      sass (~> 3.2)
     byebug (10.0.2)
     cancancan (2.3.0)
     capybara (2.18.0)
@@ -242,6 +246,7 @@ GEM
       ast (~> 2.4.0)
     path_expander (1.0.3)
     pg (0.21.0)
+    popper_js (1.14.3)
     powerpack (0.1.2)
     proc_to_ast (0.1.0)
       coderay
@@ -471,9 +476,9 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootsnap (>= 1.1.0)
+  bootstrap
   brakeman
   bullet
-  bulma-rails (~> 0.4.2)
   byebug
   cancancan
   capybara (~> 2.13)
@@ -488,6 +493,7 @@ DEPENDENCIES
   flay (~> 2.10.0)
   haml-rails
   haml_lint
+  jquery-rails
   kaminari
   launchy
   letter_opener_web

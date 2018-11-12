@@ -14,6 +14,10 @@
     = form.label :deadline
     .control= form.datetime_field :deadline
 
+  .field
+    = form.label :priority
+    .control= form.select :priority, task.priority_options_for_select
+
   = task.event_select
 
   .field

@@ -19,6 +19,8 @@ ja:
     deadline: 期限
     no_deadline: 期限なし
 
+    priority: 優先度
+
     error_number: "%{count}件のエラーがあります。"
 
     create_success: タスクが新しく登録されました🎉

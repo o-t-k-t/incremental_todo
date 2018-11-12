@@ -12,6 +12,10 @@ ja:
         status/not_started: 未着手
         status/started: 着手中
         status/completed: 完了済み
+        priority: 優先度
+        low: 低
+        medium: 中
+        high: 高
     events:
       task: 進捗はありましたか？
       task/pend: なし

@@ -2,7 +2,7 @@
 
 = form_tag tasks_path, method: :get do
   = label_tag :order_by, t('tasks.order')
-  = select_tag :order_by, options_for_select([[t('tasks.registration_date'), 'create_at'], [t('tasks.deadline'), 'deadline']], selected: 'create_at')
+  = select_tag :order_by, options_for_select([[t('tasks.registration_date'), 'create_at'], [t('tasks.deadline'), 'deadline'], [t('tasks.priority'), 'priority']], selected: 'create_at')
   = submit_tag t('tasks.sort')
 
 = search_form_for(@q, url: tasks_path) do |f|
@@ -17,6 +17,7 @@
     %tr
       %th= t('activerecord.attributes.task.created_at')
       %th= t('activerecord.attributes.task.name')
+      %th= t('activerecord.attributes.task.priority')
       %th= t('activerecord.attributes.task.description')
       %th= t('activerecord.attributes.task.status')
       %th= t('activerecord.attributes.task.deadline')
@@ -25,6 +26,7 @@
       %tr
         %td= l(task.created_at, format: :long)
         %td= task.name
+        %td= task.priority
         %td= task.description
         %td= task.aasm.human_state
         %td= task.deadline

@@ -8,6 +8,8 @@ class TasksController < ApplicationController
         @tasks = @q.result.recent
       when 'deadline'
         @tasks = @q.result.deadline_asc
+      when 'priority'
+        @tasks = @q.result.priority_height
       when nil
         @tasks = @q.result.recent
       else
@@ -67,7 +69,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :description, :deadline)
+    params.require(:task).permit(:name, :description, :deadline, :priority)
   end
 
   def search_params

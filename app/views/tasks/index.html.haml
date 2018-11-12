@@ -33,5 +33,5 @@
         %td= link_to t('show'), task
         %td= link_to t('edit'), edit_task_path(task)
         %td= link_to t('destroy'), task, method: :delete, data: { confirm: t('tasks.delete_confirm') }
-
+= paginate @tasks
 = link_to t('new'), new_task_path

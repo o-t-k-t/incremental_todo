@@ -5,19 +5,18 @@ class TasksController < ApplicationController
     @tasks =
       case params[:order_by]
       when 'create_at'
-        @tasks = @q.result.recent
+        @q.result.recent_page(params)
       when 'deadline'
-        @tasks = @q.result.deadline_asc
+        @tasks = @q.result.deadline_asc_page(params)
       when 'priority'
-        @tasks = @q.result.priority_height
+        @tasks = @q.result.priority_height_page(params)
       when nil
-        @tasks = @q.result.recent
+        @q.result.recent_page(params)
       else
         raise 'Illegal task order requeseted'
       end
-
     @states = @tasks.aasm.states
-    @tasks = @tasks.map(&:decorate)
+    @tasks = TaskDecorator.decorate_collection(@tasks)
   end
 
   def show

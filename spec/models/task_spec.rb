@@ -4,6 +4,8 @@ RSpec.describe Task, type: :model do
   using RSpec::Parameterized::TableSyntax
 
   describe `#valid?` do
+    let(:task_user) { create(:task_user) }
+
     context 'when typical parameter received' do
       it 'passes' do
         travel_to(DateTime.new(2018, 11, 12, 13, 14, 15)) do
@@ -11,7 +13,8 @@ RSpec.describe Task, type: :model do
             Task.new(
               name: '靴を買う',
               description: '靴屋に靴を買いに行く',
-              deadline: DateTime.new(2018, 11, 15, 10, 15, 30)
+              deadline: DateTime.new(2018, 11, 15, 10, 15, 30),
+              user: task_user
             )
           ).to be_valid
         end
@@ -27,7 +30,7 @@ RSpec.describe Task, type: :model do
       end
 
       with_them do
-        it { expect(Task.new(name: name, description: '靴屋に靴を買いに行く')).to be_valid? }
+        it { expect(Task.new(name: name, description: '靴屋に靴を買いに行く', user: task_user)).to be_valid? }
       end
     end
 
@@ -40,7 +43,7 @@ RSpec.describe Task, type: :model do
       end
 
       with_them do
-        it { expect(Task.new(name: '靴を買う', description: description)).to be_valid? }
+        it { expect(Task.new(name: '靴を買う', description: description, user: task_user)).to be_valid? }
       end
     end
 
@@ -55,7 +58,7 @@ RSpec.describe Task, type: :model do
       with_them do
         it do
           travel_to(DateTime.new(2018, 11, 12, 13, 14, 15)) do
-            expect(Task.new(name: '靴を買う', deadline: deadline)).to be_valid?
+            expect(Task.new(name: '靴を買う', deadline: deadline, user: task_user)).to be_valid?
           end
         end
       end

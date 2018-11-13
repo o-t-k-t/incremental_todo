@@ -5,17 +5,17 @@
       - task.errors.full_messages.each do |message|
         %li= message
   .form-group.row
-    = form.label :name, class: 'col-sm-2 col-form-label'
+    = form.label :name, class: 'col-sm-2 col-form-label', placeholder: t('tasks.placeholder.name')
     .col-sm-9
       = form.text_field :name, class: 'form-control'
   .form-group.row
     = form.label :deadline, class: 'col-sm-2 col-form-label'
     .col-sm-9
-      = form.datetime_field :deadline, class: 'form-control'
+      = form.datetime_field :deadline, class: 'form-control', placeholder: 'yyyy-mm-dd'
   .form-group.row
     = form.label :description, class: 'col-sm-2 col-form-label'
     .col-sm-9
-      = form.text_area :description, class: 'form-control'
+      = form.text_area :description, class: 'form-control', placeholder: t('tasks.placeholder.description')
   .form-group.row
     = form.label :priority, class: 'col-sm-2 col-form-label'
     .col-sm-9.col-sm-2.col-form-label

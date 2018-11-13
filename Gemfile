@@ -17,10 +17,11 @@ gem 'carrierwave'
 gem 'mini_magick'
 
 # フロントエンド
-gem 'bulma-rails', '~> 0.4.2'
+gem 'bootstrap'
 gem 'coffee-rails', '~> 4.2'
 gem 'draper'
 gem 'haml-rails'
+gem 'jquery-rails'
 gem 'loofah', '>= 2.2.3'
 gem 'sass-rails', '~> 5.0'
 gem 'turbolinks', '~> 5'

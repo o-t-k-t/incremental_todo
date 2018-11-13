@@ -3,7 +3,7 @@ class TaskDecorator < ApplicationDecorator
 
   def deadline
     if object.deadline
-      I18n.l(object.deadline, format: :long)
+      "〜#{I18n.l(object.deadline, format: :long)}"
     else
       I18n.t('tasks.no_deadline')
     end

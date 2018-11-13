@@ -5,7 +5,7 @@
       - task.errors.full_messages.each do |message|
         %li= message
   .form-group.row
-    = form.label :name, class: 'col-sm-2 col-form-label', placeholder: t('tasks.placeholder.name')
+    = form.label :name, class: 'col-sm-2 col-form-label'
     .col-sm-9
       = form.text_field :name, class: 'form-control'
   .form-group.row

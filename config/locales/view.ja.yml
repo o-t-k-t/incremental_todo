@@ -30,6 +30,8 @@ ja:
 
     order: 順序
     sort: 並び替え
+    sort_select_blank: 指定なし
+    search: 検索
     registration_date: 登録日
 
     deadline: 期限
@@ -49,5 +51,4 @@ ja:
     delete_complete: タスクを削除しました🚀
 
     placeholder:
-      name: '掃除'
       description: 'やることの詳細を記述します'

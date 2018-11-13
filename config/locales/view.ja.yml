@@ -47,3 +47,7 @@ ja:
 
     delete_confirm: 本当にこのタスクを削除しますか？
     delete_complete: タスクを削除しました🚀
+
+    placeholder:
+      name: '掃除'
+      description: 'やることの詳細を記述します'

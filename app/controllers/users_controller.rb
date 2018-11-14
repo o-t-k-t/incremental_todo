@@ -4,9 +4,7 @@ class UsersController < ApplicationController
   before_action :require_logged_in, except: %i[new create]
 
   def show
-    unless current_user?(params[:id])
-      raise 'Another user information requested'
-    end
+    raise 'Another user information requested' unless current_user?(params[:id])
 
     @user = User.find(params[:id])
   end

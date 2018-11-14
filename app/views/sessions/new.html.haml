@@ -1,0 +1,11 @@
+.container
+  %h1.title Login
+  = form_with(scope: :session, url: sessions_path, local: true) do |f|
+    .form-group
+      = f.label :email
+      = f.email_field :email, class: 'form-control'
+    .form-group
+      = f.label :password
+      = f.password_field :password, class: 'form-control'
+    .form-group
+      = f.submit 'Login', class: 'btn btn-primary btn-block'

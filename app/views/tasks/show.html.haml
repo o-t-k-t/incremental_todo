@@ -1,18 +1,22 @@
-%p
-  %strong= t('activerecord.attributes.task.name')
-  = @task.name
-%p
-  %strong= t('activerecord.attributes.task.description')
-  = @task.description
-%p
-  %strong= t('activerecord.attributes.task.deadline')
-  = @task.deadline
-%p
-  %strong= t('activerecord.attributes.task.priority')
-  = @task.priority
+.container
+  %h1.title タスク詳細
+  %table.table.table-borderless
+    %tr
+      %th{ scope: 'col' }= t('activerecord.attributes.task.name')
+      %td= @task.name
+    %tr
+      %th{ scope: 'col' }= t('activerecord.attributes.task.description')
+      %td= @task.description
+    %tr
+      %th{ scope: 'col' }= t('activerecord.attributes.task.deadline')
+      %td= @task.deadline
+    %tr
+      %th{ scope: 'col' }= t('activerecord.attributes.task.priority')
+      %td= @task.priority
+    %tr
+      %th{ scope: 'col' }= t('activerecord.attributes.task.status')
+      %td= @task.aasm.human_state
 
-%p
-  %strong= t('activerecord.attributes.task.status')
-  = @task.aasm.human_state
-= link_to t('edit'), edit_task_path(@task)
-= link_to t('back'), tasks_path
+
+  = link_to t('edit'), edit_task_path(@task)
+  = link_to t('back'), tasks_path

@@ -1,10 +1,7 @@
 - content_for :navbar_items do
-  %li.nav-item
-    = link_to t('new'), new_task_path, class: 'nav-link'
-
   %li.nav-item.dropdown
     .nav-link.dropdown-toggle#navbar-dropdown-link-menu{ 'aria-expanded' => 'false', 'aria-haspopup' => 'true', 'data-toggle' => 'dropdown', :href => '#' }
-      詳細
+      .btn.btn-light 詳細
     .dropdown-menu.dropdown-menu-right{ 'aria-labelledby' => 'navbar-dropdown-link-menu' }
       %h5.dropdown-header= t('tasks.sort')
       .dropdown-item.form-group

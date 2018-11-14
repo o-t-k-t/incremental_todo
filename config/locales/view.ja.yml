@@ -7,6 +7,10 @@ ja:
   destroy: 削除
   back: 戻る
 
+  login: ログイン
+  logout: ログアウト
+  signup: ユーザ登録
+
   views:
     pagination:
       first: "先頭"

@@ -9,6 +9,14 @@ class TaskDecorator < ApplicationDecorator
     end
   end
 
+  def description
+    if object.description.present?
+      object.description
+    else
+      '詳細内容なし'
+    end
+  end
+
   def priority
     I18n.t("activerecord.attributes.task.#{object.priority}")
   end

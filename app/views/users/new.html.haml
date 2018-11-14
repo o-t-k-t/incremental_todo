@@ -1,30 +1,26 @@
-%h1.title Sign up
-- if @user.errors.any?
-  -# haml-lint:disable IdNames
-  #error_explanation
-    %h2
-      = pluralize(@user.errors.count, 'error')
-      prohibited this @user from being saved:
-    %ul
-      - @user.errors.full_messages.each do |message|
-        %li= message
-= form_with(model: @user, local: true) do |f|
-  .field
-    = f.label :name, class: 'label'
-    .control
+.container
+  %h1.title= t('signup')
+  - if @user.errors.any?
+    -# haml-lint:disable IdNames
+    #error_explanation
+      %h2
+        = pluralize(@user.errors.count, 'error')
+        prohibited this @user from being saved:
+      %ul
+        - @user.errors.full_messages.each do |message|
+          %li= message
+  = form_with(model: @user, local: true) do |f|
+    .form-group
+      = f.label :name, class: 'label'
       = f.text_field :name, class: 'form-control', placeholder: 'FIRSTNAME, lastname'
-  .field
-    = f.label :email, class: 'label'
-    .control
+    .form-group
+      = f.label :email, class: 'label'
       = f.email_field :email, class: 'form-control', placeholder: 'name@example.com'
-  .field
-    = f.label :password, class: 'label'
-    .control
+    .form-group
+      = f.label :password, class: 'label'
       = f.password_field :password, class: 'form-control', placeholder: 'must be longer than 6 charactors'
-  .field
-    = f.label :password_confirmation, class: 'label'
-    .control
+    .form-group
+      = f.label :password_confirmation, class: 'label'
       = f.password_field :password_confirmation, class: 'form-control', placeholder: 'pleas duplicate the password'
-  .field
-    .control
-      = f.submit 'Create my account', class: 'button'
+    .form-group
+      = f.submit t('signup'), class: 'btn btn-primary btn-block'

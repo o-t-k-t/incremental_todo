@@ -9,7 +9,7 @@ FactoryBot.define do
     name '平松隆'
     sequence(:email) { |n| "hiramatsu.takashi1971.#{n}@example.com" }
     password 'ca11back'
-    password_digest 'ca11back'
+    password_confirmation 'ca11back'
   end
 
   trait :homework_by_12 do

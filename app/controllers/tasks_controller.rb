@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   include SessionControl
 
-  before_action :require_logged_in, except: %i[new create]
+  before_action :require_logged_in
 
   def index
     @q = current_user.tasks.ransack(search_params)

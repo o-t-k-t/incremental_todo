@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature 'User session managemant', type: :feature do
+
   around do |ex|
     create(:user)
 
@@ -44,6 +45,19 @@ RSpec.feature 'User session managemant', type: :feature do
 
     # TODO: エラーページ作成後にHTML要素での期待値でチェック
     visit user_path(another_user.id)
-    expect(page).to have_content 'RuntimeError'
+  where(:path, :page_title) do
+    root_path         | 'ログイン'
+    tasks_path        | 'ログイン'
+    new_task_path(1)  | 'ログイン'
+    edit_task_path(1) | 'ログイン'
+    task_path(1)      | 'ログイン'
+    user_path(1)      | 'ログイン'
+  end
+
+  with_them do
+    scenario 'when loged out' do
+      visit path
+      expect(all('h1')[0]).to have_content page_title
+    end
   end
 end

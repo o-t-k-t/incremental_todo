@@ -2,6 +2,7 @@ ja:
   activerecord:
     models:
       task: タスク
+      user: ユーザー
     attributes:
       task:
         created_at: 登録日時
@@ -16,6 +17,11 @@ ja:
         low: 低優先
         medium: 中優先
         high: 高優先
+      user:
+        name: 名前
+        email: Eメールアドレス
+        password: パスワード
+        password_confirmation: 確認パスワード
     events:
       task: 進捗はありましたか？
       task/pend: なし

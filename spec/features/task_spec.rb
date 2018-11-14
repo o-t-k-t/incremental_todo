@@ -2,17 +2,26 @@ require 'rails_helper'
 
 RSpec.feature 'Task managemant', type: :feature do
   around do |ex|
-    travel_to(DateTime.new(2018, 11, 4, 13, 14, 15)) { create(:task, :homework_by_12) }
-    travel_to(DateTime.new(2018, 11, 5, 13, 14, 15)) { create(:task, :shopping_by_13) }
-    travel_to(DateTime.new(2018, 11, 6, 13, 14, 15)) { create(:task, :cleanup) }
+    user = create(:user)
+    travel_to(DateTime.new(2018, 11, 4, 13, 14, 15)) { create(:task, :homework_by_12, user: user) }
+    travel_to(DateTime.new(2018, 11, 5, 13, 14, 15)) { create(:task, :shopping_by_13, user: user) }
+    travel_to(DateTime.new(2018, 11, 6, 13, 14, 15)) { create(:task, :cleanup, user: user) }
 
     travel_to(DateTime.new(2018, 11, 12, 13, 15, 30)) do
+      visit root_path
+
+      fill_in 'Email', with: 'hiramatsu.takashi1972@example.com'
+      fill_in 'Password', with: 'ca11back'
+      click_on 'Enter'
+
       visit root_path
       ex.run
     end
   end
 
   scenario 'view task list that sorted by newness' do
+    binding.pry
+
     expect(all('.card-title')[0]).to have_content '掃除する'
     expect(all('.card-text')[0]).to have_content '何かする'
     expect(all('.card-title')[1]).to have_content 'パンを買う'

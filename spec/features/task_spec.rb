@@ -20,8 +20,6 @@ RSpec.feature 'Task managemant', type: :feature do
   end
 
   scenario 'view task list that sorted by newness' do
-    binding.pry
-
     expect(all('.card-title')[0]).to have_content '掃除する'
     expect(all('.card-text')[0]).to have_content '何かする'
     expect(all('.card-title')[1]).to have_content 'パンを買う'

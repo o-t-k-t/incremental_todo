@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.feature 'User session managemant', type: :feature do
+  using RSpec::Parameterized::TableSyntax
 
   around do |ex|
     create(:user)
@@ -45,6 +46,9 @@ RSpec.feature 'User session managemant', type: :feature do
 
     # TODO: エラーページ作成後にHTML要素での期待値でチェック
     visit user_path(another_user.id)
+    expect(all('h1')[0]).to have_content 'タスク一覧'
+  end
+
   where(:path, :page_title) do
     root_path         | 'ログイン'
     tasks_path        | 'ログイン'

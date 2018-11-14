@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action :require_logged_in, except: %i[new create]
 
   def show
-    raise 'Another user information requested' unless current_user?(params[:id])
+    redirect_to root_path and return unless current_user?(params[:id])
 
     @user = User.find(params[:id])
   end

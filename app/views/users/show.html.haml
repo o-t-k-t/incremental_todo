@@ -1,0 +1,11 @@
+.container
+  %h1.title あなたのページ
+  %table.table.table-borderless
+    %tr
+      %th{ scope: 'col' } 名前
+      %td= @user.name
+    %tr
+      %th{ scope: 'col' } メールアドレス
+      %td= @user.email
+
+  = link_to t('back'), root_path

@@ -1,0 +1,30 @@
+%h1.title Sign up
+- if @user.errors.any?
+  -# haml-lint:disable IdNames
+  #error_explanation
+    %h2
+      = pluralize(@user.errors.count, 'error')
+      prohibited this @user from being saved:
+    %ul
+      - @user.errors.full_messages.each do |message|
+        %li= message
+= form_with(model: @user, local: true) do |f|
+  .field
+    = f.label :name, class: 'label'
+    .control
+      = f.text_field :name, class: 'form-control', placeholder: 'FIRSTNAME, lastname'
+  .field
+    = f.label :email, class: 'label'
+    .control
+      = f.email_field :email, class: 'form-control', placeholder: 'name@example.com'
+  .field
+    = f.label :password, class: 'label'
+    .control
+      = f.password_field :password, class: 'form-control', placeholder: 'must be longer than 6 charactors'
+  .field
+    = f.label :password_confirmation, class: 'label'
+    .control
+      = f.password_field :password_confirmation, class: 'form-control', placeholder: 'pleas duplicate the password'
+  .field
+    .control
+      = f.submit 'Create my account', class: 'button'

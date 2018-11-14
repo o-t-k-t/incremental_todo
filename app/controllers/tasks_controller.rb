@@ -1,6 +1,10 @@
 class TasksController < ApplicationController
+  include SessionControl
+
+  before_action :require_logged_in, except: %i[new create]
+
   def index
-    @q = Task.ransack(search_params)
+    @q = current_user.tasks.ransack(search_params)
 
     @tasks =
       case params[:order_by]
@@ -20,19 +24,19 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = Task.find(params[:id]).decorate
+    @task = current_user.tasks.find(params[:id]).decorate
   end
 
   def new
-    @task = Task.new.decorate
+    @task = current_user.tasks.build.decorate
   end
 
   def edit
-    @task = Task.find(params[:id]).decorate
+    @task = current_user.tasks.find(params[:id]).decorate
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     fire_task_event
 
     if @task.save
@@ -46,7 +50,7 @@ class TasksController < ApplicationController
   end
 
   def update
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
     fire_task_event
 
     if @task.update(task_params)
@@ -60,7 +64,7 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    Task.find(params[:id]).destroy
+    current_user.tasks.find(params[:id]).destroy
     flash[:notice] = I18n.t('tasks.delete_complete')
     redirect_to tasks_path
   end
@@ -68,7 +72,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :description, :deadline, :priority)
+    params.require(:task).permit(:name, :description, :deadline, :priority, :user_id)
   end
 
   def search_params

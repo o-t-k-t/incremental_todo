@@ -1,0 +1,11 @@
+.container
+  %h1.title= t('login')
+  = form_with(scope: :session, url: sessions_path, local: true) do |form|
+    .form-group
+      = form.label :email
+      = form.email_field :email, class: 'form-control'
+    .form-group
+      = form.label :password
+      = form.password_field :password, class: 'form-control'
+    .form-group
+      = form.submit 'Enter', class: 'btn btn-primary btn-block'

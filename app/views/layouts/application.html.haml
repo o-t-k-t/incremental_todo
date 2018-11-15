@@ -14,7 +14,24 @@
         %span.navbar-toggler-icon
       .collapse.navbar-collapse.justify-content-end.mr-auto#navbar-nav-dropdown
         %ul.navbar-nav
-          = yield :navbar_items
+          - if logged_in?
+            %li.nav-item
+              .nav-link
+                = link_to t('new'), new_task_path, class: 'btn btn-light'
+
+            = yield :navbar_items
+
+            %li.nav-item
+              .nav-link= link_to current_user.name, user_path(current_user.id), class: 'btn btn-outline-primary'
+            %li.nav-item
+              .nav-link= link_to t('logout'), session_path(current_user.id), method: :delete, class: 'btn btn-outline-secondary'
+          - else
+            = yield :navbar_items
+
+            %li.nav-item
+              .nav-link= link_to t('login'), new_session_path, class: 'nav-link'
+            %li.nav-item
+              .nav-link= link_to t('signup'), new_user_path, class: 'nav-link'
 
     - flash.each do |k, v|
       .alert.alert-info{ role: 'alert' }

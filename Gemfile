@@ -29,14 +29,13 @@ gem 'uglifier', '>= 1.3.0'
 
 # 認証
 gem 'bcrypt', '~> 3.1.11'
+
 gem 'bootsnap', '>= 1.1.0'
-gem 'cancancan'
-gem 'devise'
-gem 'rails_admin', '~> 1.3'
 
 # モデル機能
 gem 'aasm'
 gem 'ransack'
+gem 'validates_email_format_of'
 
 gem 'faker'
 

@@ -1,0 +1,38 @@
+.container
+  %h1.mt-5.title ユーザ情報
+  %table.table.table-borderless
+    %tr
+      %th{ scope: 'col' } 名前
+      %td= @user.name
+    %tr
+      %th{ scope: 'col' } メールアドレス
+      %td= @user.email
+
+  %h1.mt-5.title このユーザーのタスク
+  .table-responsive-sm
+    %table.table
+      %thead
+        %tr
+          %th.text-center{ scope: 'col' }= '#'
+          %th.text-center{ scope: 'col' }= t('activerecord.attributes.task.name')
+          %th.text-center{ scope: 'col' }= t('activerecord.attributes.task.description')
+          %th.text-center{ scope: 'col' }= t('activerecord.attributes.task.deadline')
+          %th.text-center{ scope: 'col' }= t('activerecord.attributes.task.priority')
+          %th.text-center{ scope: 'col' }= t('activerecord.attributes.task.status')
+      %tbody
+        - @tasks.each_with_index do |task, i|
+          %tr
+            %th{ scope: '' }= i + 1
+            %td= task.name
+            %td= task.description
+            %td
+              %nobr.text-center= task.deadline
+            %td
+              %nobr.text-center= task.priority
+            %td
+              %nobr.text-center= task.aasm.human_state
+.container.pagination.justify-content-center.mt-3
+  = paginate @tasks
+
+.container
+  = link_to t('back'), admin_users_path

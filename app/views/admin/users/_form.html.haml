@@ -1,15 +1,14 @@
 .container
-  %h1.mt-5.title= t('signup')
   - if @user.errors.any?
     -# haml-lint:disable IdNames
     #error_explanation
       %h2
-        = pluralize(@user.errors.count, 'error')
+        = pluralize(user.errors.count, 'error')
         prohibited this @user from being saved:
       %ul
-        - @user.errors.full_messages.each do |message|
+        - user.errors.full_messages.each do |message|
           %li= message
-  = form_with(model: @user, local: true) do |f|
+  = form_with(model: user, local: true) do |f|
     .form-group
       = f.label :name, class: 'label'
       = f.text_field :name, class: 'form-control', placeholder: 'FIRSTNAME, lastname'

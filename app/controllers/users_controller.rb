@@ -26,7 +26,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user = User.find(params[:id]).destroy
+    User.find(params[:id]).destroy
     redirect_to user_new_path
   end
 

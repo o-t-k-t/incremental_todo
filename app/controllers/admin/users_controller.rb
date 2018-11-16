@@ -2,8 +2,9 @@ class Admin::UsersController < ApplicationController
   include SessionControl
 
   def index
-    @users = User.with_task.page(params[:page]).per(50)
+    @users = User.with_task.id_order.page(params[:page]).per(20)
     @usernames_and_task_counts = @users.count_by_id_and_name
+    # @usernames_and_task_counts = User.with_task.id_order.count_by_id_and_name
   end
 
   def show

@@ -57,6 +57,7 @@ group :development, :test do
   gem 'bullet'
   gem 'haml_lint'
   gem 'rubocop', '~> 0.59.2'
+  gem 'rubocop-rspec'
   gem 'rubycritic'
   gem 'simplecov'
 

@@ -9,9 +9,10 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { in: 6..20 }
   validates :password_digest, presence: true
 
-  scope :with_task, -> { joins(:tasks) }
+  scope :id_order, -> { order(:id) }
+  scope :with_task, -> { left_joins(:tasks) }
 
   def self.count_by_id_and_name
-    group('users.id', 'users.name').count
+    group('users.id', 'users.name').count('tasks.id')
   end
 end

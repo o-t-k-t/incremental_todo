@@ -1,4 +1,4 @@
-50.times do |i|
+50.times do |_i|
   password = Faker::Internet.password(6, 20, true, true)
 
   user = User.create(
@@ -17,4 +17,3 @@
     )
   end
 end
-

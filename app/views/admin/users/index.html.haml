@@ -10,17 +10,17 @@
       %table.table
         %thead
           %tr
-            %th.text-center{ scope: 'col' }= '#'
+            %th.text-center{ scope: 'col' }= 'ユーザID'
             %th.text-center{ scope: 'col' }= t('activerecord.attributes.user.name')
             %th.text-center{ scope: 'col' }= 'タスク件数'
             %th.text-center{ scope: 'col' }= ''
             %th.text-center{ scope: 'col' }= ''
             %th.text-center{ scope: 'col' }= ''
         %tbody
-          - @usernames_and_task_counts.each_with_index do |(k, v), i|
+          - @usernames_and_task_counts.each do |k, v|
             %tr
               %th{ scope: '' }
-                .text-center= i + 1
+                .text-center= k[0]
               %td
                 .text-center= k[1]
               %td
@@ -31,4 +31,4 @@
                   = link_to '編集', edit_admin_user_path(k[0])
                   = link_to '削除', admin_user_path(k[0]), method: :delete, data: { confirm: '削除します' }, class: 'btn btn-primary'
 .container.pagination.justify-content-center.mt-3
-  = paginate @users
+  -# = paginate @users

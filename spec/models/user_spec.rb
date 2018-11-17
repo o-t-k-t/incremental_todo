@@ -65,6 +65,21 @@ RSpec.describe User, type: :model do
     end
   end
 
+  context 'delete admin user' do
+    where(:number_of_administrators, :be_successed?) do
+      1 | be_falsey
+      2 | be_truthy
+    end
+
+    with_them do
+      it do
+        number_of_administrators.times { create(:user, :unique, :admin) }
+        expect(User.first.destroy).to be_successed?
+      end
+    end
+  end
+
+
   describe `#authenticate` do
     context 'when creation' do
       where(:password, :password_confirmation, :be_successful?) do

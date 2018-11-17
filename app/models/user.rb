@@ -15,17 +15,15 @@ class User < ApplicationRecord
   scope :with_task, -> { left_joins(:tasks) }
 
   def self.count_by_id_and_name
-    group('users.id', 'users.name').count('tasks.id')
+    group('users.id', 'users.name', 'users.admin').count('tasks.id')
   end
 
   private
 
   def requere_administrator_existance
-    if where(admin: false).count.zero?
-      true
-    else
-      errors.add(:admin, 'を持つユーザは少なくとも1人登録する必要があります')
-      false
-    end
+    return unless admin && self.class.where(admin: true).count <= 1
+
+    errors.add(:admin, 'を持つユーザは少なくとも1人登録する必要があります')
+    throw :abort
   end
 end

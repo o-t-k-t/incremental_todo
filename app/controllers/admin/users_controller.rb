@@ -29,6 +29,18 @@ class Admin::UsersController < ApplicationController
     end
   end
 
+  def update
+    @user = User.find(params[:id])
+
+    if @user.update(user_params)
+      flash[:notice] = 'ユーザー情報を更新しました'
+      redirect_to admin_user_path
+    else
+      flash.now[:notice] = 'ユーザ情報を更新できませんでした'
+      render :edit
+    end
+  end
+
   def destroy
     user = User.find(params[:id])
     flash[:notice] = "ユーザーID: #{user.id}を削除しました。"

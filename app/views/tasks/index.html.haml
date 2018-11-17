@@ -1,4 +1,7 @@
 - content_for :navbar_items do
+  %li.nav-item
+    .nav-link= link_to t('new'), new_task_path, class: 'btn btn-light'
+
   %li.nav-item.dropdown
     .nav-link.dropdown-toggle#navbar-dropdown-link-menu{ 'aria-expanded' => 'false', 'aria-haspopup' => 'true', 'data-toggle' => 'dropdown', :href => '#' }
       .btn.btn-light 詳細
@@ -28,7 +31,7 @@
           .form-group
             = f.submit class: 'btn btn-primary'
 .container
-  %h1= t('tasks.index')
+  %h1.mt-5= t('tasks.index')
 
 .container
   .row

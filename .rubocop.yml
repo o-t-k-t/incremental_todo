@@ -18,6 +18,9 @@ Style/FrozenStringLiteralComment:
 Style/Documentation:
   Enabled: false
 
+ClassAndModuleChildren:
+  Enabled: false
+
 # Style/EmptyMethod:
 #   Enabled: false
 

@@ -7,6 +7,9 @@
     %tr
       %th{ scope: 'col' } メールアドレス
       %td= @user.email
+    %tr
+      %th{ scope: 'col' } ロール
+      %td= user_role_name @user.admin
 
   %h1.mt-5.title このユーザーのタスク
   .table-responsive-sm

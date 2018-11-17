@@ -79,8 +79,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-
-  describe `#authenticate` do
+  describe '#authenticate' do
     context 'when creation' do
       where(:password, :password_confirmation, :be_successful?) do
         'ca11back' | 'ca11back' | be_truthy

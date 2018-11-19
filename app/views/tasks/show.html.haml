@@ -5,6 +5,11 @@
       %th{ scope: 'col' }= t('activerecord.attributes.task.name')
       %td= @task.name
     %tr
+      %th{ scope: 'col' } ラベル
+      %td
+        - @labels.each do |label| # rubocop:disable Style/SymbolProc
+          = label.badge
+    %tr
       %th{ scope: 'col' }= t('activerecord.attributes.task.description')
       %td= @task.description
     %tr

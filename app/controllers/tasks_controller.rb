@@ -20,6 +20,9 @@ class TasksController < ApplicationController
 
     @states = @tasks.aasm.states
     @tasks = TaskDecorator.decorate_collection(@tasks)
+
+    @labels = Label.all
+    @labels = LabelDecorator.decorate_collection(@labels)
   end
 
   def show

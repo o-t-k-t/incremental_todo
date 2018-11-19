@@ -1,11 +1,11 @@
 .container
-  %h1.mt-5.title あなたのページ
+  %h1.mt-5.title= t('users.show')
   %table.table.table-borderless
     %tr
-      %th{ scope: 'col' } 名前
+      %th{ scope: 'col' }= t('activerecord.attributes.user.name')
       %td= @user.name
     %tr
-      %th{ scope: 'col' } メールアドレス
+      %th{ scope: 'col' }= t('activerecord.attributes.user.email')
       %td= @user.email
 
   = link_to t('back'), root_path

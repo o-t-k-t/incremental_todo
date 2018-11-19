@@ -18,7 +18,8 @@ ja:
         medium: 中優先
         high: 高優先
       user:
-        name: 名前
+        id: ユーザーID
+        name: 氏名
         email: Eメールアドレス
         password: パスワード
         password_confirmation: 確認パスワード

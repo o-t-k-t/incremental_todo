@@ -5,6 +5,17 @@ user = User.create!(
   password_confirmation: ENV['FISRT_ADMIN_PASSWORD'],
   admin: true
 )
+Label.create!(
+  name: '家事',
+  description: '🍳買い物や、掃除など登録しましょう',
+  color: :blue
+)
+
+Label.create!(
+  name: '調べもの',
+  description: 'わからないことがあったら忘れずに登録しましょう🌱',
+  color: :yellow
+)
 
 150.times do |_i|
   password = Faker::Internet.password

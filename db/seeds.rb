@@ -5,17 +5,13 @@ user = User.create!(
   password_confirmation: ENV['FISRT_ADMIN_PASSWORD'],
   admin: true
 )
-Label.create!(
-  name: '家事',
-  description: '🍳買い物や、掃除など登録しましょう',
-  color: :blue
-)
 
-Label.create!(
-  name: '調べもの',
-  description: 'わからないことがあったら忘れずに登録しましょう🌱',
-  color: :yellow
-)
+house_lable = Label.create!(name: '家事',
+                            description: '🍳買い物や、掃除など登録しましょう',
+                            color: :blue)
+investifatoin_label = Label.create!(name: '調べもの',
+                                    description: 'わからないことがあったら忘れずに登録しましょう🌱',
+                                    color: :yellow)
 
 150.times do |_i|
   password = Faker::Internet.password
@@ -28,12 +24,14 @@ Label.create!(
     admin: false
   )
 
-  rand(0..20).times do |j|
-    user.tasks.create!(
+  rand(0..20).times do |_i|
+    task = user.tasks.create!(
       name: Faker::Lorem.sentence(3, true, 3),
       description: Faker::Lorem.sentence(3, true, 20),
       priority: rand(1..3),
       deadline: Time.zone.now + 20 + j
     )
+    task.put_label(house_lable)
+    task.put_label(investifatoin_label)
   end
 end

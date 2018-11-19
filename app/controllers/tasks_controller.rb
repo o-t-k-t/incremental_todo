@@ -24,6 +24,7 @@ class TasksController < ApplicationController
 
   def show
     @task = current_user.tasks.find(params[:id]).decorate
+    @labels = LabelDecorator.decorate_collection(@task.labels)
   end
 
   def new

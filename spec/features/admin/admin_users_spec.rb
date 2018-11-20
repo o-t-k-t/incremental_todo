@@ -3,11 +3,17 @@ require 'rails_helper'
 RSpec.feature 'Administration', type: :feature do
   using RSpec::Parameterized::TableSyntax
 
-  let!(:user) { create(:user) }
+  let!(:user) { create(:user, :admin) }
   let!(:another_user) { create(:user, :another_user) }
   let!(:task) { create(:task, user: user) }
 
   before do
+    visit root_path
+
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
+    click_on 'Enter'
+
     visit admin_users_path
   end
 
@@ -19,33 +25,29 @@ RSpec.feature 'Administration', type: :feature do
   end
 
   feature 'User creation' do
-    before do
-      click_on 'ユーザ登録'
+    scenario 'creates a new user' do
+      click_on '新規ユーザー'
       fill_in '名前', with: '諸橋謙也'
       fill_in 'Eメールアドレス', with: 'morohasi@mail.com'
       fill_in 'パスワード',	with: 'double-check'
       fill_in '確認パスワード',	with: 'double-check'
-    end
 
-    scenario 'creates a new user' do
-      click_on 'submit-btn'
+      first(:css, '.btn-primary').click
       expect(page).to have_content '諸橋謙也'
     end
   end
 
   feature 'User update' do
-    before do
+    scenario 'update a user' do
       first(:link, '編集').click
+
       fill_in '名前', with: '吉岡健一'
       fill_in 'Eメールアドレス', with: 'yoshioka@mail.com'
       fill_in 'パスワード',	with: 'llllll'
       fill_in '確認パスワード',	with: 'llllll'
-    end
 
-    scenario 'update a user' do
-      first(:css, '.btn').click
+      first(:css, '.btn-block').click
       expect(page).to have_content '吉岡健一'
-      expect(page).to have_content 'yoshioka@mail.com'
     end
   end
 

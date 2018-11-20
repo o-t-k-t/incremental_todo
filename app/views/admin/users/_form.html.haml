@@ -16,6 +16,10 @@
       = f.label :email, class: 'label'
       = f.email_field :email, class: 'form-control', placeholder: 'name@example.com'
     .form-group
+      = f.check_box :admin, class: 'checkbox-inline'
+      管理者権限を付与する
+      -# = f.label :admin, class: 'label'
+    .form-group
       = f.label :password, class: 'label'
       = f.password_field :password, class: 'form-control', placeholder: 'must be longer than 6 charactors'
     .form-group

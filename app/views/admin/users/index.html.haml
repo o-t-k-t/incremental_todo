@@ -12,6 +12,7 @@
           %tr
             %th.text-center{ scope: 'col' }= 'ユーザID'
             %th.text-center{ scope: 'col' }= t('activerecord.attributes.user.name')
+            %th.text-center{ scope: 'col' }= 'ロール'
             %th.text-center{ scope: 'col' }= 'タスク件数'
             %th.text-center{ scope: 'col' }= ''
             %th.text-center{ scope: 'col' }= ''
@@ -23,6 +24,8 @@
                 .text-center= k[0]
               %td
                 .text-center= k[1]
+              %td
+                .text-center= user_role_name(k[2])
               %td
                 .text-center= v
               %td

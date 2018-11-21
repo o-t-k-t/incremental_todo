@@ -10,7 +10,7 @@
       %table.table
         %thead
           %tr
-            %th.text-center{ scope: 'col' }= 'ユーザID'
+            %th.text-center{ scope: 'col' }= t('activerecord.attributes.user.id')
             %th.text-center{ scope: 'col' }= t('activerecord.attributes.user.name')
             %th.text-center{ scope: 'col' }= 'ロール'
             %th.text-center{ scope: 'col' }= 'タスク件数'
@@ -30,8 +30,8 @@
                 .text-center= v
               %td
                 .text-center
-                  = link_to '詳細', admin_user_path(k[0])
-                  = link_to '編集', edit_admin_user_path(k[0])
-                  = link_to '削除', admin_user_path(k[0]), method: :delete, data: { confirm: '削除します' }, class: 'btn btn-primary'
+                  = link_to t('show'), admin_user_path(k[0])
+                  = link_to t('edit'), edit_admin_user_path(k[0])
+                  = link_to t('destroy'), admin_user_path(k[0]), method: :delete, data: { confirm: '削除します' }, class: 'btn btn-primary'
 .container.pagination.justify-content-center.mt-3
   = paginate @users

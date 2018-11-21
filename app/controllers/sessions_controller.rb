@@ -11,14 +11,14 @@ class SessionsController < ApplicationController
       log_in(user)
       redirect_to user_path(user.id)
     else
-      flash.now[:alert] = 'Eメールアドレスかパスワードが不正です'
+      flash.now[:alert] = I18n.t('sessions.login_fail')
       render :new
     end
   end
 
   def destroy
     log_out
-    flash.now[:alert] = 'ログアウトしました'
+    flash.now[:alert] = I18n.t('sessions.logout')
     redirect_to new_session_path
   end
 

@@ -34,4 +34,4 @@
                   = link_to '編集', edit_admin_user_path(k[0])
                   = link_to '削除', admin_user_path(k[0]), method: :delete, data: { confirm: '削除します' }, class: 'btn btn-primary'
 .container.pagination.justify-content-center.mt-3
-  -# = paginate @users
+  = paginate @users

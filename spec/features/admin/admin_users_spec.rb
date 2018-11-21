@@ -4,7 +4,6 @@ RSpec.feature 'Administration', type: :feature do
   using RSpec::Parameterized::TableSyntax
 
   let!(:user) { create(:user, :admin) }
-  let!(:another_user) { create(:user, :another_user) }
   let!(:task) { create(:task, user: user) }
 
   before do
@@ -19,8 +18,36 @@ RSpec.feature 'Administration', type: :feature do
 
   feature 'User list' do
     scenario 'lists users' do
+      another_user = create(:user, :another_user)
+
+      visit admin_users_path
+
       expect(page).to have_content user.name
       expect(page).to have_content another_user.name
+    end
+
+    where(:users_count, :first_max_page, :last_max_page) do
+      1   | 0 | nil
+      20  | 0 | nil
+      21  | 2 |   2
+      100 | 3 |   5
+    end
+
+    with_them do
+      scenario 'browses page by page' do
+        (users_count - 1).times do
+          create(:user, :unique)
+        end
+
+        visit admin_users_path
+
+        expect(all('li').map(&:text).map(&:to_i).max).to eq first_max_page
+
+        if first_max_page > 0
+          click_on '最後'
+          expect(all('li').map(&:text).map(&:to_i).max).to eq last_max_page
+        end
+      end
     end
   end
 

@@ -4,7 +4,12 @@ class TasksController < ApplicationController
   before_action :validate_status_event
 
   def index
+    # タスク検索パラメタ処理
     @q = current_user.tasks.ransack(search_params)
+
+    @tasks = @q.result
+
+    @tasks = @tasks.labeled(params[:label_id]) if params[:label_id]
 
     @tasks =
       case params[:order_by]
@@ -18,6 +23,7 @@ class TasksController < ApplicationController
 
     @tasks = @tasks.page(params[:page])
 
+    # View系前処理
     @states = @tasks.aasm.states
     @tasks = TaskDecorator.decorate_collection(@tasks)
 

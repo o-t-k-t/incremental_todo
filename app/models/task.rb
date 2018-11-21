@@ -18,6 +18,8 @@ class Task < ApplicationRecord
   scope :newness_order, -> { order('created_at desc') }
   scope :urgency_order, -> { order('deadline asc') }
 
+  scope :labeled, ->(label_id) { joins(:labels).where(labels: { id: label_id }) }
+
   def self.ransackable_scopes(_auth_object = nil)
     %i[recent_page deadline_asc_page]
   end

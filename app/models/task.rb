@@ -14,6 +14,10 @@ class Task < ApplicationRecord
 
   enum priority: { low: 1, medium: 2, high: 3 }
 
+  accepts_nested_attributes_for :labels,
+                                allow_destroy: false,
+                                update_only: false
+
   # 一覧表示のための検索処理
   scope :priority_height_page, ->(params) { order('priority desc').page(params[:page]) }
   scope :recent_page, ->(params) { order('created_at desc').page(params[:page]) }

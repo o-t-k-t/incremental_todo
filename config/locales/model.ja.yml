@@ -17,6 +17,16 @@ ja:
         low: 低優先
         medium: 中優先
         high: 高優先
+      label:
+        name: 名前
+        description: 内容
+        color: 色
+        no_color: 色指定なし
+        gray: 緑
+        red: 赤
+        yellow: 黄
+        green: 緑
+        blue: 青
       user:
         id: ユーザーID
         name: 氏名

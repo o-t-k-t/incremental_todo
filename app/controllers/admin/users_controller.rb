@@ -6,8 +6,8 @@ class Admin::UsersController < ApplicationController
   before_action :require_admin_authority
 
   def index
-    @users = User.with_task.id_order.page(params[:page]).per(20)
-    @usernames_and_task_counts = @users.count_by_id_and_name
+    @users = User.id_order.page(params[:page]).per(20)
+    @usernames_and_task_counts = @users.with_task.count_by_id_and_name
   end
 
   def show

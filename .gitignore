@@ -18,6 +18,7 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+.env
 
 # Ignore other unneeded files.
 .DS_Store

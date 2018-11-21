@@ -38,6 +38,11 @@ class TasksController < ApplicationController
 
   def new
     @task = current_user.tasks.build.decorate
+
+    @task.labels.build
+    LabelDecorator.decorate_collection(@task.labels)
+
+    @labels = LabelDecorator.decorate_collection(Label.all)
   end
 
   def edit
@@ -78,7 +83,14 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :description, :deadline, :priority, :user_id, :status_event)
+    params.require(:task).permit(
+      :name,
+      :description,
+      :deadline,
+      :priority,
+      :user_id,
+      labels_attributes: %i[id name descriptione color]
+    )
   end
 
   def search_params

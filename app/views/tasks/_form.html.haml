@@ -25,5 +25,26 @@
   = form.hidden_field :user_id
 
   .form-group.row
+    .col-sm-3 既存ラベルでの分類
+    .col-sm-9
+      .row
+        - @labels&.each do |label|
+          .col-sm-4
+            = label.check_box
+            = label.label_for_check_box
+  .row.form-group
+    .col-sm-3 新規ラベル
+  - task.labels.each do |label|
+    = form.fields_for :labels, label do |lf|
+      .form-group.row
+        .col-sm-3= lf.label :name, class: 'col-sm-3 col-form-label'
+        .col-sm-9= lf.text_field :name, class: 'form-control'
+      .form-group.row
+        .col-sm-3.col-form-label= lf.label :description, class: 'col-sm-3 col-form-label'
+        .col-sm-9= lf.text_field :description, class: 'form-control'
+      .form-group.row
+        .col-sm-3.col-form-label= lf.label :color, class: 'col-sm-3 col-form-label'
+        .col-sm-9= lf.select :color, LabelDecorator.color_options_for_select
+  .form-group.row
     .col-sm-12
       = form.submit t('create'), class: 'btn btn-primary btn-block'

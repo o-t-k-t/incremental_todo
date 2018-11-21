@@ -11,6 +11,7 @@ gem 'rails', '~> 5.2.1'
 # ミドルウェア
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.7'
+gem 'rack', '>= 2.0.6'
 
 # 画像アップロード
 gem 'carrierwave'

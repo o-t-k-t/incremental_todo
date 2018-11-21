@@ -23,13 +23,50 @@
 ```
 GitHub
 |
-| 1-Clone
+| Clone
 ↓
 local repos.                    　　　　　　         GitHub           Circle CI                 GitHub                             Heroku
 master branch - (your change) -> feature branch -> feature branch - (Test, Static Analyze) -> (Pull Request Review) -> master -> master -> Produnction Environment
                   ↑                                                                 |                          |
                   ---------------------------------------------------------------------------------------------
 ```
+
+## ローカル環境での起動方法
+このリポジトリをローカルの任意のディレクトリにクローン。
+
+```
+git clone git@github.com:o-t-k-t/incremental_todo.git
+```
+
+リポジトリの作業ディレクトリに移動し、Gemをインストール。
+
+```
+cd incremental_todo
+bundle install
+```
+
+クローンされたディレクトリ　直下に`.env`というファイルを作成し下記フォーマットで初期管理ユーザー情報の環境変数を設定。
+
+```
+FISRT_ADMIN_EMAIL="【任意の管理ユーザーEメールアドレス】"
+FISRT_ADMIN_PASSWORD="【任意の管理ユーザーログインパスワード】"
+```
+
+データベース作成・初期化
+
+```
+bundle exec rails db: create
+bundle exec rails db: migrate
+bundle exec rails db: seed
+```
+
+webサーバを起動
+
+```
+bundle exec rails s
+```
+
+localhost:3000から当アプリに接続できます。
 
 ## テーブルとスキーマ
 

@@ -45,6 +45,9 @@ gem 'kaminari'
 # 日付処理
 gem 'validates_timeliness'
 
+# 環境変数アクセス
+gem 'dotenv-rails'
+
 group :development, :test do
   # デバッグ
   gem 'better_errors'
@@ -85,9 +88,6 @@ group :development do
 
   # コード補完
   gem 'solargraph'
-
-  # 環境変数アクセス
-  gem 'dotenv-rails'
 end
 
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

@@ -19,6 +19,8 @@ class Task < ApplicationRecord
   scope :recent_page, ->(params) { order('created_at desc').page(params[:page]) }
   scope :deadline_asc_page, ->(params) { order('deadline asc').page(params[:page]) }
 
+  scope :labeled, ->(label_id) { joins(:labels).where(labels: { id: label_id }) }
+
   def self.ransackable_scopes(_auth_object = nil)
     %i[recent_page deadline_asc_page]
   end

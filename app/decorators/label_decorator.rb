@@ -11,7 +11,9 @@ class LabelDecorator < ApplicationDecorator
   }.freeze
 
   def badge
-    h.link_to(object.name, '/', class: 'badge badge-pill',
-                                style: BADGE_COLORS[object.color])
+    h.link_to(object.name,
+              h.tasks_path(label_id: object.id),
+              class: 'badge badge-pill',
+              style: BADGE_COLORS[object.color])
   end
 end

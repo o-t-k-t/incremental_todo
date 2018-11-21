@@ -4,21 +4,28 @@ class TasksController < ApplicationController
   before_action :require_logged_in
 
   def index
+    # タスク検索パラメタ処理
     @q = current_user.tasks.ransack(search_params)
+
+    @tasks = @q.result
+
+    @tasks = @tasks.labeled(params[:label_id]) if params[:label_id]
 
     @tasks =
       case params[:order_by]
       when 'create_at'
-        @q.result.recent_page(params)
+        @tasks.recent_page(params)
       when 'deadline'
-        @tasks = @q.result.deadline_asc_page(params)
+        @tasks.deadline_asc_page(params)
       when 'priority'
-        @tasks = @q.result.priority_height_page(params)
+        @tasks.priority_height_page(params)
       when nil
-        @q.result.recent_page(params)
+        @tasks.recent_page(params)
       else
         raise 'Illegal task order requeseted'
       end
+
+    # View系前処理
     @states = @tasks.aasm.states
     @tasks = TaskDecorator.decorate_collection(@tasks)
 

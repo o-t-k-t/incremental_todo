@@ -54,7 +54,7 @@ RSpec.feature 'Administration', type: :feature do
   feature 'User creation' do
     scenario 'creates a new user' do
       click_on '新規ユーザー'
-      fill_in '名前', with: '諸橋謙也'
+      fill_in '氏名', with: '諸橋謙也'
       fill_in 'Eメールアドレス', with: 'morohasi@mail.com'
       fill_in 'パスワード',	with: 'double-check'
       fill_in '確認パスワード',	with: 'double-check'
@@ -67,8 +67,7 @@ RSpec.feature 'Administration', type: :feature do
   feature 'User update' do
     scenario 'update a user' do
       first(:link, '編集').click
-
-      fill_in '名前', with: '吉岡健一'
+      fill_in '氏名', with: '吉岡健一'
       fill_in 'Eメールアドレス', with: 'yoshioka@mail.com'
       fill_in 'パスワード',	with: 'llllll'
       fill_in '確認パスワード',	with: 'llllll'

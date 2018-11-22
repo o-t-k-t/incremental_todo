@@ -8,6 +8,9 @@ end
 ruby '2.5.3'
 gem 'rails', '~> 5.2.1'
 
+# 環境変数アクセス
+gem 'dotenv-rails'
+
 # ミドルウェア
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.7'
@@ -44,9 +47,6 @@ gem 'kaminari'
 
 # 日付処理
 gem 'validates_timeliness'
-
-# 環境変数アクセス
-gem 'dotenv-rails'
 
 group :development, :test do
   # デバッグ

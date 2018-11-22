@@ -6,16 +6,29 @@ class Task < ApplicationRecord
   validates :name, presence: true, length: { maximum: 255 }
   validates :description, length: { maximum: 2000 }
 
-  validates_datetime :deadline, after: -> { DateTime.current }, allow_blank: true
+  validates_datetime :deadline, after: -> { Time.zone.now }, allow_blank: true
 
   enum priority: { low: 1, medium: 2, high: 3 }
 
-  scope :priority_height_page, ->(params) { order('priority desc').page(params[:page]) }
-  scope :recent_page, ->(params) { order('created_at desc').page(params[:page]) }
-  scope :deadline_asc_page, ->(params) { order('deadline asc').page(params[:page]) }
+  scope :priority_order, -> { order('priority desc') }
+  scope :newness_order, -> { order('created_at desc') }
+  scope :urgency_order, -> { order('deadline asc') }
 
   def self.ransackable_scopes(_auth_object = nil)
     %i[recent_page deadline_asc_page]
+  end
+
+  def update_and_fire_event(task_params, event)
+    if event
+      raise 'Unexpected status event' if acceptable_event_names.exclude?(event.to_sym)
+
+      send(event)
+    end
+    update(task_params)
+  end
+
+  def acceptable_event_names
+    aasm.events(permitted: true).map(&:name)
   end
 
   aasm column: 'status' do

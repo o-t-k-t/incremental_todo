@@ -9,7 +9,7 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { in: 6..20 }
   validates :password_digest, presence: true
 
-  before_destroy :requere_administrator_existance
+  before_destroy :require_administrator_existance
 
   scope :id_order, -> { order(:id) }
   scope :with_task, -> { left_joins(:tasks) }
@@ -18,10 +18,15 @@ class User < ApplicationRecord
     group('users.id', 'users.name', 'users.admin').count('tasks.id')
   end
 
+  def self.authenticate_by(email, password)
+    find_by(email: email.downcase)&.authenticate(password)
+  end
+
   private
 
-  def requere_administrator_existance
-    return unless admin && self.class.where(admin: true).count <= 1
+  def require_administrator_existance
+    return unless admin
+    return unless self.class.where(admin: true).count <= 1
 
     errors.add(:admin, 'を持つユーザは少なくとも1人登録する必要があります')
     throw :abort

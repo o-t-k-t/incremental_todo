@@ -22,7 +22,7 @@ user = User.create!(
       name: Faker::Lorem.sentence(3, true, 3),
       description: Faker::Lorem.sentence(3, true, 20),
       priority: rand(1..3),
-      deadline: DateTime.current + 20 + j
+      deadline: Time.zone.now + 20 + j
     )
   end
 end

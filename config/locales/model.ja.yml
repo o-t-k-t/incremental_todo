@@ -6,8 +6,8 @@ ja:
     attributes:
       task:
         created_at: 登録日時
-        name: 名前
-        description: 内容
+        name: タスク名
+        description: 実施内容
         deadline: 期限
         status: 状態
         status/not_started: 未着手
@@ -18,8 +18,8 @@ ja:
         medium: 中優先
         high: 高優先
       label:
-        name: 名前
-        description: 内容
+        name: ラベル名
+        description: 分類内容
         color: 色
         no_color: 色指定なし
         gray: 緑

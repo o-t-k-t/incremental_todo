@@ -42,8 +42,8 @@ class TaskDecorator < ApplicationDecorator
   private
 
   def events_and_names
-    object.aasm.events(permitted: true).map do |e|
-      [I18n.t("activerecord.events.task/#{e.name}"), e.name]
+    object.acceptable_event_names.map do |name|
+      [I18n.t("activerecord.events.task/#{name}"), name]
     end
   end
 end

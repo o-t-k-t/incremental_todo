@@ -88,6 +88,8 @@ RSpec.feature 'Task managemant', type: :feature do
     select '中', from: '優先度'
     click_on '登録'
 
+    save_and_open_page
+
     expect(page).to have_selector '.notice', text: 'タスクが更新されました👍'
     expect(all('.card-title')[0]).to have_content '続けるタスク'
     expect(all('.card-subtitle')[0]).to have_content '着手中'

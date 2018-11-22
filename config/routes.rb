@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   resources :users, only: %i[new create destroy]
 
   namespace :admin do
+    root to: 'users#index'
     resources :users
   end
 end

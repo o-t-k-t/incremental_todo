@@ -1,10 +1,4 @@
-class Admin::UsersController < ApplicationController
-  include SessionControl
-  include RoleRights
-
-  before_action :require_logged_in
-  before_action :require_admin_authority
-
+class Admin::UsersController < Admin::ApplicationController
   def index
     @users = User.id_order.page(params[:page]).per(20)
     @usernames_and_task_counts = @users.with_task.count_by_id_and_name

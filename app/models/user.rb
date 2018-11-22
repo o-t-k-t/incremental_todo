@@ -18,6 +18,10 @@ class User < ApplicationRecord
     group('users.id', 'users.name', 'users.admin').count('tasks.id')
   end
 
+  def self.authenticate_by(email, password)
+    find_by(email: email.downcase)&.authenticate(password)
+  end
+
   private
 
   def requere_administrator_existance

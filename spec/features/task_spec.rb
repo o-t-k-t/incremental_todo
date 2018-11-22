@@ -101,8 +101,8 @@ RSpec.feature 'タスク管理機能', type: :feature do
     scenario 'タスクを進捗状態の入力により作業完了まで登録' do
       click_link '新規作成'
 
-      fill_in '名前',	with: '続けるタスク'
-      fill_in '内容',	with: '何かする'
+      fill_in 'タスク名',	with: '続けるタスク'
+      fill_in '実施内容',	with: '何かする'
       select '高', from: '優先度'
       click_on '登録'
 
@@ -159,8 +159,8 @@ RSpec.feature 'タスク管理機能', type: :feature do
     scenario '無期限タスクを登録できる' do
       click_link '新規作成'
 
-      fill_in '名前',	with: '無期限タスク'
-      fill_in '内容',	with: 'いつか何かする'
+      fill_in 'タスク名',	with: '無期限タスク'
+      fill_in '実施内容',	with: 'いつか何かする'
 
       click_on '登録'
 
@@ -182,7 +182,7 @@ RSpec.feature 'タスク管理機能', type: :feature do
     scenario 'タスク登録を編集する' do
       all('.card')[0].click_link '編集'
 
-      fill_in '名前',	with: '更新タスク'
+      fill_in 'タスク名',	with: '更新タスク'
       fill_in '内容',	with: '更新した内容で何かする'
       click_on '登録'
 
@@ -194,13 +194,13 @@ RSpec.feature 'タスク管理機能', type: :feature do
     scenario '名前が未入力のタスク登録が失敗する' do
       all('.card')[0].click_link '編集'
 
-      fill_in '名前',	with: ''
+      fill_in 'タスク名',	with: ''
       fill_in '内容',	with: ''
       click_on '登録'
 
       expect(page).to have_selector '.notice', text: '申し訳ありません、タスクは更新できませんでした😫'
       expect(page).to have_content '1件のエラーがあります。'
-      expect(page).to have_content '名前を入力してください'
+      expect(page).to have_content 'タスク名を入力してください'
     end
   end
 
@@ -216,7 +216,7 @@ RSpec.feature 'タスク管理機能', type: :feature do
     end
 
     scenario '名前で検索' do
-      fill_in '名前',	with: 'パンを買う'
+      fill_in 'タスク名',	with: 'パンを買う'
       click_on '検索'
 
       expect(page).to have_content 'パンを買う'

@@ -18,7 +18,7 @@ investifatoin_label = Label.create!(name: '調べもの',
     name: Faker::Lorem.sentence(3, true, 3),
     description: Faker::Lorem.sentence(3, true, 20),
     priority: rand(1..3),
-    deadline: DateTime.current + 20
+    deadline: Time.zone.now + 20.days
   )
   task.put_label(house_lable) if i.odd?
   task.put_label(investifatoin_label) if i.even?
@@ -35,12 +35,12 @@ end
     admin: false
   )
 
-  rand(0..20).times do |_i|
+  rand(0..20).times do |j|
     task = user.tasks.create!(
       name: Faker::Lorem.sentence(3, true, 3),
       description: Faker::Lorem.sentence(3, true, 20),
       priority: rand(1..3),
-      deadline: Time.zone.now + 20 + j
+      deadline: Time.zone.now + (20 + j).days
     )
     task.put_label(house_lable)
     task.put_label(investifatoin_label)

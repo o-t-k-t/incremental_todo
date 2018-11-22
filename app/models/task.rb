@@ -22,7 +22,8 @@ class Task < ApplicationRecord
 
   accepts_nested_attributes_for :labels,
                                 allow_destroy: false,
-                                update_only: false
+                                update_only: false,
+                                reject_if: proc { |a| a[:name].blank? }
 
   def self.ransackable_scopes(_auth_object = nil)
     %i[recent_page deadline_asc_page]

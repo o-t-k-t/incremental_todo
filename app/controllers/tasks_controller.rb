@@ -6,22 +6,19 @@ class TasksController < ApplicationController
   def index
     # タスク検索パラメタ処理
     @q = current_user.tasks.ransack(search_params)
-
     @tasks = @q.result
 
     @tasks = @tasks.labeled(params[:label_id]) if params[:label_id]
 
     @tasks =
       case params[:order_by]
-      when 'create_at' then @q.result.newness_order
-      when 'deadline' then @q.result.urgency_order
-      when 'priority' then @q.result.priority_order
-      when nil then @q.result.newness_order
+      when 'create_at' then @tasks.newness_order
+      when 'deadline' then @tasks.urgency_order
+      when 'priority' then @tasks.priority_order
+      when nil then @tasks.newness_order
       else
         raise 'Illegal task order requeseted'
-      end
-
-    @tasks = @tasks.page(params[:page])
+      end.page(params[:page])
 
     # View系前処理
     @states = @tasks.aasm.states

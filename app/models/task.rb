@@ -6,7 +6,7 @@ class Task < ApplicationRecord
   validates :name, presence: true, length: { maximum: 255 }
   validates :description, length: { maximum: 2000 }
 
-  validates_datetime :deadline, after: -> { DateTime.current }, allow_blank: true
+  validates_datetime :deadline, after: -> { Time.zone.now }, allow_blank: true
 
   enum priority: { low: 1, medium: 2, high: 3 }
 

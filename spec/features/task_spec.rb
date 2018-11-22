@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.feature 'Task managemant', type: :feature do
   around do |ex|
     user = create(:user)
-    travel_to(DateTime.new(2018, 11, 4, 13, 14, 15)) { create(:task, :homework_by_12, user: user) }
-    travel_to(DateTime.new(2018, 11, 5, 13, 14, 15)) { create(:task, :shopping_by_13, user: user) }
-    travel_to(DateTime.new(2018, 11, 6, 13, 14, 15)) { create(:task, :cleanup, user: user) }
+    travel_to(Time.zone.local(2018, 11, 4, 13, 14, 15)) { create(:task, :homework_by_12, user: user) }
+    travel_to(Time.zone.local(2018, 11, 5, 13, 14, 15)) { create(:task, :shopping_by_13, user: user) }
+    travel_to(Time.zone.local(2018, 11, 6, 13, 14, 15)) { create(:task, :cleanup, user: user) }
 
-    travel_to(DateTime.new(2018, 11, 12, 13, 15, 30)) do
+    travel_to(Time.zone.local(2018, 11, 12, 13, 15, 30)) do
       visit root_path
 
       fill_in 'Email', with: 'hiramatsu.takashi1972@example.com'

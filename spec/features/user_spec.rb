@@ -6,7 +6,7 @@ RSpec.feature 'User session managemant', type: :feature do
   around do |ex|
     create(:user)
 
-    travel_to(DateTime.new(2018, 11, 12, 13, 15, 30)) do
+    travel_to(Time.zone.local(2018, 11, 12, 13, 15, 30)) do
       visit root_path
       ex.run
     end

@@ -10,9 +10,9 @@ class Task < ApplicationRecord
 
   enum priority: { low: 1, medium: 2, high: 3 }
 
-  scope :priority_height_page, ->(params) { order('priority desc').page(params[:page]) }
-  scope :recent_page, ->(params) { order('created_at desc').page(params[:page]) }
-  scope :deadline_asc_page, ->(params) { order('deadline asc').page(params[:page]) }
+  scope :priority_order, -> { order('priority desc') }
+  scope :newness_order, -> { order('created_at desc') }
+  scope :urgency_order, -> { order('deadline asc') }
 
   def self.ransackable_scopes(_auth_object = nil)
     %i[recent_page deadline_asc_page]

@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   include SessionControl
 
-  before_action :require_logged_in, except: %i[new create]
+  skip_before_action :require_logged_in, only: %i[new create]
 
   def new; end
 

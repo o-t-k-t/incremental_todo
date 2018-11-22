@@ -45,8 +45,7 @@ RSpec.feature 'User session managemant', type: :feature do
 
     expect(all('h1')[0]).to have_content 'あなたのページ'
 
-    # TODO: エラーページ作成後にHTML要素での期待値でチェック
-    visit user_path(another_user.id)
+    visit tasks_path
     expect(all('h1')[0]).to have_content 'タスク一覧'
   end
 
@@ -56,7 +55,7 @@ RSpec.feature 'User session managemant', type: :feature do
     new_task_path(1)  | 'ログイン'
     edit_task_path(1) | 'ログイン'
     task_path(1)      | 'ログイン'
-    user_path(1)      | 'ログイン'
+    user_path         | 'ログイン'
   end
 
   with_them do

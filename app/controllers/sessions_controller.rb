@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
                                 params[:session][:password])
     if user
       log_in(user)
-      redirect_to user_path(user.id)
+      redirect_to user_path
     else
       flash.now[:alert] = I18n.t('sessions.login_fail')
       render :new

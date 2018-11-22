@@ -1,6 +1,8 @@
 class TasksController < ApplicationController
   include SessionControl
 
+  before_action :validate_status_event
+
   def index
     @q = current_user.tasks.ransack(search_params)
 
@@ -35,7 +37,6 @@ class TasksController < ApplicationController
 
   def create
     @task = current_user.tasks.build(task_params)
-    fire_task_event
 
     if @task.save
       flash[:notice] = I18n.t('tasks.create_success')
@@ -49,9 +50,7 @@ class TasksController < ApplicationController
 
   def update
     @task = current_user.tasks.find(params[:id])
-    fire_task_event
-
-    if @task.update(task_params)
+    if @task.update_and_fire_event(task_params, params[:status_event])
       flash[:notice] = I18n.t('tasks.update_success')
       redirect_to tasks_path
     else
@@ -70,7 +69,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :description, :deadline, :priority, :user_id)
+    params.require(:task).permit(:name, :description, :deadline, :priority, :user_id, :status_event)
   end
 
   def search_params
@@ -79,19 +78,10 @@ class TasksController < ApplicationController
     params.require(:q).permit(:name_cont, status_eq_any: [])
   end
 
-  def fire_task_event
-    # ホワイトリストイベント処理
-    case params[:status_event]
-    when 'start'
-      @task.start
-    when 'complete'
-      @task.complete
-    when 'pend'
-      @task.pend
-    when nil
-      nil
-    else
-      raise 'Illegal event received'
-    end
+  def validate_status_event
+    return if params[:status_event].nil?
+    return if %w[start complete pend].include?(params[:status_event])
+
+    raise 'Illegal event received'
   end
 end

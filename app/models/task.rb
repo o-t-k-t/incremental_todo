@@ -18,6 +18,19 @@ class Task < ApplicationRecord
     %i[recent_page deadline_asc_page]
   end
 
+  def update_and_fire_event(task_params, event)
+    if event
+      raise 'Unexpected status event' if acceptable_event_names.exclude?(event.to_sym)
+
+      send(event)
+    end
+    update(task_params)
+  end
+
+  def acceptable_event_names
+    aasm.events(permitted: true).map(&:name)
+  end
+
   aasm column: 'status' do
     state :not_started, initial: true
     state :started

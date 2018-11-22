@@ -19,6 +19,7 @@ RSpec.feature 'User session managemant', type: :feature do
     fill_in 'Password', with: 'ca11back'
     click_on 'Enter'
 
+    expect(page).to have_content '平松隆さんとしてログインしました😃'
     expect(page).to have_content 'あなたのページ'
     expect(page).to have_content '平松隆'
     expect(page).to have_content 'hiramatsu.takashi1972@example.com'

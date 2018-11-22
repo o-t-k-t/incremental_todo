@@ -7,5 +7,4 @@ class Label < ApplicationRecord
   validates :name, presence: true, length: { maximum: 30 }
   validates :description, length: { maximum: 2000 }
   validates :color, inclusion: { in: colors.keys }
-
 end

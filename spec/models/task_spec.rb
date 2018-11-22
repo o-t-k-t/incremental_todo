@@ -8,12 +8,12 @@ RSpec.describe Task, type: :model do
 
     context 'when typical parameter received' do
       it 'passes' do
-        travel_to(DateTime.new(2018, 11, 12, 13, 14, 15)) do
+        travel_to(Time.zone.local(2018, 11, 12, 13, 14, 15)) do
           expect(
             Task.new(
               name: '靴を買う',
               description: '靴屋に靴を買いに行く',
-              deadline: DateTime.new(2018, 11, 15, 10, 15, 30),
+              deadline: Time.zone.local(2018, 11, 15, 10, 15, 30),
               user: task_user
             )
           ).to be_valid
@@ -49,15 +49,15 @@ RSpec.describe Task, type: :model do
 
     context 'deadline' do
       where(:deadline, :be_valid?) do
-        DateTime.new(1993,  2, 24, 12, 30, 45) | be_invalid
-        DateTime.new(2018, 11, 12, 13, 14, 15) | be_invalid
-        DateTime.new(2018, 11, 12, 13, 14, 16) | be_valid
-        DateTime.new(2032,  5,  6, 12, 34, 56) | be_valid
+        Time.zone.local(1993,  2, 24, 12, 30, 45) | be_invalid
+        Time.zone.local(2018, 11, 12, 13, 14, 15) | be_invalid
+        Time.zone.local(2018, 11, 12, 13, 14, 16) | be_valid
+        Time.zone.local(2032,  5,  6, 12, 34, 56) | be_valid
       end
 
       with_them do
         it do
-          travel_to(DateTime.new(2018, 11, 12, 13, 14, 15)) do
+          travel_to(Time.zone.local(2018, 11, 12, 13, 14, 15)) do
             expect(Task.new(name: '靴を買う', deadline: deadline, user: task_user)).to be_valid?
           end
         end

@@ -17,7 +17,7 @@
           = yield :navbar_items
           - if logged_in?
             %li.nav-item
-              .nav-link= link_to current_user.name, user_path(current_user.id), class: 'btn btn-outline-primary'
+              .nav-link= link_to current_user.name, user_path, class: 'btn btn-outline-primary'
             %li.nav-item
               .nav-link= link_to t('logout'), session_path(current_user.id), method: :delete, class: 'btn btn-outline-secondary'
           - else

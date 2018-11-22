@@ -4,9 +4,7 @@ class UsersController < ApplicationController
   skip_before_action :require_logged_in, only: %i[new create]
 
   def show
-    redirect_to root_path and return unless current_user?(params[:id])
-
-    @user = User.find(params[:id])
+    @user = current_user
   end
 
   def new
@@ -19,14 +17,14 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       log_in(@user)
-      redirect_to user_path(@user.id)
+      redirect_to user_path
     else
       render :new
     end
   end
 
   def destroy
-    User.find(params[:id]).destroy
+    current_user.destroy
     redirect_to user_new_path
   end
 

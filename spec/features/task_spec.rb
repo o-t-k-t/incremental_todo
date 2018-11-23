@@ -6,8 +6,8 @@ RSpec.feature 'タスク管理機能', type: :feature do
   before do
     visit root_path
 
-    fill_in 'Email', with: 'hiramatsu.takashi1972@example.com'
-    fill_in 'Password', with: 'ca11back'
+    fill_in 'Email', with: user.email
+    fill_in 'Password', with: user.password
     click_on 'Enter'
   end
 

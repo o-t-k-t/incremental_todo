@@ -17,8 +17,6 @@ RSpec.feature 'User session managemant', type: :feature do
     end
   end
 
-  let(:another_user) { create(:user, :another_user) }
-
   scenario 'ログイン・ログアウト' do
     fill_in 'Email', with: 'hiramatsu.takashi1972@example.com'
     fill_in 'Password', with: 'ca11back'

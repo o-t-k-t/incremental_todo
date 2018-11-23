@@ -73,7 +73,7 @@ RSpec.describe User, type: :model do
 
     with_them do
       it do
-        number_of_administrators.times { create(:user, :unique, :admin) }
+        number_of_administrators.times { create(:user, admin: true) }
         expect(User.first.destroy).to be_successed?
       end
     end

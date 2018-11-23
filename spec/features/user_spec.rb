@@ -4,7 +4,12 @@ RSpec.feature 'User session managemant', type: :feature do
   using RSpec::Parameterized::TableSyntax
 
   around do |ex|
-    create(:user)
+    create(:user,
+           name: '平松隆',
+           email: 'hiramatsu.takashi1972@example.com',
+           admin: false,
+           password: 'ca11back',
+           password_confirmation: 'ca11back')
 
     travel_to(Time.zone.local(2018, 11, 12, 13, 15, 30)) do
       visit root_path
@@ -12,9 +17,7 @@ RSpec.feature 'User session managemant', type: :feature do
     end
   end
 
-  let(:another_user) { create(:user, :another_user) }
-
-  scenario 'Typcal login/logout' do
+  scenario 'ログイン・ログアウト' do
     fill_in 'Email', with: 'hiramatsu.takashi1972@example.com'
     fill_in 'Password', with: 'ca11back'
     click_on 'Enter'
@@ -29,24 +32,13 @@ RSpec.feature 'User session managemant', type: :feature do
     expect(all('h1')[0]).to have_content 'ログイン'
   end
 
-  scenario 'Login including invalid password is denied' do
+  scenario '誤ったパスワード入力時、ログインに失敗する' do
     fill_in 'Email', with: 'hiramatsu.takashi1972@example.com'
     fill_in 'Password', with: 'proce55ing'
     click_on 'Enter'
 
     expect(all('h1')[0]).to have_content 'ログイン'
     expect(page).to have_content 'Eメールアドレスかパスワードが不正です'
-  end
-
-  scenario 'visiting another user information is rejected' do
-    fill_in 'Email', with: 'hiramatsu.takashi1972@example.com'
-    fill_in 'Password', with: 'ca11back'
-    click_on 'Enter'
-
-    expect(all('h1')[0]).to have_content 'あなたのページ'
-
-    visit tasks_path
-    expect(all('h1')[0]).to have_content 'タスク一覧'
   end
 
   where(:path, :page_title) do

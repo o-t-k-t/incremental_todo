@@ -1,29 +1,36 @@
 require 'rails_helper'
 
-RSpec.feature 'Administration', type: :feature do
+RSpec.feature '管理画面', type: :feature do
   using RSpec::Parameterized::TableSyntax
 
-  let!(:user) { create(:user, :admin) }
+  let!(:user) do
+    create(:user,
+           name: '平松隆',
+           email: 'hiramatsu.takashi1971@example.com',
+           admin: true,
+           password: 'ja5mintea',
+           password_confirmation: 'ja5mintea')
+  end
   let!(:task) { create(:task, user: user) }
 
   before do
     visit root_path
 
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: user.password
+    fill_in 'Email', with: 'hiramatsu.takashi1971@example.com'
+    fill_in 'Password', with: 'ja5mintea'
     click_on 'Enter'
 
     visit admin_users_path
   end
 
-  feature 'User list' do
-    scenario 'lists users' do
-      another_user = create(:user, :another_user)
+  feature 'ユーザ一覧' do
+    scenario '追加ユーザーを表示する' do
+      create(:user, name: '飯田洋平', admin: false)
 
       visit admin_users_path
 
-      expect(page).to have_content user.name
-      expect(page).to have_content another_user.name
+      expect(page).to have_content '飯田洋平'
+      expect(page).to have_content '一般ユーザー'
     end
 
     where(:users_count, :first_max_page, :last_max_page) do
@@ -34,9 +41,9 @@ RSpec.feature 'Administration', type: :feature do
     end
 
     with_them do
-      scenario 'browses page by page' do
+      scenario '1ページずつ閲覧する' do
         (users_count - 1).times do
-          create(:user, :unique)
+          create(:user)
         end
 
         visit admin_users_path
@@ -51,8 +58,8 @@ RSpec.feature 'Administration', type: :feature do
     end
   end
 
-  feature 'User creation' do
-    scenario 'creates a new user' do
+  feature 'ユーザー登録' do
+    scenario '新規ユーザーを登録する' do
       click_on '新規ユーザー'
       fill_in '氏名', with: '諸橋謙也'
       fill_in 'Eメールアドレス', with: 'morohasi@mail.com'
@@ -64,8 +71,8 @@ RSpec.feature 'Administration', type: :feature do
     end
   end
 
-  feature 'User update' do
-    scenario 'update a user' do
+  feature 'ユーザー情報更新' do
+    scenario 'ユーザー情報を更新する' do
       first(:link, '編集').click
       fill_in '氏名', with: '吉岡健一'
       fill_in 'Eメールアドレス', with: 'yoshioka@mail.com'
@@ -77,8 +84,8 @@ RSpec.feature 'Administration', type: :feature do
     end
   end
 
-  feature 'User detail information' do
-    scenario 'shows user detail information' do
+  feature 'ユーザー詳細情報' do
+    scenario 'ユーザー詳細情報を閲覧する' do
       first(:link, '詳細').click
 
       expect(page).to have_content user.name

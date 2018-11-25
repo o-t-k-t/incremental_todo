@@ -13,7 +13,7 @@ RSpec.feature '管理画面', type: :feature do
   end
   let!(:task) { create(:task, user: user) }
 
-  before do
+  background do
     visit root_path
 
     fill_in 'Email', with: 'hiramatsu.takashi1971@example.com'

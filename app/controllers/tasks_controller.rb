@@ -44,6 +44,7 @@ class TasksController < ApplicationController
 
   def edit
     @task = current_user.tasks.find(params[:id]).decorate
+    @labels = LabelDecorator.decorate_collection(Label.all)
   end
 
   def create
@@ -54,6 +55,8 @@ class TasksController < ApplicationController
       redirect_to tasks_path
     else
       @task = @task.decorate
+      @labels = LabelDecorator.decorate_collection(Label.all)
+
       flash.now[:notice] = I18n.t('tasks.create_fail')
       render :new
     end
@@ -66,6 +69,8 @@ class TasksController < ApplicationController
       redirect_to tasks_path
     else
       @task = @task.decorate
+      @labels = LabelDecorator.decorate_collection(Label.all)
+
       flash.now[:notice] = I18n.t('tasks.update_fail')
       render :edit
     end
@@ -86,6 +91,7 @@ class TasksController < ApplicationController
       :deadline,
       :priority,
       :user_id,
+      label_ids: [],
       labels_attributes: %i[id name descriptione color]
     )
   end

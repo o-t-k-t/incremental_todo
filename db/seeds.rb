@@ -20,8 +20,8 @@ investifatoin_label = Label.create!(name: '調べもの',
     priority: rand(1..3),
     deadline: Time.zone.now + 20.days
   )
-  task.put_label(house_lable) if i.odd?
-  task.put_label(investifatoin_label) if i.even?
+  task.put_label(house_lable.id) if i.odd?
+  task.put_label(investifatoin_label.id) if i.even?
 end
 
 150.times do |_i|
@@ -42,7 +42,7 @@ end
       priority: rand(1..3),
       deadline: Time.zone.now + (20 + j).days
     )
-    task.put_label(house_lable)
-    task.put_label(investifatoin_label)
+    task.put_label(house_lable.id)
+    task.put_label(investifatoin_label.id)
   end
 end

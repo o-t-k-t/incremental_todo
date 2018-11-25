@@ -206,6 +206,56 @@ RSpec.feature 'タスク管理機能', type: :feature do
     end
   end
 
+  feature 'タスク編集でのラベル操作' do
+    let!(:investigation_label) { create(:label, name: '調査') }
+
+    scenario 'タスクの貼り付けラベルを追加する' do
+      create(:task, name: 'Illustratorの使い方', user: user)
+
+      visit root_path
+
+      all('.card')[0].click_link '編集'
+
+      fill_in 'タスク名',	with: '更新タスク'
+      fill_in '内容',	with: '更新した内容で何かする'
+
+      check '調査'
+
+      click_on '登録'
+
+      expect(all('.card-title')[0]).to have_content '更新タスク'
+      expect(all('.card-text')[0]).to have_content '更新した内容で何かする'
+      expect(all('.card-subtitle')[0]).to have_content '期限なし'
+
+      all('.card')[0].click_link '詳細'
+
+      expect(page).to have_content '調査'
+    end
+
+    scenario 'タスクのラベルを外す' do
+      create(:task, name: 'Illustratorの使い方', labels: [investigation_label], user: user)
+
+      visit root_path
+
+      all('.card')[0].click_link '編集'
+
+      fill_in 'タスク名',	with: '更新タスク'
+      fill_in '内容',	with: '更新した内容で何かする'
+
+      uncheck '調査'
+
+      click_on '登録'
+
+      expect(all('.card-title')[0]).to have_content '更新タスク'
+      expect(all('.card-text')[0]).to have_content '更新した内容で何かする'
+      expect(all('.card-subtitle')[0]).to have_content '期限なし'
+
+      all('.card')[0].click_link '詳細'
+
+      expect(page).not_to have_content '調査'
+    end
+  end
+
   feature 'タスク検索' do
     background do
       base_time = Time.zone.local(2018, 11, 4, 13, 14, 15)

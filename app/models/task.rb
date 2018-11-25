@@ -29,7 +29,12 @@ class Task < ApplicationRecord
     %i[recent_page deadline_asc_page]
   end
 
-  # 進捗状態の遷移条件・処理の定義
+  def save_and_put_labels(task_params, label_ids)
+    return false unless save(task_params)
+
+    label_ids.each { |lid| put_label(lid) }
+  end
+
   def update_and_fire_event(task_params, event)
     if event
       raise 'Unexpected status event' if acceptable_event_names.exclude?(event.to_sym)
@@ -64,11 +69,11 @@ class Task < ApplicationRecord
   end
 
   # ラベリング処理
-  def put_label(label)
-    task_labels.create!(label_id: label.id)
+  def put_label(label_id)
+    task_labels.create!(label_id: label_id)
   end
 
-  def peel_label(label)
-    task_labels.where(label_id: label.id).first.destroy
+  def peel_label(label_id)
+    task_labels.where(label_id: label_id).first.destroy
   end
 end

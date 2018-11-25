@@ -17,14 +17,6 @@ class LabelDecorator < ApplicationDecorator
               style: BADGE_COLORS[object.color])
   end
 
-  def label_for_check_box
-    h.label(:label, object.name, class: 'checkbox-inline')
-  end
-
-  def check_box
-    h.check_box(object.id, object.name)
-  end
-
   def self.color_options_for_select
     colors =
       Label.colors.keys.map do |c|

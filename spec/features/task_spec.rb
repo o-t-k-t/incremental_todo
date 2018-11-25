@@ -1,9 +1,11 @@
 require 'rails_helper'
 
 RSpec.feature 'タスク管理機能', type: :feature do
+  using RSpec::Parameterized::TableSyntax
+
   let!(:user) { create(:user) }
 
-  before do
+  background do
     visit root_path
 
     fill_in 'Email', with: user.email
@@ -12,7 +14,7 @@ RSpec.feature 'タスク管理機能', type: :feature do
   end
 
   feature 'ルートページ' do
-    before do
+    background do
       base_time = Time.zone.local(2018, 11, 4, 13, 14, 15)
 
       travel_to(base_time) { create(:task, name: '論文', description: '論文を書く', user: user) }
@@ -33,7 +35,7 @@ RSpec.feature 'タスク管理機能', type: :feature do
   end
 
   feature '期限順並び替えボタン' do
-    before do
+    background do
       base_time = Time.zone.local(2018, 11, 12, 13, 14, 15)
 
       travel_to(base_time) do
@@ -58,7 +60,7 @@ RSpec.feature 'タスク管理機能', type: :feature do
   end
 
   feature '優先順位並び替えボタン' do
-    before do
+    background do
       create(:task, name: '論文', priority: 1, user: user)
       create(:task, name: '買い物',  priority: 2, user: user)
       create(:task, name: '掃除',  priority: 3, user: user)
@@ -77,7 +79,7 @@ RSpec.feature 'タスク管理機能', type: :feature do
   end
 
   feature 'タスク詳細' do
-    before do
+    background do
       create(:task, name: '論文', description: '論文を書く', priority: 2, user: user)
 
       visit root_path
@@ -94,7 +96,7 @@ RSpec.feature 'タスク管理機能', type: :feature do
   end
 
   feature 'タスク新規作成' do
-    before do
+    background do
       visit root_path
     end
 
@@ -173,7 +175,7 @@ RSpec.feature 'タスク管理機能', type: :feature do
   end
 
   feature 'タスク編集' do
-    before do
+    background do
       create(:task, name: '論文', description: '論文を書く', priority: 2, user: user)
 
       visit root_path
@@ -205,7 +207,7 @@ RSpec.feature 'タスク管理機能', type: :feature do
   end
 
   feature 'タスク検索' do
-    before do
+    background do
       base_time = Time.zone.local(2018, 11, 4, 13, 14, 15)
 
       travel_to(base_time) { create(:task, name: 'パンを買う', priority: 3, user: user) }
@@ -238,6 +240,64 @@ RSpec.feature 'タスク管理機能', type: :feature do
       expect(page).to have_content '論文を書く'
       expect(page).not_to have_content 'パンを買う'
       expect(page).not_to have_content '掃除する'
+    end
+
+    feature 'ラベル検索' do
+      let!(:investigation_label) { create(:label, name: '調査') }
+      let!(:cooking_label) { create(:label, name: '料理') }
+      let!(:cleaning_label) { create(:label, name: '掃除') }
+      let!(:illustrator_task) { create(:task, name: 'Illustratorの使い方', labels: [investigation_label], user: user) }
+      let!(:helthio_task) { create(:task, name: '新型ヘルシオの使いこなし', labels: [investigation_label, cooking_label], user: user) }
+      let!(:floor_clean_task) { create(:task, name: '床掃除', labels: [cleaning_label], user: user) }
+
+      background do
+        visit root_path
+      end
+
+      where(:name, :expected_tasks, :unexpected_tasks) do
+        '調査' | %w[Illustratorの使い方 新型ヘルシオの使いこなし] | %w[床掃除]
+        '料理' | %w[新型ヘルシオの使いこなし] | %w[Illustratorの使い方 床掃除]
+        '掃除' | %w[床掃除] | %w[Illustratorの使い方 新型ヘルシオの使いこなし]
+      end
+
+      with_them do
+        scenario 'ラベルで検索' do
+          click_on name
+
+          expected_tasks.each do |et|
+            expect(page).to have_content et
+          end
+
+          unexpected_tasks.each do |ut|
+            expect(page).not_to have_content ut
+          end
+        end
+      end
+
+      scenario 'ラベルで検索' do
+        fill_in 'タスク名',	with: 'パンを買う'
+        click_on '検索'
+
+        expect(page).to have_content 'パンを買う'
+        expect(page).not_to have_content '掃除する'
+        expect(page).not_to have_content '論文を書く'
+      end
+
+      scenario '進捗状態で検索' do
+        all('.card')[0].click_link '編集'
+
+        select '作業開始', from: '進捗はありましたか？'
+        click_on '登録'
+
+        expect(page).to have_selector '.notice', text: 'タスクが更新されました👍'
+
+        check 'q_status_eq_any_started'
+        click_on '検索'
+
+        expect(page).to have_content '床掃除'
+        expect(page).not_to have_content '新型ヘルシオの使いこなし'
+        expect(page).not_to have_content 'Illustratorの使い方'
+      end
     end
   end
 end

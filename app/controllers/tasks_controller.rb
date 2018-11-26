@@ -29,7 +29,7 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = current_user.tasks.find(params[:id]).decorate
+    @task = current_user.read_task(params[:id])
     @labels = LabelDecorator.decorate_collection(@task.labels)
   end
 
@@ -77,7 +77,7 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    current_user.tasks.find(params[:id]).destroy
+    current_user.remove_task(params[:id])
     flash[:notice] = I18n.t('tasks.delete_complete')
     redirect_to tasks_path
   end

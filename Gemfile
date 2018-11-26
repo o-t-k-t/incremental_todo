@@ -12,9 +12,12 @@ gem 'rails', '~> 5.2.1'
 gem 'dotenv-rails'
 
 # ミドルウェア
+gem 'connection_pool'
 gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.7'
 gem 'rack', '>= 2.0.6'
+gem 'redis-objects'
+gem 'redis-rails'
 
 # 画像アップロード
 gem 'carrierwave'

@@ -20,6 +20,12 @@ class Task < ApplicationRecord
 
   scope :labeled, ->(label_id) { joins(:labels).where(labels: { id: label_id }) }
 
+  scope :delayed, lambda {
+    where('deadline < ?', Time.zone.now + 3.days)
+      .where(status: 'not_started')
+      .or(Task.where(status: 'started'))
+  }
+
   accepts_nested_attributes_for :labels,
                                 allow_destroy: false,
                                 update_only: false,

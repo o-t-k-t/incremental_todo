@@ -8,12 +8,14 @@
 - Ruby 2.5.3
 - Ruby on Rails 5.2.1
 - PostgreSQL
+- Redis 5.0.2
 
 ## 開発に必要なソフトウェア
 
 - rbenv 1.1.1 or laer
 - Bundler 1.17.0 or later
 - PostgreSQL
+- Redis 5.0.2
 
 ## デプロイ・開発の流れ
 

@@ -1,8 +1,12 @@
 class Task < ApplicationRecord
   include AASM
 
+  # アソーシエーション設定
   belongs_to :user
+  has_many :task_labels, dependent: :destroy
+  has_many :labels, through: :task_labels, source: :label, inverse_of: :tasks
 
+  # 各フィールドのバリデーション
   validates :name, presence: true, length: { maximum: 255 }
   validates :description, length: { maximum: 2000 }
 
@@ -14,8 +18,21 @@ class Task < ApplicationRecord
   scope :newness_order, -> { order('created_at desc') }
   scope :urgency_order, -> { order('deadline asc') }
 
+  scope :labeled, ->(label_id) { joins(:labels).where(labels: { id: label_id }) }
+
+  accepts_nested_attributes_for :labels,
+                                allow_destroy: false,
+                                update_only: false,
+                                reject_if: proc { |a| a[:name].blank? }
+
   def self.ransackable_scopes(_auth_object = nil)
     %i[recent_page deadline_asc_page]
+  end
+
+  def save_and_put_labels(task_params, label_ids)
+    return false unless save(task_params)
+
+    label_ids.each { |lid| put_label(lid) }
   end
 
   def update_and_fire_event(task_params, event)
@@ -49,5 +66,14 @@ class Task < ApplicationRecord
     event :complete do
       transitions from: %i[not_started started], to: :completed
     end
+  end
+
+  # ラベリング処理
+  def put_label(label_id)
+    task_labels.create!(label_id: label_id)
+  end
+
+  def peel_label(label_id)
+    task_labels.where(label_id: label_id).first.destroy
   end
 end

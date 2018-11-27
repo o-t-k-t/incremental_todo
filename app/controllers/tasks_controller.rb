@@ -4,34 +4,47 @@ class TasksController < ApplicationController
   before_action :validate_status_event
 
   def index
+    # タスク検索パラメタ処理
     @q = current_user.tasks.ransack(search_params)
+    @tasks = @q.result
+
+    @tasks = @tasks.labeled(params[:label_id]) if params[:label_id]
 
     @tasks =
       case params[:order_by]
-      when 'create_at' then @q.result.newness_order
-      when 'deadline' then @q.result.urgency_order
-      when 'priority' then @q.result.priority_order
-      when nil then @q.result.newness_order
+      when 'create_at' then @tasks.newness_order
+      when 'deadline' then @tasks.urgency_order
+      when 'priority' then @tasks.priority_order
+      when nil then @tasks.newness_order
       else
         raise 'Illegal task order requeseted'
-      end
+      end.page(params[:page])
 
-    @tasks = @tasks.page(params[:page])
-
+    # View系前処理
     @states = @tasks.aasm.states
     @tasks = TaskDecorator.decorate_collection(@tasks)
+
+    @labels = Label.all
+    @labels = LabelDecorator.decorate_collection(@labels)
   end
 
   def show
     @task = current_user.tasks.find(params[:id]).decorate
+    @labels = LabelDecorator.decorate_collection(@task.labels)
   end
 
   def new
     @task = current_user.tasks.build.decorate
+
+    @task.labels.build
+    LabelDecorator.decorate_collection(@task.labels)
+
+    @labels = LabelDecorator.decorate_collection(Label.all)
   end
 
   def edit
     @task = current_user.tasks.find(params[:id]).decorate
+    @labels = LabelDecorator.decorate_collection(Label.all)
   end
 
   def create
@@ -42,6 +55,8 @@ class TasksController < ApplicationController
       redirect_to tasks_path
     else
       @task = @task.decorate
+      @labels = LabelDecorator.decorate_collection(Label.all)
+
       flash.now[:notice] = I18n.t('tasks.create_fail')
       render :new
     end
@@ -54,6 +69,8 @@ class TasksController < ApplicationController
       redirect_to tasks_path
     else
       @task = @task.decorate
+      @labels = LabelDecorator.decorate_collection(Label.all)
+
       flash.now[:notice] = I18n.t('tasks.update_fail')
       render :edit
     end
@@ -68,7 +85,15 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:name, :description, :deadline, :priority, :user_id, :status_event)
+    params.require(:task).permit(
+      :name,
+      :description,
+      :deadline,
+      :priority,
+      :user_id,
+      label_ids: [],
+      labels_attributes: %i[id name descriptione color]
+    )
   end
 
   def search_params

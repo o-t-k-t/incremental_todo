@@ -13,6 +13,7 @@ jobs:
           POSTGRES_USER: incremental_todo
           POSTGRES_DB: incremental_todo_test
           POSTGRES_PASSWORD: ""
+      - image: redis
     working_directory: ~/repo
 
     steps:

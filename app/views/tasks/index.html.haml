@@ -26,17 +26,16 @@
 
       %h5.dropdown-header= t('tasks.search')
       = search_form_for(@q, url: tasks_path) do |f|
-        .dropdown-item
-          .form-group
-            = f.label :name_cont, t('activerecord.attributes.task.name')
-          .form-group
-            = f.search_field :name_cont, class: 'form-control'
-          = f.collection_check_boxes :status_eq_any, @states, :name, :human_name, include_blank: t('tasks.sort_select_blank'), class: 'form-check' do |b|
-            .form-group
-              = b.check_box class: 'form-check-input'
-              = b.label(class: 'form-check-label') { "#{b.text} \n\n" }
-          .form-group
-            = f.submit class: 'btn btn-primary'
+        .form-group.dropdown-item
+          = f.label :name_cont, t('activerecord.attributes.task.name')
+        .form-group.dropdown-item
+          = f.search_field :name_cont, class: 'form-control'
+        = f.collection_check_boxes :status_eq_any, @states, :name, :human_name, include_blank: t('tasks.sort_select_blank'), class: 'form-check' do |b|
+          .form-group.dropdown-item
+            = b.check_box class: 'form-check-input ml-1'
+            = b.label(class: 'form-check-label  ml-4') { "#{b.text} \n\n" }
+        .form-group.dropdown-item
+          = f.submit class: 'btn btn-primary'
 .container
   %h1.mt-5= t('tasks.index')
 

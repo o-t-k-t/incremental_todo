@@ -17,6 +17,13 @@
 
       .dropdown-divider
 
+      %h5.dropdown-header= 'ラベルで絞り込む'
+      .dropdown-item
+        - @labels.each do |label| # rubocop:disable Style/SymbolProc
+          = label.badge
+
+      .dropdown-divider
+
       %h5.dropdown-header= t('tasks.search')
       = search_form_for(@q, url: tasks_path) do |f|
         .dropdown-item

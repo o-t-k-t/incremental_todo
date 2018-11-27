@@ -29,7 +29,7 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = current_user.read_task(params[:id])
+    @task = current_user.read_task(params[:id]).decorate
     @labels = LabelDecorator.decorate_collection(@task.labels)
   end
 

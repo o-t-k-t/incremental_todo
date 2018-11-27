@@ -4,7 +4,8 @@ class User < ApplicationRecord
 
   include Redis::Objects
   hash_key :alarming_tasks
-  value :alarm_notified, expiration: 1.day
+  # value :alarm_notified, expiration: 1.day
+  value :alarm_notified, expiration: 10.seconds
   lock :alarm_update
   # TODO: 定期更新処理のロックなのでExpireだけでロック解除させればシンプルになる。
   #       ただ、redis-objectsはlock_tryを未サポートで現状できない。
@@ -29,18 +30,6 @@ class User < ApplicationRecord
     find_by(email: email.downcase)&.authenticate(password)
   end
 
-  def update_delayed_tasks_alarm
-    alarm_update_lock.lock do
-      break if alarm_notified.value
-
-      tasks.delayed.each do |t|
-        alarming_tasks[t.id] = t.name
-      end
-
-      alarm_notified.value = true
-    end
-  end
-
   def read_task(task_id)
     alarming_tasks.delete(task_id)
     tasks.find(task_id)
@@ -51,7 +40,29 @@ class User < ApplicationRecord
     tasks.destroy(task_id)
   end
 
+  # アラーム更新処理
+  def alarm_initialize
+    update_delayed_tasks_alarm { false }
+  end
+
+  def periodical_alarm_update
+    update_delayed_tasks_alarm { |n| n }
+  end
+
   private
+
+  # アラーム更新テンプレート処理
+  def update_delayed_tasks_alarm
+    alarm_update_lock.lock do
+      break if yield(alarm_notified.value)
+
+      tasks.delayed.each do |t|
+        alarming_tasks[t.id] = t.name
+      end
+
+      alarm_notified.value = true
+    end
+  end
 
   def require_administrator_existance
     return unless admin

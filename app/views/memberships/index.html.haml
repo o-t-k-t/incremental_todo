@@ -1,0 +1,19 @@
+- content_for :navbar_items do
+  %li.nav-item
+    .nav-link= link_to 'グループを探す', groups_path, class: 'btn btn-light'
+  %li.nav-item
+    .nav-link= link_to 'グループを作る', new_group_path, class: 'btn btn-light'
+
+.container
+  %h1.mt-5= t('あなたの所属しているグループ')
+.container
+  .row
+    - @memberships.each do |ms|
+      .col-sm-6.col-lg-4
+        .card.mt-3
+          .card-body
+            %h5.card-title= ms.group.name
+            .card-text.mb-3= ms.group.description
+            = link_to t('show'), membership_path(ms), class: 'card-link'
+.container.pagination.justify-content-center.mt-3
+  = paginate @memberships

@@ -1,5 +1,9 @@
 class User < ApplicationRecord
   has_many :tasks, dependent: :destroy
+
+  has_many :memberships, dependent: :destroy
+  has_many :groups, through: :memberships, source: :group, inverse_of: :users
+
   has_secure_password
 
   include Redis::Objects

@@ -1,0 +1,23 @@
+.section.jumbotron
+  .container
+    %h1.display-4= @group.name
+    %p #{I18n.l(@group.created_at, format: :long)}に#{@owner.name}さんが始めました。
+    %p.lead= @group.description
+    %p #{@member_count}人のメンバーが参加中です
+    - if @membership.new_record?
+      = form_with model: @membership, local: true do |f|
+        = f.hidden_field :user_id
+        = f.hidden_field :group_id
+        = f.hidden_field :role
+        = f.submit '加入', class: 'btn btn-secondary'
+    - else
+      - if loyalty(@membership, :memberships).destroy?
+        = form_with model: @membership, method: :delete, local: true do |form|
+          = form.hidden_field :user_id
+          = form.hidden_field :group_id
+          = form.hidden_field :role
+          = form.submit 'グループを抜ける', class: 'btn btn-secondary'
+      - if loyalty(@group, :groups).destroy?
+        = form_with model: @group, method: :delete, local: true do |form|
+          = form.hidden_field :group_id
+          = form.submit 'グループを解散する', class: 'btn btn-secondary'

@@ -1,0 +1,15 @@
+- content_for :navbar_items do
+  %li.nav-item
+    .nav-link= link_to '新規グループ', new_group_path, class: 'btn btn-light'
+.container
+  %h1.mt-5= t('グループ一覧')
+.container
+  .row
+    - @groups.each do |g|
+      .col-sm-6.col-lg-4
+        .card.mt-3
+          .card-body
+            %h5.card-title= link_to g.name, group_path(g)
+            .card-text.mb-3= g.description
+.container.pagination.justify-content-center.mt-3
+  = paginate @groups

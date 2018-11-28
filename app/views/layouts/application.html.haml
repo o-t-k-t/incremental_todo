@@ -8,7 +8,7 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   %body
-    %nav.navbar.navbar-expand-sm.navbar-light{ class: request.path.start_with?('/admin') ? 'bg-dark' : 'bg-light' }
+    %nav.navbar.navbar-expand-lg.navbar-light{ class: request.path.start_with?('/admin') ? 'bg-dark' : 'bg-light' }
       = link_to 'IncrementalTODO', root_path, class: 'navbar-brand text-secondary h1'
       %button.navbar-toggler{ 'aria-controls' => 'navbar-nav-dropdown', 'aria-expanded' => 'false', 'aria-label' => 'Toggle navigation', 'data-target' => '#navbar-nav-dropdown', 'data-toggle' => 'collapse', :type => 'button' }
         %span.navbar-toggler-icon
@@ -27,6 +27,8 @@
                     .dropdown-item= link_to v, task_path(k)
             %li.nav-item
               .nav-link= link_to current_user.name, user_path, class: 'btn btn-outline-primary'
+            %li.nav-item
+              .nav-link= link_to 'グループ管理', memberships_path, class: 'btn btn-outline-primary'
             %li.nav-item
               .nav-link= link_to t('logout'), session_path(current_user.id), method: :delete, class: 'btn btn-outline-secondary'
           - else

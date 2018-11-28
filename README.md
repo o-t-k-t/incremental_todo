@@ -62,6 +62,12 @@ bundle exec rails db: migrate
 bundle exec rails db: seed
 ```
 
+Redisサーバを起動
+
+```
+redis-server /usr/local/etc/redis.conf
+```
+
 webサーバを起動
 
 ```

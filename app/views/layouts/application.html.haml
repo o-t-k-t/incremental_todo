@@ -16,6 +16,15 @@
         %ul.navbar-nav
           = yield :navbar_items
           - if logged_in?
+            - if current_user.alarming_tasks.present?
+              %li.nav-item.dropdown
+                .nav-link.dropdown-toggle#navbar-dropdown-link-menu{ 'aria-expanded' => 'false', 'aria-haspopup' => 'true', 'data-toggle' => 'dropdown', :href => '#' }
+                  .btn.btn-warning アラーム
+                .dropdown-menu.dropdown-menu-right{ 'aria-labelledby' => 'navbar-dropdown-link-menu' }
+                  %h5.dropdown-header 以下のタスクが遅れています
+                  .dropdown-divider
+                  - current_user.alarming_tasks.each do |k, v|
+                    .dropdown-item= link_to v, task_path(k)
             %li.nav-item
               .nav-link= link_to current_user.name, user_path, class: 'btn btn-outline-primary'
             %li.nav-item

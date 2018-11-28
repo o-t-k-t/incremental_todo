@@ -5,6 +5,9 @@ module SessionControl
 
   def log_in(user)
     session[:user_id] = user.id
+
+    current_user.alarm_initialize
+
     flash[:notice] = "#{user.name}さんとしてログインしました😃"
   end
 

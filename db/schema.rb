@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_22_074335) do
+ActiveRecord::Schema.define(version: 2018_11_26_082827) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 2018_11_22_074335) do
     t.string "status", default: "not_started", null: false
     t.integer "priority", default: 2, null: false
     t.bigint "user_id", null: false
+    t.boolean "alarm", default: false, null: false
     t.index ["name"], name: "index_tasks_on_name"
     t.index ["status"], name: "index_tasks_on_status"
     t.index ["user_id"], name: "index_tasks_on_user_id"

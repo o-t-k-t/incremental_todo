@@ -8,12 +8,14 @@
 - Ruby 2.5.3
 - Ruby on Rails 5.2.1
 - PostgreSQL
+- Redis 5.0.2
 
 ## 開発に必要なソフトウェア
 
 - rbenv 1.1.1 or laer
 - Bundler 1.17.0 or later
 - PostgreSQL
+- Redis 5.0.2
 
 ## デプロイ・開発の流れ
 
@@ -58,6 +60,12 @@ FISRT_ADMIN_PASSWORD="【任意の管理ユーザーログインパスワード�
 bundle exec rails db: create
 bundle exec rails db: migrate
 bundle exec rails db: seed
+```
+
+Redisサーバを起動
+
+```
+redis-server /usr/local/etc/redis.conf
 ```
 
 webサーバを起動

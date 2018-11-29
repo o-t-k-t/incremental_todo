@@ -34,7 +34,8 @@ gem 'sass-rails', '~> 5.0'
 gem 'turbolinks', '~> 5'
 gem 'uglifier', '>= 1.3.0'
 
-# 認証
+# 認証・認可 (認証に関しては課題制限からbcryptのみを使用します)
+gem 'banken'
 gem 'bcrypt', '~> 3.1.11'
 
 gem 'bootsnap', '>= 1.1.0'

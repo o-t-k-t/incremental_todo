@@ -1,9 +1,9 @@
 class TasksController < ApplicationController
-  include SessionControl
-
   before_action :validate_status_event
 
   def index
+    authorize! nil
+
     # タスク検索パラメタ処理
     @q = current_user.tasks.ransack(search_params)
     @tasks = @q.result
@@ -31,6 +31,8 @@ class TasksController < ApplicationController
   def show
     @task = current_user.read_task(params[:id]).decorate
     @labels = LabelDecorator.decorate_collection(@task.labels)
+
+    authorize! @task
   end
 
   def new
@@ -40,15 +42,19 @@ class TasksController < ApplicationController
     LabelDecorator.decorate_collection(@task.labels)
 
     @labels = LabelDecorator.decorate_collection(Label.all)
+
+    authorize! @task
   end
 
   def edit
     @task = current_user.tasks.find(params[:id]).decorate
     @labels = LabelDecorator.decorate_collection(Label.all)
+    authorize! @task
   end
 
   def create
     @task = current_user.tasks.build(task_params)
+    authorize! @task
 
     if @task.save
       flash[:notice] = I18n.t('tasks.create_success')
@@ -64,6 +70,8 @@ class TasksController < ApplicationController
 
   def update
     @task = current_user.tasks.find(params[:id])
+    authorize! @task
+
     if @task.update_and_fire_event(task_params, params[:status_event])
       flash[:notice] = I18n.t('tasks.update_success')
       redirect_to tasks_path
@@ -77,7 +85,11 @@ class TasksController < ApplicationController
   end
 
   def destroy
+    @task = current_user.tasks.find(params[:id])
+    authorize! @task
+
     current_user.remove_task(params[:id])
+
     flash[:notice] = I18n.t('tasks.delete_complete')
     redirect_to tasks_path
   end

@@ -1,19 +1,21 @@
 class UsersController < ApplicationController
-  include SessionControl
-
   skip_before_action :require_logged_in, only: %i[new create]
 
   def show
+    authorize!
     @user = current_user
   end
 
   def new
     redirect_to root_path and return if logged_in?
 
+    authorize!
     @user = User.new
   end
 
   def create
+    authorize!
+
     @user = User.new(user_params)
     if @user.save
       log_in(@user)
@@ -24,6 +26,8 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    authorize!
+
     current_user.destroy
     redirect_to user_new_path
   end

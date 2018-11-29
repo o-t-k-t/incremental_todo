@@ -1,11 +1,13 @@
 class SessionsController < ApplicationController
-  include SessionControl
-
   skip_before_action :require_logged_in, only: %i[new create]
 
-  def new; end
+  def new
+    authorize!
+  end
 
   def create
+    authorize!
+
     user = User.authenticate_by(params[:session][:email],
                                 params[:session][:password])
     if user
@@ -18,6 +20,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    authorize!
+
     log_out
     flash.now[:alert] = I18n.t('sessions.logout')
     redirect_to new_session_path

@@ -1,23 +1,28 @@
 class Admin::UsersController < Admin::ApplicationController
   def index
+    authorize!
     @users = User.id_order.page(params[:page]).per(20)
     @usernames_and_task_counts = @users.with_task.count_by_id_and_name
   end
 
   def show
+    authorize!
     @user = User.find(params[:id])
     @tasks = TaskDecorator.decorate_collection(@user.tasks.page(params[:page]).per(10))
   end
 
   def new
+    authorize!
     @user = User.new
   end
 
   def edit
+    authorize!
     @user = User.find(params[:id])
   end
 
   def create
+    authorize!
     @user = User.new(user_params)
     if @user.save
       redirect_to admin_users_path
@@ -27,6 +32,7 @@ class Admin::UsersController < Admin::ApplicationController
   end
 
   def update
+    authorize!
     @user = User.find(params[:id])
 
     if @user.update(user_params)
@@ -39,6 +45,7 @@ class Admin::UsersController < Admin::ApplicationController
   end
 
   def destroy
+    authorize!
     user = User.find(params[:id])
 
     flash[:notice] =

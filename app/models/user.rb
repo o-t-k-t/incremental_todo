@@ -4,8 +4,7 @@ class User < ApplicationRecord
 
   include Redis::Objects
   hash_key :alarming_tasks
-  # value :alarm_notified, expiration: 1.day
-  value :alarm_notified, expiration: 10.seconds
+  value :alarm_notified, expiration: 1.day
   lock :alarm_update
   # TODO: 定期更新処理のロックなのでExpireだけでロック解除させればシンプルになる。
   #       ただ、redis-objectsはlock_tryを未サポートで現状できない。

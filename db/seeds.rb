@@ -58,7 +58,7 @@ users = []
 
   next unless (i % 10).zero?
 
-  name = Faker::ProgrammingLanguage
+  name = Faker::ProgrammingLanguage.name
   g = Group.new(name: "#{name}勉強中", description: "#{name}を勉強する人が集まるグループです。")
   Membership.create_with_group!(user, g)
   groups << g

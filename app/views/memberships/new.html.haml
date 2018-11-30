@@ -1,0 +1,4 @@
+.container
+  %h1.mt-5 新規グループ
+  = render partial: 'form', locals: { group: @group }
+  = link_to t('back'), groups_path

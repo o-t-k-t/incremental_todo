@@ -1,0 +1,17 @@
+= form_with model: group, local: true do |form|
+  - if group.errors.any?
+    %h2= t('groups.error_number', count: group.errors.count)
+    %ul
+      - group.errors.full_messages.each do |message|
+        %li= message
+  .form-group.row
+    = form.label :name, class: 'col-sm-3 col-form-label'
+    .col-sm-8
+      = form.text_field :name, class: 'form-control', placeholder: 'Ruby勉強会'
+  .form-group.row
+    = form.label :description, class: 'col-sm-3 col-form-label'
+    .col-sm-8
+      = form.text_area :description, class: 'form-control', placeholder: 'グループの目的や、活動内容を書きましょう'
+  .form-group.row
+    .col-sm-12
+      = form.submit t('create'), class: 'btn btn-primary btn-block'

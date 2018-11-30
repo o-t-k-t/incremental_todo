@@ -1,0 +1,34 @@
+.section.jumbotron
+  .container
+    %h1.display-4= @group.name
+    %p #{I18n.l(@group.created_at, format: :long)}に#{@owner.name}さんが始めました。
+    %p.lead= @group.description
+    - if loyalty(@membership, :memberships).destroy?
+      = form_with model: @membership, method: :delete, local: true do |f|
+        = f.hidden_field :user_id
+        = f.hidden_field :group_id
+        = f.hidden_field :role
+        = f.submit 'グループを抜ける', class: 'btn btn-secondary'
+    - if loyalty(@group, :groups).destroy?
+      = form_with model: @group, method: :delete, local: true do |f|
+        = f.hidden_field :group_id
+        = f.submit 'グループを解散する', class: 'btn btn-secondary'
+
+.section
+  .container
+    %h2 メンバー一覧
+    %p 名前をクリックするとメンバーのタスクを確認できます。
+    .accordion#accordion
+      - @members.each_with_index do |member, i|
+        .card
+          .card-header{ id: "heading-#{i}" }
+            %h5.mb-0
+              %button.btn.btn-link.collapsed{ 'aria-controls' => "collapse-#{i}", 'aria-expanded' => 'true', 'data-target' => "#collapse-#{i}", 'data-toggle' => 'collapse', type: 'button' }
+                = member.name
+          .collapse{ id: "collapse-#{i}", 'aria-labelledby' => "heading-#{i}", 'data-parent' => '#accordion' }
+            %ul.list-group.list-group-flush
+              - member.tasks.each do |task|
+                %li.list-group-item
+                  %h5.mb-1= task.name
+.container.pagination.justify-content-center.mt-3
+  = paginate @members

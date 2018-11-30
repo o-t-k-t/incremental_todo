@@ -15,12 +15,31 @@ ActiveRecord::Schema.define(version: 2018_11_30_085623) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "groups", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "labels", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
     t.string "color"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "memberships", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "group_id", null: false
+    t.integer "role", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["group_id"], name: "index_memberships_on_group_id"
+    t.index ["role"], name: "index_memberships_on_role"
+    t.index ["user_id", "group_id"], name: "index_memberships_on_user_id_and_group_id", unique: true
+    t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
   create_table "task_labels", force: :cascade do |t|
@@ -56,6 +75,8 @@ ActiveRecord::Schema.define(version: 2018_11_30_085623) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "memberships", "groups"
+  add_foreign_key "memberships", "users"
   add_foreign_key "task_labels", "labels"
   add_foreign_key "task_labels", "tasks"
   add_foreign_key "tasks", "users"

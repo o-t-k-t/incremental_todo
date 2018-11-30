@@ -1,3 +1,6 @@
+MAX_PHASES = 5
+
+puts "1 / #{MAX_PHASES} Register a initial administorator"
 user = User.create!(
   name: 'fist_administor',
   email: ENV['FISRT_ADMIN_EMAIL'],
@@ -6,6 +9,7 @@ user = User.create!(
   admin: true
 )
 
+puts "2 / #{MAX_PHASES} Register initial labels"
 house_lable = Label.create!(name: '家事',
                             description: '🍳買い物や、掃除など登録しましょう',
                             color: :blue)
@@ -13,6 +17,7 @@ investifatoin_label = Label.create!(name: '調べもの',
                                     description: 'わからないことがあったら忘れずに登録しましょう🌱',
                                     color: :yellow)
 
+puts "3 / #{MAX_PHASES} Register initial tasks and associate labels"
 20.times do |i|
   task = user.tasks.create!(
     name: Faker::Lorem.sentence(3, true, 3),
@@ -24,7 +29,11 @@ investifatoin_label = Label.create!(name: '調べもの',
   task.put_label(investifatoin_label.id) if i.even?
 end
 
-150.times do |_i|
+puts "4 / #{MAX_PHASES} Regsiter seed users, tasks, labbelings, and groups"
+groups = []
+users = []
+
+150.times do |i|
   password = Faker::Internet.password
 
   user = User.create!(
@@ -34,6 +43,7 @@ end
     password_confirmation: password,
     admin: false
   )
+  users << user
 
   rand(0..20).times do |j|
     task = user.tasks.create!(
@@ -45,4 +55,16 @@ end
     task.put_label(house_lable.id)
     task.put_label(investifatoin_label.id)
   end
+
+  next unless (i % 10).zero?
+
+  name = Faker::ProgrammingLanguage
+  g = Group.new(name: "#{name}勉強中", description: "#{name}を勉強する人が集まるグループです。")
+  Membership.create_with_group!(user, g)
+  groups << g
+end
+
+puts "5 / #{MAX_PHASES} Associate users with group"
+users.select { |u| u.groups.empty? }.each do |u|
+  Membership.create!(user: u, group: groups.sample, role: :general)
 end

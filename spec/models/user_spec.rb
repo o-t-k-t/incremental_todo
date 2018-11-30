@@ -118,4 +118,23 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe `#create_group` do
+    where(:name, :be_valid?) do
+      '靴' *   0 | be_invalid
+      '靴' *   1 | be_valid
+      '靴' * 255 | be_valid
+      '靴' * 256 | be_invalid
+    end
+
+    with_them do
+      it do
+        user = User.new(name: name,
+                        email: 'hisamatsu@example.com',
+                        password: 'ca11back',
+                        password_digest: 'ca11back')
+        expect(user).to be_valid?
+      end
+    end
+  end
 end

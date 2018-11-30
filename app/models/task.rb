@@ -6,6 +6,8 @@ class Task < ApplicationRecord
   has_many :task_labels, dependent: :destroy
   has_many :labels, through: :task_labels, source: :label, inverse_of: :tasks
 
+  has_many_attached :attachments
+
   # 各フィールドのバリデーション
   validates :name, presence: true, length: { maximum: 255 }
   validates :description, length: { maximum: 2000 }

@@ -42,6 +42,8 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     authorize! @group
 
+    @group.destroy!
+
     flash[:notice] = 'グループを削除しました'
     redirect_to groups_path
   end

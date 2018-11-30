@@ -56,10 +56,12 @@ users = []
     task.put_label(investifatoin_label.id)
   end
 
-  if (i % 10).zero?
-    name = Faker::ProgrammingLanguage.name
-    groups << user.create_group(name: "#{name}勉強中", description: "#{name}を勉強する人が集まるグループです。")
-  end
+  next unless (i % 10).zero?
+
+  name = Faker::ProgrammingLanguage
+  g = Group.new(name: "#{name}勉強中", description: "#{name}を勉強する人が集まるグループです。")
+  Membership.create_with_group!(user, g)
+  groups << g
 end
 
 puts "5 / #{MAX_PHASES} Associate users with group"

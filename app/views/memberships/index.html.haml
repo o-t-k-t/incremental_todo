@@ -5,7 +5,7 @@
     .nav-link= link_to 'グループを作る', new_group_path, class: 'btn btn-light'
 
 .container
-  %h1.mt-5= t('あなたの所属しているグループ')
+  %h1.mt-5 あなたの所属しているグループ
 .container
   .row
     - @memberships.each do |ms|

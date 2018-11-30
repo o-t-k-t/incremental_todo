@@ -31,7 +31,7 @@ class GroupsController < ApplicationController
     authorize! @group
 
     if @group.save
-      flash[:notice] = I18n.t('グループを更新しました')
+      flash[:notice] = 'グループを更新しました'
       redirect_to groups_path
     else
       render :edit
@@ -42,7 +42,7 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     authorize! @group
 
-    flash[:notice] = I18n.t('グループを削除しました')
+    flash[:notice] = 'グループを削除しました'
     redirect_to groups_path
   end
 

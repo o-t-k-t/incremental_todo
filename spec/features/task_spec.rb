@@ -348,4 +348,40 @@ RSpec.feature 'タスク管理機能', type: :feature do
       end
     end
   end
+
+  feature 'タスクアラーム機能' do
+    let(:login_time) do
+      Time.zone.local(2018, 11, 10, 12, 0, 0)
+    end
+
+    where(:deadline, :alarm?) do
+      Time.zone.local(2018, 11, 10, 11, 0, 0) | true
+      Time.zone.local(2018, 11, 13, 11, 0, 0) | true
+      Time.zone.local(2018, 11, 13, 13, 0, 0) | false
+    end
+
+    around do |ex|
+      travel_to(Time.zone.local(2018, 6, 10, 0, 0, 0)) do
+        create(:task, name: '間に合わそうなタスク', deadline: deadline, user: user)
+      end
+
+      travel_to(login_time) do
+        ex.run
+      end
+    end
+
+    with_them do
+      scenario 'ログイン時、期限切れ、または切れそうなタスクがあれば通知する' do
+        visit root_path
+
+        if alarm?
+          expect(page).to have_content '以下のタスクが遅れています'
+          expect(all('.dropdown-item')[8]).to have_content '間に合わそうなタスク'
+          # FIXME: アラームタスク項目の特定手段。現状添字アクセスとなっていて脆い。
+        else
+          expect(page).not_to have_content '以下のタスクが遅れています'
+        end
+      end
+    end
+  end
 end

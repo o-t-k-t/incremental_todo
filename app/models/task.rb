@@ -16,10 +16,6 @@ class Task < ApplicationRecord
 
   enum priority: { low: 1, medium: 2, high: 3 }
 
-  scope :priority_order, -> { order('priority desc') }
-  scope :newness_order, -> { order('created_at desc') }
-  scope :urgency_order, -> { order('deadline asc') }
-
   scope :labeled, ->(label_id) { joins(:labels).where(labels: { id: label_id }) }
 
   scope :delayed, lambda {

@@ -30,7 +30,6 @@ gem 'draper'
 gem 'haml-rails'
 gem 'jquery-rails'
 gem 'loofah', '>= 2.2.3'
-gem "reform"
 gem 'reform-rails'
 gem 'sass-rails', '~> 5.0'
 gem 'turbolinks', '~> 5'

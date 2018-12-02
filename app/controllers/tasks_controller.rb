@@ -103,6 +103,7 @@ class TasksController < ApplicationController
       :deadline,
       :priority,
       :user_id,
+      attachments: [],
       label_ids: [],
       labels_attributes: %i[id name descriptione color]
     )

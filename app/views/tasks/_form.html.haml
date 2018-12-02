@@ -45,5 +45,9 @@
           .col-sm-3.col-form-label= lf.label :color, class: 'col-sm-3 col-form-label'
           .col-sm-9= lf.select :color, LabelDecorator.color_options_for_select
   .form-group.row
+    = form.label :attachments, class: 'col-sm-3 col-form-label'
+    .col-sm-8.col-form-label
+      = form.file_field :attachments, multiple: true, direct_upload: false, class: 'custom-select'
+  .form-group.row
     .col-sm-12
       = form.submit t('create'), class: 'btn btn-primary btn-block'

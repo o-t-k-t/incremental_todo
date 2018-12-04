@@ -3,13 +3,13 @@
     {
       "warning_type": "Mass Assignment",
       "warning_code": 105,
-      "fingerprint": "eb5faf44a3c065b7fc702828e2e055450a32c5681841a621895ca0400c7d85ce",
+      "fingerprint": "65d285545faf41b499af3ec6503bda7a2b478e8360e0d1052c227da5ca9f222f",
       "check_name": "PermitAttributes",
       "message": "Potentially dangerous key allowed for mass assignment",
       "file": "app/controllers/admin/users_controller.rb",
-      "line": 64,
+      "line": 67,
       "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
-      "code": "params.require(:user).permit(:name, :email, :admin, :password, :password_confirmation)",
+      "code": "params.require(:user).permit(:name, :email, :admin, :avetar, :password, :password_confirmation)",
       "render_path": null,
       "location": {
         "type": "method",
@@ -18,9 +18,9 @@
       },
       "user_input": ":admin",
       "confidence": "High",
-      "note": "受信パラメータでのユーザーの管理者権限の上書きすること警告だが、アクション起動時に管理ユーザーセッションでなければエラーとしており、パラメータは信頼でき安全であるため無視する。"
+      "note": ""
     }
   ],
-  "updated": "2018-11-19 16:20:22 +0900",
+  "updated": "2018-12-04 13:07:28 +0900",
   "brakeman_version": "4.3.1"
 }

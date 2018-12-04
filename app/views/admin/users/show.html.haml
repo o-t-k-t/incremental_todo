@@ -5,6 +5,9 @@
       %th{ scope: 'col' } 名前
       %td= @user.name
     %tr
+      %th{ scope: 'col' } 画像
+      %td= @user.avatar_image_tag
+    %tr
       %th{ scope: 'col' } メールアドレス
       %td= @user.email
     %tr

@@ -16,6 +16,9 @@
       = f.label :email, class: 'label'
       = f.email_field :email, class: 'form-control', placeholder: t('admin_users.placeholder.email')
     .form-group
+      = f.label :avatar, class: 'label'
+      = f.file_field :avatar, class: 'form-control'
+    .form-group
       = f.check_box :admin, class: 'checkbox-inline'
       管理者権限を付与する
       -# = f.label :admin, class: 'label'

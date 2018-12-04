@@ -49,8 +49,7 @@ RSpec.feature 'タスク管理機能', type: :feature do
     end
 
     scenario '期限が近い順にタスクを表示する' do
-      select '期限', from: '順序'
-      click_on '並び替え'
+      click_on '期限が早い順'
 
       expect(all('.card-title')[0]).to have_content '論文'
       expect(all('.card-title')[1]).to have_content '買い物'
@@ -69,8 +68,7 @@ RSpec.feature 'タスク管理機能', type: :feature do
     end
 
     scenario 'view task list that sorted by deadline' do
-      select '優先度', from: '順序'
-      click_on '並び替え'
+      click_on '優先順'
 
       expect(all('.card-title')[0]).to have_content '掃除'
       expect(all('.card-title')[1]).to have_content '買い物'

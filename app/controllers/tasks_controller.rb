@@ -6,19 +6,10 @@ class TasksController < ApplicationController
 
     # タスク検索パラメタ処理
     @q = current_user.tasks.ransack(search_params)
+
     @tasks = @q.result
-
     @tasks = @tasks.labeled(params[:label_id]) if params[:label_id]
-
-    @tasks =
-      case params[:order_by]
-      when 'create_at' then @tasks.newness_order
-      when 'deadline' then @tasks.urgency_order
-      when 'priority' then @tasks.priority_order
-      when nil then @tasks.newness_order
-      else
-        raise 'Illegal task order requeseted'
-      end.page(params[:page])
+    @tasks = @tasks.page(params[:page])
 
     # View系前処理
     @states = @tasks.aasm.states
@@ -112,7 +103,7 @@ class TasksController < ApplicationController
   def search_params
     return nil if params[:q].blank?
 
-    params.require(:q).permit(:name_cont, status_eq_any: [])
+    params.require(:q).permit(:name_cont, :s, status_eq_any: [])
   end
 
   def validate_status_event

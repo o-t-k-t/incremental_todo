@@ -8,12 +8,9 @@
     .dropdown-menu.dropdown-menu-right{ 'aria-labelledby' => 'navbar-dropdown-link-menu' }
       %h5.dropdown-header= t('tasks.sort')
       .dropdown-item.form-group
-        = form_tag tasks_path, method: :get do
-          = label_tag :order_by, t('tasks.order')
-          .form-group
-            = select_tag :order_by, options_for_select([[t('tasks.registration_date'), 'create_at'], [t('tasks.deadline'), 'deadline'], [t('tasks.priority'), 'priority']], selected: 'create_at'), class: 'custom-select'
-          .form-group
-            = submit_tag t('tasks.sort'), class: 'btn btn-primary'
+        = sort_link @q, :created_at, '新しい順', default_order: :desc
+        = sort_link @q, :deadline, '期限が早い順', default_order: :asc
+        = sort_link @q, :priority, '優先順', default_order: :desc
 
       .dropdown-divider
 

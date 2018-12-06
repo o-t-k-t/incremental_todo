@@ -57,6 +57,7 @@ bundle install --path vendor/bundle
 ```
 FISRT_ADMIN_EMAIL="【任意の管理ユーザーEメールアドレス】"
 FISRT_ADMIN_PASSWORD="【任意の管理ユーザーログインパスワード】"
+REDIS_URL="redis:localhost:6379"
 ```
 
 データベース作成・初期化

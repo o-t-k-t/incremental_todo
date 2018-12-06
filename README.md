@@ -49,7 +49,7 @@ git clone git@github.com:o-t-k-t/incremental_todo.git
 
 ```
 cd incremental_todo
-bundle install
+bundle install --path vendor/bundle
 ```
 
 クローンされたディレクトリ　直下に`.env`というファイルを作成し下記フォーマットで初期管理ユーザー情報の環境変数を設定。

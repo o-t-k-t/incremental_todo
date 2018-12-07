@@ -20,7 +20,6 @@ gem 'redis-objects'
 gem 'redis-rails'
 
 # 画像アップロード
-gem 'carrierwave'
 gem 'mini_magick'
 
 # フロントエンド

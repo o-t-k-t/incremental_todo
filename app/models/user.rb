@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   has_secure_password
 
+  has_one_attached :avatar
+
   include Redis::Objects
   hash_key :alarming_tasks
   value :alarm_notified, expiration: 1.day

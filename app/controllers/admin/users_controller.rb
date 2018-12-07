@@ -3,11 +3,13 @@ class Admin::UsersController < Admin::ApplicationController
     authorize!
     @users = User.id_order.page(params[:page]).per(20)
     @usernames_and_task_counts = @users.with_task.count_by_id_and_name
+
+    @users = UserDecorator.decorate_collection(@users)
   end
 
   def show
     authorize!
-    @user = User.find(params[:id])
+    @user = User.find(params[:id]).decorate
     @tasks = TaskDecorator.decorate_collection(@user.tasks.page(params[:page]).per(10))
   end
 
@@ -18,7 +20,7 @@ class Admin::UsersController < Admin::ApplicationController
 
   def edit
     authorize!
-    @user = User.find(params[:id])
+    @user = User.find(params[:id]).decorate
   end
 
   def create
@@ -62,6 +64,6 @@ class Admin::UsersController < Admin::ApplicationController
 
   def user_params
     params.require(:user)
-          .permit(:name, :email, :admin, :password, :password_confirmation)
+          .permit(:name, :email, :admin, :avetar, :password, :password_confirmation)
   end
 end

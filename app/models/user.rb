@@ -22,6 +22,7 @@ class User < ApplicationRecord
   validates :password_digest, presence: true
 
   before_destroy :require_administrator_existance
+  before_update :require_admin_authority_existence
 
   scope :id_order, -> { order(:id) }
   scope :with_task, -> { left_joins(:tasks) }
@@ -70,9 +71,21 @@ class User < ApplicationRecord
 
   def require_administrator_existance
     return unless admin
-    return unless self.class.where(admin: true).count <= 1
+    return if multiple_admin?
 
     errors.add(:admin, 'を持つユーザは少なくとも1人登録する必要があります')
     throw :abort
+  end
+
+  def require_admin_authority_existence
+    return if admin
+    return if multiple_admin?
+
+    errors.add(:admin, 'を持つユーザは少なくとも1人登録する必要があります')
+    throw :abort
+  end
+
+  def multiple_admin?
+    self.class.where(admin: true).count > 1
   end
 end

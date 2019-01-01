@@ -21,7 +21,7 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { in: 6..20 }
   validates :password_digest, presence: true
 
-  before_destroy :require_administrator_existance
+  before_destroy :require_administrator_existence
   before_update :require_admin_authority_existence
 
   scope :id_order, -> { order(:id) }
@@ -69,7 +69,7 @@ class User < ApplicationRecord
     end
   end
 
-  def require_administrator_existance
+  def require_administrator_existence
     return unless admin
     return if multiple_admin?
 

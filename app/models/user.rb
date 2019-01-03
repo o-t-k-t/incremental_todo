@@ -21,6 +21,7 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { in: 6..20 }
   validates :password_digest, presence: true
 
+  # 管理ユーザ最低1名の登録を維持するためのバリデーション処理
   before_destroy :require_administrator_existence
   before_update :require_admin_authority_existence
 
@@ -68,21 +69,25 @@ class User < ApplicationRecord
 
   def require_administrator_existence
     return unless admin
-    return if multiple_admin?
+    return if multiple_admins?
 
     errors.add(:admin, 'を持つユーザは少なくとも1人登録する必要があります')
     throw :abort
   end
 
   def require_admin_authority_existence
-    return if admin
-    return if multiple_admin?
+    return unless will_demote_from_admin?
+    return if multiple_admins?
 
     errors.add(:admin, 'を持つユーザは少なくとも1人登録する必要があります')
     throw :abort
   end
 
-  def multiple_admin?
+  def will_demote_from_admin?
+    admin == false && attribute_in_database(:admin) == true
+  end
+
+  def multiple_admins?
     self.class.where(admin: true).count > 1
   end
 end

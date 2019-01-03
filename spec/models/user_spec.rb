@@ -79,17 +79,21 @@ RSpec.describe User, type: :model do
     end
   end
 
-  context 'remove admin authrity' do
-    where(:number_of_administrators, :be_successed?) do
-      1 | be_falsey
-      2 | be_truthy
+  context 'update a user to a general account' do
+    where(:number_of_administrators, :demote?, :be_successed?) do
+      1 | true  | be_falsey
+      1 | false | be_truthy
+      2 | true  | be_truthy
+      2 | false | be_truthy
     end
 
     with_them do
       it do
         number_of_administrators.times { create(:user, admin: true) }
+        create(:user, admin: false)
 
-        u = User.first
+        u = User.find_by(admin: demote?)
+
         u.admin = false
         u.password = 'password'
         u.password_confirmation = 'password'

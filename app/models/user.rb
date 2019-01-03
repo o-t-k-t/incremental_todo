@@ -60,10 +60,7 @@ class User < ApplicationRecord
     alarm_update_lock.lock do
       break if yield(alarm_notified.value)
 
-      tasks.delayed.each do |t|
-        alarming_tasks[t.id] = t.name
-      end
-
+      tasks.delayed.each { |t| alarming_tasks[t.id] = t.name }
       alarm_notified.value = true
     end
   end

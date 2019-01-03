@@ -69,7 +69,7 @@ class User < ApplicationRecord
 
   def require_administrator_existence
     return unless admin
-    return if multiple_admin?
+    return if multiple_admins?
 
     errors.add(:admin, 'を持つユーザは少なくとも1人登録する必要があります')
     throw :abort

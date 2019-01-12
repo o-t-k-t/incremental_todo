@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+  decorates_assigned :task
   before_action :validate_status_event
 
   def index
@@ -6,40 +7,31 @@ class TasksController < ApplicationController
 
     # タスク検索パラメタ処理
     @q = current_user.tasks.ransack(search_params)
-
     @tasks = @q.result
     @tasks = @tasks.labeled(params[:label_id]) if params[:label_id]
-    @tasks = @tasks.page(params[:page])
 
-    # View系前処理
     @states = @tasks.aasm.states
-    @tasks = TaskDecorator.decorate_collection(@tasks)
 
-    @labels = Label.all
-    @labels = LabelDecorator.decorate_collection(@labels)
+    @tasks = @tasks.page(params[:page]).decorate
+    @labels = Label.decorate
   end
 
   def show
-    @task = current_user.read_task(params[:id]).decorate
-    @labels = LabelDecorator.decorate_collection(@task.labels)
+    @task = current_user.read_task(params[:id])
 
     authorize! @task
   end
 
   def new
-    @task = current_user.tasks.build.decorate
-
+    @task = current_user.tasks.build
     @task.labels.build
-    LabelDecorator.decorate_collection(@task.labels)
-
-    @labels = LabelDecorator.decorate_collection(Label.all)
-
+    @labels = Label.decorate
     authorize! @task
   end
 
   def edit
-    @task = current_user.tasks.find(params[:id]).decorate
-    @labels = LabelDecorator.decorate_collection(Label.all)
+    @task = current_user.tasks.find(params[:id])
+    @labels = Label.decorate
     authorize! @task
   end
 
@@ -51,8 +43,7 @@ class TasksController < ApplicationController
       flash[:notice] = I18n.t('tasks.create_success')
       redirect_to tasks_path
     else
-      @task = @task.decorate
-      @labels = LabelDecorator.decorate_collection(Label.all)
+      @labels = Label.decorate
 
       flash.now[:notice] = I18n.t('tasks.create_fail')
       render :new
@@ -67,8 +58,7 @@ class TasksController < ApplicationController
       flash[:notice] = I18n.t('tasks.update_success')
       redirect_to tasks_path
     else
-      @task = @task.decorate
-      @labels = LabelDecorator.decorate_collection(Label.all)
+      @labels = Label.decorate
 
       flash.now[:notice] = I18n.t('tasks.update_fail')
       render :edit

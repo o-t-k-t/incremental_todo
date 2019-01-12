@@ -1,4 +1,5 @@
 class TaskDecorator < ApplicationDecorator
+  decorates_association :labels
   delegate_all
 
   def deadline

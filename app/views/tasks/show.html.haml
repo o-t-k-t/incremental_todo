@@ -3,29 +3,29 @@
   %table.table.table-borderless
     %tr
       %th{ scope: 'col' }= t('activerecord.attributes.task.name')
-      %td= @task.name
+      %td= task.name
     %tr
       %th{ scope: 'col' } ラベル
       %td
-        - @labels.each do |label| # rubocop:disable Style/SymbolProc
+        - task.labels.each do |label| # rubocop:disable Style/SymbolProc
           = label.badge
     %tr
       %th{ scope: 'col' }= t('activerecord.attributes.task.description')
-      %td= @task.description
+      %td= task.description
     %tr
       %th{ scope: 'col' }= t('activerecord.attributes.task.deadline')
-      %td= @task.deadline
+      %td= task.deadline
     %tr
       %th{ scope: 'col' }= t('activerecord.attributes.task.priority')
-      %td= @task.priority
+      %td= task.priority
     %tr
       %th{ scope: 'col' }= t('activerecord.attributes.task.status')
-      %td= @task.aasm.human_state
-    - @task.attachments.each_with_index do |a, i|
+      %td= task.aasm.human_state
+    - task.attachments.each_with_index do |a, i|
       %tr
         %th{ scope: 'col' } 添付ファイル#{i + 1}
         %td= link_to a.filename, rails_blob_path(a, disposition: 'attachment')
 
 
-  = link_to t('edit'), edit_task_path(@task)
+  = link_to t('edit'), edit_task_path(task)
   = link_to t('back'), tasks_path

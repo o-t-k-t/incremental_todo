@@ -1,5 +1,5 @@
 .container
   %h1.mt-5.title= t('signup')
-  = render partial: 'form', locals: { user: @user }
+  = render partial: 'form', locals: { user: user }
 .container
   = link_to t('back'), admin_users_path

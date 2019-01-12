@@ -1,4 +1,5 @@
 class UserDecorator < ApplicationDecorator
+  decorates_association :tasks
   delegate_all
 
   def avatar_image_tag

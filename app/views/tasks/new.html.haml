@@ -1,4 +1,4 @@
 .container
   %h1.mt-5= t('tasks.new')
-  = render partial: 'form', locals: { task: @task, labels: @labels }
+  = render partial: 'form', locals: { task: task, labels: @labels }
   = link_to t('back'), tasks_path

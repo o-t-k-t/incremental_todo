@@ -1,9 +1,10 @@
 class UsersController < ApplicationController
+  decorates_assigned :user
   skip_before_action :require_logged_in, only: %i[new create]
 
   def show
     authorize!
-    @user = current_user.decorate
+    @user = current_user
   end
 
   def new

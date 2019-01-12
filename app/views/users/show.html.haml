@@ -3,12 +3,12 @@
   %table.table.table-borderless
     %tr
       %th{ scope: 'col' }= t('activerecord.attributes.user.name')
-      %td= @user.name
+      %td= user.name
     %tr
       %th{ scope: 'col' } イメージ
-      %td= @user.avatar_image_tag
+      %td= user.avatar_image_tag
     %tr
       %th{ scope: 'col' }= t('activerecord.attributes.user.email')
-      %td= @user.email
+      %td= user.email
 
   = link_to t('back'), root_path

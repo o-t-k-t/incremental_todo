@@ -3,16 +3,16 @@
   %table.table.table-borderless
     %tr
       %th{ scope: 'col' } 名前
-      %td= @user.name
+      %td= user.name
     %tr
       %th{ scope: 'col' } 画像
-      %td= @user.avatar_image_tag
+      %td= user.avatar_image_tag
     %tr
       %th{ scope: 'col' } メールアドレス
-      %td= @user.email
+      %td= user.email
     %tr
       %th{ scope: 'col' } ロール
-      %td= user_role_name @user.admin
+      %td= user_role_name user.admin
 
   %h1.mt-5.title このユーザーのタスク
   .table-responsive-sm

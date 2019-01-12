@@ -1,16 +1,16 @@
 class Admin::UsersController < Admin::ApplicationController
+  decorates_assigned :user
+
   def index
     authorize!
     @users = User.id_order.page(params[:page]).per(20)
     @usernames_and_task_counts = @users.with_task.count_by_id_and_name
-
-    @users = UserDecorator.decorate_collection(@users)
   end
 
   def show
     authorize!
-    @user = User.find(params[:id]).decorate
-    @tasks = TaskDecorator.decorate_collection(@user.tasks.page(params[:page]).per(10))
+    @user = User.find(params[:id])
+    @tasks = @user.tasks.page(params[:page]).per(10).decorate
   end
 
   def new
@@ -20,7 +20,7 @@ class Admin::UsersController < Admin::ApplicationController
 
   def edit
     authorize!
-    @user = User.find(params[:id]).decorate
+    @user = User.find(params[:id])
   end
 
   def create

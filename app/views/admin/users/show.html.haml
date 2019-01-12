@@ -19,16 +19,14 @@
     %table.table
       %thead
         %tr
-          %th.text-center{ scope: 'col' }= '#'
           %th.text-center{ scope: 'col' }= t('activerecord.attributes.task.name')
           %th.text-center{ scope: 'col' }= t('activerecord.attributes.task.description')
           %th.text-center{ scope: 'col' }= t('activerecord.attributes.task.deadline')
           %th.text-center{ scope: 'col' }= t('activerecord.attributes.task.priority')
           %th.text-center{ scope: 'col' }= t('activerecord.attributes.task.status')
       %tbody
-        - @tasks.each_with_index do |task, i|
+        - @tasks.each do |task|
           %tr
-            %th{ scope: '' }= i + 1
             %td= task.name
             %td= task.description
             %td

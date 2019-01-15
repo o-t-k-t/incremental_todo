@@ -2,7 +2,9 @@ ja:
   activerecord:
     models:
       task: タスク
+      label: ラベル
       user: ユーザー
+      group: グループ
     attributes:
       task:
         created_at: 登録日時
@@ -33,6 +35,9 @@ ja:
         email: Eメールアドレス
         password: パスワード
         password_confirmation: 確認パスワード
+      group:
+        name: 名前
+        description: 内容
     events:
       task: 進捗はありましたか？
       task/pend: なし

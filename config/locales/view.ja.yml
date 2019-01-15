@@ -67,6 +67,19 @@ ja:
       email: 'hiramatsu@mail.com'
       password: '英数記号6文字以上としてください'
       password_confirmation: '念のため、同じ内容の入力をお願いいたします'
+  groups:
+    index: グループ一覧
+    show: グループ詳細
+    new: グループを作る
+    edit: グループ編集
+    destroy: グループを解散する
+    placeholder:
+      name: Ruby勉強会
+      description: グループの目的や、活動内容を書きましょう
+  memberships:
+    create: 加入
+    destroy: グループを抜ける
+
   admin_users:
     task_count: 'タスク件数'
     task_count: 'タスク件数'

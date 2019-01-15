@@ -5,7 +5,7 @@
       %th{ scope: 'col' }= t('activerecord.attributes.task.name')
       %td= task.name
     %tr
-      %th{ scope: 'col' } ラベル
+      %th{ scope: 'col' }= t('activerecord.models.label')
       %td
         - task.labels.each do |label| # rubocop:disable Style/SymbolProc
           = label.badge
@@ -23,7 +23,7 @@
       %td= task.aasm.human_state
     - task.attachments.each_with_index do |a, i|
       %tr
-        %th{ scope: 'col' } 添付ファイル#{i + 1}
+        %th{ scope: 'col' } t('activerecord.attributes.task.attachments')  #{i + 1}
         %td= link_to a.filename, rails_blob_path(a, disposition: 'attachment')
 
 

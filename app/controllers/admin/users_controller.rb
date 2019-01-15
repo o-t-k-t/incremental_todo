@@ -52,9 +52,9 @@ class Admin::UsersController < Admin::ApplicationController
 
     flash[:notice] =
       if user.destroy
-        "ユーザーID: #{user.id}を削除しました。"
+        t('admin_users.delete_success', user_id: user.id)
       else
-        "ユーザーID: #{user.id}は削除できませんでした。"
+        t('admin_users.delete_fail', user_id: user.id)
       end
 
     redirect_to admin_users_path

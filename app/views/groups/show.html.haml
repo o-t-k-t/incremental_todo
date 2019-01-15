@@ -1,9 +1,8 @@
 .section.jumbotron
   .container
     %h1.display-4= @group.name
-    %p #{I18n.l(@group.created_at, format: :long)}に#{@owner.name}さんが始めました。
+    %p= t('groups.orgin_summary', created_at: I18n.l(@group.created_at, format: :long), owner_name: @owner.name)
     %p.lead= @group.description
-    %p #{@member_count}人のメンバーが参加中です
     - if @membership.new_record?
       = form_with model: @membership, local: true do |f|
         = f.hidden_field :user_id

@@ -18,7 +18,7 @@ class MembershipsController < ApplicationController
     authorize! membership
 
     membership.save!
-    flash[:notice] = 'グループに登録されました👨‍👦‍👦'
+    flash[:notice] = t('memberships.create_success')
     redirect_to membership_path(membership.id)
   end
 
@@ -28,7 +28,7 @@ class MembershipsController < ApplicationController
 
     membership.destroy!
 
-    flash[:notice] = 'グループを離脱しました👋'
+    flash[:notice] = t('memberships.delete_success')
     redirect_to root_path
   end
 end

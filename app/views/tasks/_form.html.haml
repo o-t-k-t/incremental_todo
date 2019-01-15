@@ -25,14 +25,14 @@
   = form.hidden_field :user_id
 
   .form-group.row
-    .col-sm-3 既存ラベルでの分類
+    .col-sm-3= t('labels.categorize')
     .col-sm-9
       .row
         = form.collection_check_boxes :label_ids, labels, :id, :name, class: 'checkbox-inline col-sm-4'
 
   .row.form-group
   - if action_name == 'new'
-    .col-sm-3 新規ラベル
+    .col-sm-3= t('labels.new')
     - task.labels.each do |label|
       = form.fields_for :labels, label do |lf|
         .form-group.row

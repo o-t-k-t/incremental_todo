@@ -8,9 +8,10 @@ class UsersController < ApplicationController
   end
 
   def new
+    authorize!
+
     redirect_to root_path and return if logged_in?
 
-    authorize!
     @user = User.new
   end
 

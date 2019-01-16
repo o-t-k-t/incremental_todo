@@ -10,7 +10,7 @@ class User < ApplicationRecord
 
   include Redis::Objects
   hash_key :alarming_tasks
-  value :alarm_notified, expiration: 1.day
+  value :alarm_notified_with_ttl, expiration: 1.day
   lock :alarm_update
 
   validates :name, presence: true, length: { maximum: 255 }
@@ -58,13 +58,13 @@ class User < ApplicationRecord
   # アラーム更新テンプレート処理
   def update_delayed_tasks_alarm
     alarm_update_lock.lock do
-      break if yield(alarm_notified.value)
+      break if yield(alarm_notified_with_ttl.value)
 
       redis.pipelined do
         tasks.delayed.each { |t| alarming_tasks[t.id] = t.name }
       end
 
-      alarm_notified.value = true
+      alarm_notified_with_ttl.value = true
     end
   end
 

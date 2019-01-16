@@ -12,8 +12,6 @@ class User < ApplicationRecord
   hash_key :alarming_tasks
   value :alarm_notified, expiration: 1.day
   lock :alarm_update
-  # TODO: 定期更新処理のロックなのでExpireだけでロック解除させればシンプルになる。
-  #       ただ、redis-objectsはlock_tryを未サポートで現状できない。
 
   validates :name, presence: true, length: { maximum: 255 }
   validates :email, presence: true, length: { maximum: 255 }, uniqueness: true

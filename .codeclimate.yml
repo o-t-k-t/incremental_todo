@@ -1,0 +1,10 @@
+exclude_paths:
+- config/
+- db/
+- node_modules/
+- spec/
+- vendor/
+- tmp/
+- builds/
+- coverage/
+- public/

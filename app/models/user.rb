@@ -10,10 +10,8 @@ class User < ApplicationRecord
 
   include Redis::Objects
   hash_key :alarming_tasks
-  value :alarm_notified, expiration: 1.day
+  value :alarm_notified_with_ttl, expiration: 1.day
   lock :alarm_update
-  # TODO: 定期更新処理のロックなのでExpireだけでロック解除させればシンプルになる。
-  #       ただ、redis-objectsはlock_tryを未サポートで現状できない。
 
   validates :name, presence: true, length: { maximum: 255 }
   validates :email, presence: true, length: { maximum: 255 }, uniqueness: true
@@ -60,10 +58,13 @@ class User < ApplicationRecord
   # アラーム更新テンプレート処理
   def update_delayed_tasks_alarm
     alarm_update_lock.lock do
-      break if yield(alarm_notified.value)
+      break if yield(alarm_notified_with_ttl.value)
 
-      tasks.delayed.each { |t| alarming_tasks[t.id] = t.name }
-      alarm_notified.value = true
+      redis.pipelined do
+        tasks.delayed.each { |t| alarming_tasks[t.id] = t.name }
+      end
+
+      alarm_notified_with_ttl.value = true
     end
   end
 

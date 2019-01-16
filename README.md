@@ -6,7 +6,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/5105da6d038478844821/maintainability)](https://codeclimate.com/github/o-t-k-t/incremental_todo/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/5105da6d038478844821/test_coverage)](https://codeclimate.com/github/o-t-k-t/incremental_todo/test_coverage)
 
-株式会社万葉様教育カリキュラムベースの[タスク管理アプリ](https://stormy-escarpment-80503.herokuapp.com/)です。
+株式会社万葉様教育カリキュラムベースの[タスク管理アプリ](https://incremental-todo.herokuapp.com/)です。
 
 ## 使用する技術
 

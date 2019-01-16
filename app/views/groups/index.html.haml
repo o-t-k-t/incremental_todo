@@ -1,8 +1,8 @@
 - content_for :navbar_items do
   %li.nav-item
-    .nav-link= link_to '新規グループ', new_group_path, class: 'btn btn-light'
+    .nav-link= link_to t('groups.new'), new_group_path, class: 'btn btn-light'
 .container
-  %h1.mt-5= t('グループ一覧')
+  %h1.mt-5= t('groups.index')
 .container
   .row
     - @groups.each do |g|

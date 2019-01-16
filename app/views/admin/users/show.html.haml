@@ -2,16 +2,16 @@
   %h1.mt-5.title ユーザ情報
   %table.table.table-borderless
     %tr
-      %th{ scope: 'col' } 名前
+      %th{ scope: 'col' }= t('activerecord.attributes.user.name')
       %td= user.name
     %tr
-      %th{ scope: 'col' } 画像
+      %th{ scope: 'col' }= t('activerecord.attributes.user.avatar')
       %td= user.avatar_image_tag
     %tr
-      %th{ scope: 'col' } メールアドレス
+      %th{ scope: 'col' }= t('activerecord.attributes.user.email')
       %td= user.email
     %tr
-      %th{ scope: 'col' } ロール
+      %th{ scope: 'col' }= t('activerecord.attributes.user.admin')
       %td= user_role_name user.admin
 
   %h1.mt-5.title このユーザーのタスク

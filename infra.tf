@@ -1,5 +1,6 @@
 variable "heroku_email" {}
 variable "heroku_api_key" {}
+variable "gcs_credential_file" {}
 
 terraform {
   backend "gcs" {
@@ -8,13 +9,12 @@ terraform {
   }
 }
 
-# Configure the Heroku provider
+# Heroku: app, DBs
 provider "heroku" {
   email   = "${var.heroku_email}"
   api_key = "${var.heroku_api_key}"
 }
 
-# Create a new application
 resource "heroku_app" "incremental-todo" {
   name   = "incremental-todo"
   region = "us"
@@ -24,3 +24,17 @@ resource "heroku_addon" "redis" {
   app  = "${heroku_app.incremental-todo.name}"
   plan = "heroku-redis:hobby-dev"
 }
+
+# GCP: object storage
+provider "google" {
+  credentials = "${var.gcs_credential_file}"
+  project     = "incremental-todo"
+  region      = "us-central1"
+}
+
+resource "google_storage_bucket" "incremental-todo-image-store" {
+  name          = "incremental-todo-image-store"
+  location      = "asia-northeast1"
+  storage_class = "REGIONAL"
+}
+

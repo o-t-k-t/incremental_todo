@@ -27,3 +27,4 @@ terraform.tfvars
 coverage
 /dump.rdb
 terraform.tfstate
+.terraform/*

@@ -20,6 +20,7 @@ gem 'redis-objects'
 gem 'redis-rails'
 
 # 画像アップロード
+gem 'google-cloud-storage'
 gem 'mini_magick'
 
 # フロントエンド

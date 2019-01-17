@@ -19,9 +19,9 @@ class UsersController < ApplicationController
     authorize!
 
     @user = User.new(user_params)
-    if @user.save
-      @user.avatar.attach(params[:user][:avatar])
+    @user.avatar.attach(params[:user][:avatar])
 
+    if @user.save
       log_in(@user)
       redirect_to user_path
     else

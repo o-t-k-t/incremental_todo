@@ -28,22 +28,23 @@
     .col-sm-3= t('labels.categorize')
     .col-sm-9
       .row
-        = form.collection_check_boxes :label_ids, labels, :id, :name, class: 'checkbox-inline col-sm-4'
+        .col= form.collection_check_boxes :label_ids, labels, :id, :name, class: 'checkbox-inline'
 
-  .row.form-group
+  .form-group
   - if action_name == 'new'
-    .col-sm-3= t('labels.new')
+    .row
+      %h5.col-sm-3= t('labels.new')
     - task.labels.each do |label|
       = form.fields_for :labels, label do |lf|
         .form-group.row
-          .col-sm-3= lf.label :name, class: 'col-sm-3 col-form-label'
-          .col-sm-9= lf.text_field :name, class: 'form-control'
+          = lf.label :name, class: 'col-sm-3 col-form-label'
+          .col-sm-8= lf.text_field :name, class: 'form-control'
         .form-group.row
-          .col-sm-3.col-form-label= lf.label :description, class: 'col-sm-3 col-form-label'
-          .col-sm-9= lf.text_field :description, class: 'form-control'
+          = lf.label :description, class: 'col-sm-3 col-form-label'
+          .col-sm-8= lf.text_field :description, class: 'form-control'
         .form-group.row
-          .col-sm-3.col-form-label= lf.label :color, class: 'col-sm-3 col-form-label'
-          .col-sm-9= lf.select :color, LabelDecorator.color_options_for_select
+          = lf.label :color, class: 'col-sm-3 col-form-label'
+          .col-sm-8= lf.select :color, LabelDecorator.color_options_for_select
   .form-group.row
     = form.label :attachments, class: 'col-sm-3 col-form-label'
     .col-sm-8.col-form-label

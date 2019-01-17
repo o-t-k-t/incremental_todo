@@ -10,20 +10,21 @@
         - user.errors.full_messages.each do |message|
           %li= message
   = form_with(model: user, url: user_path, local: true) do |f|
-    .form-group
-      = f.label :name, class: 'label'
-      = f.text_field :name, class: 'form-control', placeholder: t('users.placeholder.name')
-    .form-group
-      = f.label :email, class: 'label'
-      = f.email_field :email, class: 'form-control', placeholder: t('users.placeholder.email')
-    .form-group
-      = f.label :avatar, class: 'label'
-      = f.file_field :avatar, direct_upload: true, class: 'form-control'
-    .form-group
-      = f.label :password, class: 'label'
-      = f.password_field :password, class: 'form-control', placeholder: t('users.placeholder.password')
-    .form-group
-      = f.label :password_confirmation, class: 'label'
-      = f.password_field :password_confirmation, class: 'form-control', placeholder: t('users.placeholder.password_confirmation')
-    .form-group
-      = f.submit t('signup'), class: 'btn btn-primary btn-block', id: 'submit-btn'
+    .form-group.row
+      .col-sm-3= f.label :name, class: 'label'
+      .col-sm-9= f.text_field :name, class: 'form-control', placeholder: t('users.placeholder.name')
+    .form-group.row
+      .col-sm-3= f.label :email, class: 'label'
+      .col-sm-9= f.email_field :email, class: 'form-control', placeholder: t('users.placeholder.email')
+    .form-group.row
+      .col-sm-3= f.label :avatar, class: 'label'
+      .col-sm-9= f.file_field :avatar, class: 'form-control'
+    .form-group.row
+      .col-sm-3= f.label :password, class: 'label'
+      .col-sm-9= f.password_field :password, class: 'form-control', placeholder: t('users.placeholder.password')
+    .form-group.row
+      .col-sm-3= f.label :password_confirmation, class: 'label'
+      .col-sm-9= f.password_field :password_confirmation, class: 'form-control', placeholder: t('users.placeholder.password_confirmation')
+    .form-group.row
+      .col-sm-3
+      .col-sm-9= f.submit t('signup'), class: 'btn btn-primary btn-block', id: 'submit-btn'

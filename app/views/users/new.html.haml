@@ -18,7 +18,7 @@
       = f.email_field :email, class: 'form-control', placeholder: t('users.placeholder.email')
     .form-group
       = f.label :avatar, class: 'label'
-      = f.file_field :avatar, class: 'form-control'
+      = f.file_field :avatar, direct_upload: true, class: 'form-control'
     .form-group
       = f.label :password, class: 'label'
       = f.password_field :password, class: 'form-control', placeholder: t('users.placeholder.password')

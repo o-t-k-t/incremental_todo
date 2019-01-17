@@ -11,3 +11,9 @@ google:
   project: incremental-todo
   credentials: <%= ENV["GCS_CREDENTIAL"] %>
   bucket: incremental-todo-image-store
+
+google_dev:
+  service: GCS
+  project: incremental-todo
+  credentials: /Users/helium/.gcp/credentials/incremental-todo-ed93b710e88a.json
+  bucket: incremental-todo-image-store

@@ -37,5 +37,13 @@ resource "google_storage_bucket" "incremental-todo-image-store" {
   location      = "us-central1"
   storage_class = "REGIONAL"
   force_destroy = true
+
+  cors {
+      method = ["*"]
+      # FIXME: オリジンドメインを本番URLのみに制限
+      origin = ["*"]
+      response_header = ["Content-Type", "Content-MD5"]
+      max_age_seconds = 3000
+  }
 }
 

@@ -34,7 +34,8 @@ provider "google" {
 
 resource "google_storage_bucket" "incremental-todo-image-store" {
   name          = "incremental-todo-image-store"
-  location      = "asia-northeast1"
+  location      = "us-central1"
   storage_class = "REGIONAL"
+  force_destroy = true
 }
 

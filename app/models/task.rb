@@ -36,13 +36,9 @@ class Task < ApplicationRecord
   end
 
   def save_and_put_labels(task_params, label_ids)
-    Task.transaction do
-      save!(task_params)
+    return false unless save(task_params)
 
-      label_ids.each do |lid|
-        task_labels.create!(label_id: lid)
-      end
-    end
+    label_ids.each { |lid| put_label(lid) }
   end
 
   def update_and_fire_event(task_params, event)
@@ -76,6 +72,15 @@ class Task < ApplicationRecord
     event :complete do
       transitions from: %i[not_started started], to: :completed
     end
+  end
+
+  # ラベリング処理
+  def put_label(label_id)
+    task_labels.create!(label_id: label_id)
+  end
+
+  def peel_label(label_id)
+    task_labels.where(label_id: label_id).first.destroy
   end
 
   private

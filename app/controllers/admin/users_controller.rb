@@ -26,6 +26,9 @@ class Admin::UsersController < Admin::ApplicationController
   def create
     authorize!
     @user = User.new(user_params)
+    @user.avatar.attach(params[:user][:avatar])
+    # この処理でのトランザクション化は行なってもロールバック時のファイル削除が行えないため効果がなく、不要。
+
     if @user.save
       redirect_to admin_users_path
     else

@@ -19,14 +19,15 @@ investifatoin_label = Label.create!(name: '調べもの',
 
 puts "3 / #{MAX_PHASES} Register initial tasks and associate labels"
 20.times do |i|
-  task = user.tasks.create!(
-    name: Faker::Lorem.sentence(3, true, 3),
-    description: Faker::Lorem.sentence(3, true, 20),
-    priority: rand(1..3),
-    deadline: Time.zone.now + 20.days
+  user.tasks.build.save_and_put_labels(
+    {
+      name: Faker::Lorem.sentence(3, true, 3),
+      description: Faker::Lorem.sentence(3, true, 20),
+      priority: rand(1..3),
+      deadline: Time.zone.now + 20.days
+    },
+    i.odd? ? [house_lable.id] : [investifatoin_label.id]
   )
-  task.put_label(house_lable.id) if i.odd?
-  task.put_label(investifatoin_label.id) if i.even?
 end
 
 puts "4 / #{MAX_PHASES} Regsiter seed users, tasks, labbelings, and groups"
@@ -45,15 +46,16 @@ users = []
   )
   users << user
 
-  rand(0..20).times do |j|
-    task = user.tasks.create!(
-      name: Faker::Lorem.sentence(3, true, 3),
-      description: Faker::Lorem.sentence(3, true, 20),
-      priority: rand(1..3),
-      deadline: Time.zone.now + (20 + j).days
+  rand(0..20).times do |_j|
+    user.tasks.build.save_and_put_labels(
+      {
+        name: Faker::Lorem.sentence(3, true, 3),
+        description: Faker::Lorem.sentence(3, true, 20),
+        priority: rand(1..3),
+        deadline: Time.zone.now + 20.days
+      },
+      [house_lable.id, investifatoin_label.id]
     )
-    task.put_label(house_lable.id)
-    task.put_label(investifatoin_label.id)
   end
 
   next unless (i % 10).zero?

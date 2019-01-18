@@ -62,7 +62,7 @@ RSpec.feature '管理画面', type: :feature do
     scenario '新規ユーザーを登録する' do
       click_on '新規ユーザー'
       fill_in '氏名', with: '諸橋謙也'
-      fill_in 'Eメールアドレス', with: 'morohasi@mail.com'
+      fill_in 'Eメール', with: 'morohasi@mail.com'
       fill_in 'パスワード',	with: 'double-check'
       fill_in '確認パスワード',	with: 'double-check'
 
@@ -75,7 +75,7 @@ RSpec.feature '管理画面', type: :feature do
     scenario 'ユーザー情報を更新する' do
       first(:link, '編集').click
       fill_in '氏名', with: '吉岡健一'
-      fill_in 'Eメールアドレス', with: 'yoshioka@mail.com'
+      fill_in 'Eメール', with: 'yoshioka@mail.com'
       fill_in 'パスワード',	with: 'llllll'
       fill_in '確認パスワード',	with: 'llllll'
 

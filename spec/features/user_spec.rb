@@ -29,7 +29,7 @@ RSpec.feature 'User session managemant', type: :feature do
 
     click_on 'ログアウト'
 
-    expect(all('h1')[0]).to have_content 'ログイン'
+    expect(page).to have_content 'ログイン'
   end
 
   scenario '誤ったパスワード入力時、ログインに失敗する' do
@@ -37,7 +37,7 @@ RSpec.feature 'User session managemant', type: :feature do
     fill_in 'Password', with: 'proce55ing'
     click_on 'Enter'
 
-    expect(all('h1')[0]).to have_content 'ログイン'
+    expect(page).to have_content 'ログイン'
     expect(page).to have_content 'Eメールアドレスかパスワードが不正です'
   end
 
@@ -53,7 +53,7 @@ RSpec.feature 'User session managemant', type: :feature do
   with_them do
     scenario 'when loged out' do
       visit path
-      expect(all('h1')[0]).to have_content page_title
+      expect(page).to have_content page_title
     end
   end
 end

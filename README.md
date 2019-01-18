@@ -1,7 +1,7 @@
 # Incremnetal TODO
 
-[![ruby version](https://img.shields.io/badge/Ruby-v2.5.1-green.svg)](https://www.ruby-lang.org/ja/)
-[![rails version](https://img.shields.io/badge/Rails-v5.1.6-brightgreen.svg)](http://rubyonrails.org/)
+[![ruby version](https://img.shields.io/badge/Ruby-v2.5.3-green.svg)](https://www.ruby-lang.org/ja/)
+[![rails version](https://img.shields.io/badge/Rails-v5.2.1-brightgreen.svg)](http://rubyonrails.org/)
 [![CircleCI](https://circleci.com/gh/o-t-k-t/incremental_todo.svg?style=svg)](https://circleci.com/gh/o-t-k-t/incremental_todo)
 [![Maintainability](https://api.codeclimate.com/v1/badges/5105da6d038478844821/maintainability)](https://codeclimate.com/github/o-t-k-t/incremental_todo/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/5105da6d038478844821/test_coverage)](https://codeclimate.com/github/o-t-k-t/incremental_todo/test_coverage)

@@ -1,11 +1,22 @@
 .container
-  %h1.title= t('login')
+  .row
+    .col-sm-3
+    .col-sm-6
+      %h2.title= t('login')
+    .col-sm-3
   = form_with(scope: :session, url: sessions_path, local: true) do |form|
-    .form-group
-      = form.label :email
-      = form.email_field :email, class: 'form-control'
-    .form-group
-      = form.label :password
-      = form.password_field :password, class: 'form-control'
-    .form-group
-      = form.submit 'Enter', class: 'btn btn-primary btn-block'
+    .row
+      .col-sm-3
+      .form-group.col-sm-6
+        = form.email_field :email, class: 'form-control', placeholder: 'Email', autofocus: true
+      .col-sm-3
+    .row
+      .col-sm-3
+      .form-group.col-sm-6
+        = form.password_field :password, class: 'form-control', placeholder: 'Password'
+      .col-sm-3
+    .row
+      .col-sm-3
+      .form-group.col-sm-6
+        = form.submit 'Enter', class: 'btn btn-primary btn-block'
+      .col-sm-3

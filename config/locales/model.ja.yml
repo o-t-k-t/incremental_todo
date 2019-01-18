@@ -35,7 +35,7 @@ ja:
         name: 氏名
         avatar: 画像
         admin: 権限
-        email: Eメールアドレス
+        email: Eメール
         password: パスワード
         password_confirmation: 確認パスワード
       group:

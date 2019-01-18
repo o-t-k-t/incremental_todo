@@ -17,19 +17,7 @@ investifatoin_label = Label.create!(name: '調べもの',
                                     description: 'わからないことがあったら忘れずに登録しましょう🌱',
                                     color: :yellow)
 
-puts "3 / #{MAX_PHASES} Register initial tasks and associate labels"
-20.times do |i|
-  task = user.tasks.create!(
-    name: Faker::Lorem.sentence(3, true, 3),
-    description: Faker::Lorem.sentence(3, true, 20),
-    priority: rand(1..3),
-    deadline: Time.zone.now + 20.days
-  )
-  task.put_label(house_lable.id) if i.odd?
-  task.put_label(investifatoin_label.id) if i.even?
-end
-
-puts "4 / #{MAX_PHASES} Regsiter seed users, tasks, labbelings, and groups"
+puts "3 / #{MAX_PHASES} Regsiter seed users and groups"
 groups = []
 users = []
 
@@ -45,26 +33,39 @@ users = []
   )
   users << user
 
-  rand(0..20).times do |j|
-    task = user.tasks.create!(
-      name: Faker::Lorem.sentence(3, true, 3),
-      description: Faker::Lorem.sentence(3, true, 20),
-      priority: rand(1..3),
-      deadline: Time.zone.now + (20 + j).days
-    )
-    task.put_label(house_lable.id)
-    task.put_label(investifatoin_label.id)
-  end
-
   next unless (i % 10).zero?
 
-  name = Faker::ProgrammingLanguage
+  name = Faker::ProgrammingLanguage.name
   g = Group.new(name: "#{name}勉強中", description: "#{name}を勉強する人が集まるグループです。")
   Membership.create_with_group!(user, g)
   groups << g
 end
 
-puts "5 / #{MAX_PHASES} Associate users with group"
+puts "4 / #{MAX_PHASES} Associate users with group"
 users.select { |u| u.groups.empty? }.each do |u|
   Membership.create!(user: u, group: groups.sample, role: :general)
+end
+
+puts "5 / #{MAX_PHASES} Tasks"
+User.all.each do |u|
+  rand(0..20).times do |j|
+    name = Faker::ProgrammingLanguage.name
+
+    task = u.tasks.create!(
+      name: name,
+      description: ["#{name}について調べる", "#{name}でCLIツールを作る", "#{name}のOSSアプリを探して読む", "#{name}の勉強会を探す"].sample,
+      priority: rand(1..3),
+      deadline: Time.zone.now + (20 + j).days
+    )
+    task.put_label(investifatoin_label.id)
+
+    name = %w[夕飯の買い物 家賃の振込 給与振込口座の変更 旅行の予約].sample
+    task = u.tasks.create!(
+      name: name,
+      description: "#{name}をとにかくやる!",
+      priority: rand(1..3),
+      deadline: Time.zone.now + (20 + j).days
+    )
+    task.put_label(house_lable.id)
+  end
 end

@@ -2,31 +2,32 @@
   - if user.errors.any?
     -# haml-lint:disable IdNames
     #error_explanation
-      %h2
-        = pluralize(user.errors.count, 'error')
-        prohibited this user from being saved:
       %ul
         - user.errors.full_messages.each do |message|
           %li= message
   = form_with(model: [:admin, user], local: true) do |f|
-    .form-group
-      = f.label :name, class: 'label'
-      = f.text_field :name, class: 'form-control', placeholder: t('admin_users.placeholder.name')
-    .form-group
-      = f.label :email, class: 'label'
-      = f.email_field :email, class: 'form-control', placeholder: t('admin_users.placeholder.email')
-    .form-group
-      = f.label :avatar, class: 'label'
-      = f.file_field :avatar, direct_upload: true, class: 'form-control'
-    .form-group
-      = f.check_box :admin, class: 'checkbox-inline'
-      管理者権限を付与する
+    .form-group.row
+      .col-sm-3= f.label :name, class: 'label'
+      .col-sm-9= f.text_field :name, class: 'form-control', placeholder: t('admin_users.placeholder.name'), autofocus: true
+    .form-group.row
+      .col-sm-3= f.label :email, class: 'label'
+      .col-sm-9= f.email_field :email, class: 'form-control', placeholder: t('admin_users.placeholder.email')
+    .form-group.row
+      .col-sm-3= f.label :avatar, class: 'label'
+      .col-sm-9= f.file_field :avatar, class: 'form-control'
+    .form-group.row
+      .col-sm-3
+        管理者権限
+      .col-sm-9
+        = f.check_box :admin, class: 'checkbox-inline'
+        付与する
       -# = f.label :admin, class: 'label'
-    .form-group
-      = f.label :password, class: 'label'
-      = f.password_field :password, class: 'form-control', placeholder: t('admin_users.placeholder.password')
-    .form-group
-      = f.label :password_confirmation, class: 'label'
-      = f.password_field :password_confirmation, class: 'form-control', placeholder: t('admin_users.placeholder.password_confirmation')
-    .form-group
-      = f.submit t('signup'), class: 'btn btn-primary btn-block'
+    .form-group.row
+      .col-sm-3= f.label :password, class: 'label'
+      .col-sm-9= f.password_field :password, class: 'form-control', placeholder: t('admin_users.placeholder.password')
+    .form-group.row
+      .col-sm-3= f.label :password_confirmation, class: 'label'
+      .col-sm-9= f.password_field :password_confirmation, class: 'form-control', placeholder: t('admin_users.placeholder.password_confirmation')
+    .form-group.row
+      .col-sm-3
+      .col-sm-9= f.submit t('signup'), class: 'btn btn-primary btn-block'

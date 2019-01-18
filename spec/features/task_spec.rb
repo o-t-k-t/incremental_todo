@@ -199,7 +199,6 @@ RSpec.feature 'タスク管理機能', type: :feature do
       click_on '登録'
 
       expect(page).to have_selector '.notice', text: '申し訳ありません、タスクは更新できませんでした😫'
-      expect(page).to have_content '1件のエラーがあります。'
       expect(page).to have_content 'タスク名を入力してください'
     end
   end

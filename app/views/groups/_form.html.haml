@@ -5,7 +5,7 @@
 = form_with model: group, local: true do |form|
   .form-group.row
     .col-sm-3= form.label :name, class: 'col-form-label'
-    .col-sm-9= form.text_field :name, class: 'form-control', placeholder: t('groups.placeholder.name')
+    .col-sm-9= form.text_field :name, class: 'form-control', placeholder: t('groups.placeholder.name'), autofocus: true
   .form-group.row
     .col-sm-3= form.label :description, class: 'col-form-label'
     .col-sm-9= form.text_area :description, class: 'form-control', placeholder: t('groups.placeholder.description')

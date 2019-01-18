@@ -8,7 +8,7 @@
   = form_with(model: [:admin, user], local: true) do |f|
     .form-group.row
       .col-sm-3= f.label :name, class: 'label'
-      .col-sm-9= f.text_field :name, class: 'form-control', placeholder: t('admin_users.placeholder.name')
+      .col-sm-9= f.text_field :name, class: 'form-control', placeholder: t('admin_users.placeholder.name'), autofocus: true
     .form-group.row
       .col-sm-3= f.label :email, class: 'label'
       .col-sm-9= f.email_field :email, class: 'form-control', placeholder: t('admin_users.placeholder.email')

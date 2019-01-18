@@ -51,18 +51,22 @@ class TasksController < ApplicationController
   end
 
   def update
-    @task = current_user.tasks.find(params[:id])
-    authorize! @task
-
-    if @task.update_and_fire_event(task_params, params[:status_event])
-      flash[:notice] = I18n.t('tasks.update_success')
-      redirect_to tasks_path
-    else
+    @task = current_user.tasks.build(task_params)
+    if @task.invalid?
       @labels = Label.decorate
+      authorize! @task
 
       flash.now[:notice] = I18n.t('tasks.update_fail')
       render :edit
+      return
     end
+
+    @task = current_user.tasks.find(params[:id])
+    authorize! @task
+
+    @task.update_and_fire_event(task_params, params[:status_event])
+    flash[:notice] = I18n.t('tasks.update_success')
+    redirect_to tasks_path
   end
 
   def destroy

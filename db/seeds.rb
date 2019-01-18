@@ -46,7 +46,7 @@ users = []
   )
   users << user
 
-  rand(0..20).times do |j|
+  rand(0..20).times do |_j|
     user.tasks.build.save_and_put_labels(
       {
         name: Faker::Lorem.sentence(3, true, 3),

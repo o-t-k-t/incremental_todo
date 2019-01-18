@@ -49,7 +49,7 @@ git clone git@github.com:o-t-k-t/incremental_todo.git
 
 ```
 cd incremental_todo
-bundle install
+bundle install --path vendor/bundle
 ```
 
 クローンされたディレクトリ　直下に`.env`というファイルを作成し下記フォーマットで初期管理ユーザー情報の環境変数を設定。
@@ -57,6 +57,7 @@ bundle install
 ```
 FISRT_ADMIN_EMAIL="【任意の管理ユーザーEメールアドレス】"
 FISRT_ADMIN_PASSWORD="【任意の管理ユーザーログインパスワード】"
+REDIS_URL="redis:localhost:6379"
 ```
 
 データベース作成・初期化

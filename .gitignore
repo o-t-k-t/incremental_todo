@@ -1,5 +1,6 @@
 # Ignore bundler config.
 /.bundle
+vendor/bundle
 
 # Ignore all logfiles and tempfiles.
 /log/*
@@ -19,8 +20,11 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 .env
+terraform.tfvars
 
 # Ignore other unneeded files.
 .DS_Store
 coverage
 /dump.rdb
+terraform.tfstate
+.terraform/*

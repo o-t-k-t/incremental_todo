@@ -35,12 +35,6 @@ class Task < ApplicationRecord
     %i[recent_page deadline_asc_page]
   end
 
-  def save_and_put_labels(task_params, label_ids)
-    return false unless save(task_params)
-
-    label_ids.each { |lid| put_label(lid) }
-  end
-
   def update_and_fire_event(task_params, event)
     if event
       raise 'Unexpected status event' if acceptable_event_names.exclude?(event.to_sym)

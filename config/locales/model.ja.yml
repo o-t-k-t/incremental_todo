@@ -58,3 +58,5 @@ ja:
       on_or_before: "は%{restriction}以前にしてください"
       after:  "は%{restriction}より後にしてください"
       on_or_after: "は%{restriction}以降にしてください"
+      file_too_large: "のサイズが大きすぎます"
+      file_type_unsupported: "のファイル形式はサポート外です"

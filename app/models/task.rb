@@ -14,6 +14,8 @@ class Task < ApplicationRecord
 
   validates_datetime :deadline, after: -> { Time.zone.now }, allow_blank: true
 
+  validate :requre_attachment_size_within_limit
+
   enum priority: { low: 1, medium: 2, high: 3 }
 
   scope :labeled, ->(label_id) { joins(:labels).where(labels: { id: label_id }) }
@@ -79,5 +81,18 @@ class Task < ApplicationRecord
 
   def peel_label(label_id)
     task_labels.where(label_id: label_id).first.destroy
+  end
+
+  private
+
+  def requre_attachment_size_within_limit
+    return unless attachments.attached?
+
+    attachments.each do |a|
+      if a.blob.byte_size > 2.megabyte
+        a.purge
+        errors.add(:attachments, I18n.t('errors.messages.file_too_large'))
+      end
+    end
   end
 end

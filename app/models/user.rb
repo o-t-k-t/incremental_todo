@@ -19,6 +19,9 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { in: 6..20 }
   validates :password_digest, presence: true
 
+  validate :requre_avatar_size_within_limit
+  validate :requre_avatar_is_image_file
+
   # 管理ユーザ最低1名の登録を維持するためのバリデーション処理
   before_destroy :require_administrator_existence
   before_update :require_admin_authority_existence
@@ -66,6 +69,23 @@ class User < ApplicationRecord
 
       alarm_notified_with_ttl.value = true
     end
+  end
+
+  # カスタムバリデーション
+  def requre_avatar_size_within_limit
+    return unless avatar.attached?
+    return if avatar.byte_size <= 2.megabytes
+
+    avatar.purge
+    errors.add(:attachments, I18n.t('errors.messages.file_too_large'))
+  end
+
+  def requre_avatar_is_image_file
+    return unless avatar.attached?
+    return if avatar.content_type.in?(%w[image/png image/jpg image/jpeg image/gif])
+
+    avatar.purge
+    errors.add(:attachments, I18n.t('errors.messages.file_type_unsupported'))
   end
 
   def require_administrator_existence

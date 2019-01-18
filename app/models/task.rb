@@ -35,16 +35,6 @@ class Task < ApplicationRecord
     %i[recent_page deadline_asc_page]
   end
 
-  def save_and_put_labels(task_params, label_ids)
-    Task.transaction do
-      save!(task_params)
-
-      label_ids.each do |lid|
-        task_labels.create!(label_id: lid)
-      end
-    end
-  end
-
   def update_and_fire_event(task_params, event)
     if event
       raise 'Unexpected status event' if acceptable_event_names.exclude?(event.to_sym)
@@ -76,6 +66,15 @@ class Task < ApplicationRecord
     event :complete do
       transitions from: %i[not_started started], to: :completed
     end
+  end
+
+  # ラベリング処理
+  def put_label(label_id)
+    task_labels.create!(label_id: label_id)
+  end
+
+  def peel_label(label_id)
+    task_labels.where(label_id: label_id).first.destroy
   end
 
   private

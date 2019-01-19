@@ -23,7 +23,7 @@
       %td= task.aasm.human_state
     - task.attachments.each_with_index do |a, i|
       %tr
-        %th{ scope: 'col' }= t('activerecord.attributes.task.attachments')  #{i + 1}
+        %th{ scope: 'col' } #{t('activerecord.attributes.task.attachments')}  #{i + 1}
         %td= link_to a.filename, rails_blob_path(a, disposition: 'attachment')
 
 

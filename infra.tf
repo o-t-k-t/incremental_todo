@@ -40,8 +40,7 @@ resource "google_storage_bucket" "incremental-todo-image-store" {
 
   cors {
       method = ["*"]
-      # FIXME: オリジンドメインを本番URLのみに制限
-      origin = ["*"]
+      origin = ["https://incremental-todo.herokuapp.com"]
       response_header = ["Content-Type", "Content-MD5"]
       max_age_seconds = 3000
   }

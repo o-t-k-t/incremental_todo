@@ -91,9 +91,9 @@ REDIS_URL="redis:localhost:6379"
 データベース作成・初期化
 
 ```
-bundle exec rails db: create
-bundle exec rails db: migrate
-bundle exec rails db: seed
+bundle exec rails db:create
+bundle exec rails db:migrate
+bundle exec rails db:seed
 ```
 
 別ターミナルを開き、Redisサーバを起動
